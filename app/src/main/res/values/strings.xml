@@ -1,0 +1,34 @@
+<resources>
+    <string name="app_name">ProgettoUni</string>
+    <string name="registrati">REGISTRATI</string>
+    <string name="login">ENTRA</string>
+    <string name="propic">Carica Foto Profilo</string>
+    <string name="name">nome</string>
+    <string name="surname">cognome</string>
+    <string name="mail">indirizzo e-mail</string>
+    <string name="pw">password</string>
+    <string name="confirm">conferma</string>
+    <string name="cancel">annulla</string>
+    <string name="welcome">BENVENUTO! \n Che tipo di accesso vuoi effettuare?</string>
+    <string name="userAcc">accesso come utente</string>
+    <string name="adminAcc">accesso come amministratore</string>
+    <string name="ticketInfo">Tipo di Biglietto</string>
+    <string name="ticketPeriod">Durata (se abbonamento) data e ora (se singolo)</string>
+    <string name="yourTickets">I tuoi biglietti</string>
+    <string name="buySubscription">Acquista un abbonamento</string>
+    <string name="chooseTheatre">Scegli un teatro</string>
+    <string name="choosePeriod">Per quanto vuoi che valga l\'abbonamento?</string>
+    <string name="TMassimo">Teatro Massimo</string>
+    <string name="TPoliteama">Teatro Politeama</string>
+    <string name="TBiondo">Teatro Biondo</string>
+    <string name="M1">Un \nMese \n15€</string>
+    <string name="M3">Tre \nMesi \n35€</string>
+    <string name="M6">Sei \nMesi \n50€</string>
+    <string name="M12">Un \nAnno  \n75€</string>
+    <string name="CardN">Numero della carta</string>
+    <string name="CardUN">Nome del possessore della carta</string>
+    <string name="CardDate">Data di scadenza della carta</string>
+    <string name="CVC">CVC</string>
+    <string name="CorrPay">Acquisto avvenuto con successo!\nTroverai il tuo biglietto nella sezione\n"I miei biglietti"</string>
+    <string name="Home">Torna alla pagina Home</string>
+</resources>
