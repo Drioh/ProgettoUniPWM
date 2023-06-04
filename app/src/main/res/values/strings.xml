@@ -31,4 +31,8 @@
     <string name="CVC">CVC</string>
     <string name="CorrPay">Acquisto avvenuto con successo!\nTroverai il tuo biglietto nella sezione\n"I miei biglietti"</string>
     <string name="Home">Torna alla pagina Home</string>
+    <string name="ShowTicket">Scegli uno spettacolo</string>
+    <string name="BuyTicket">Acquista il biglietto</string>
+    <string name="Selling">Completa l\'acquisto</string>
+    <string name="ShowInfo">Informazioni sullo spettacolo</string>
 </resources>
