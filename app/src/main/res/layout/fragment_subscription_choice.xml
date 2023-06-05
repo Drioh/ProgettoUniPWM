@@ -25,7 +25,8 @@
 
                 <FrameLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="#000000">
 
                     <ImageButton
                         android:id="@+id/imageButton7"
@@ -49,7 +50,8 @@
 
                 <FrameLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="#000000">
 
                     <ImageButton
                         android:id="@+id/imageButton8"
@@ -73,7 +75,8 @@
 
                 <FrameLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="#000000">
 
                     <ImageButton
                         android:id="@+id/imageButton9"
