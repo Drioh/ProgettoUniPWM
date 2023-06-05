@@ -4,39 +4,5 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#C15B5B"
-    tools:context=".MainActivity">
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="sans-serif-black"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/password"
-        android:layout_width="296dp"
-        android:layout_height="77dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:gravity="top"
-        android:text="@string/pw"
-        android:textAppearance="@style/password"
-        tools:layout_editor_absoluteX="38dp"
-        tools:layout_editor_absoluteY="103dp" />
-
-    <View
-        android:id="@+id/field"
-        android:layout_width="389dp"
-        android:layout_height="164dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:background="@drawable/field"
-        tools:layout_editor_absoluteX="23dp"
-        tools:layout_editor_absoluteY="55dp" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    android:background="#FFFFFF"
+    tools:context=".MainActivity" />
