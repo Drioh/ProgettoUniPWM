@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<buy_ticket_show_fragment xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -11,8 +11,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:padding="16dp"
-        android:visibility="visible"
-        tools:visibility="visible">
+        android:visibility="visible">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -107,6 +106,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/cancel"
+                app:cornerRadius="45dp"
                 app:layout_constraintBaseline_toBaselineOf="@+id/button3"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/button3"
@@ -119,10 +119,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/confirm"
+                app:cornerRadius="45dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/button2" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </LinearLayout>
 
-</buy_ticket_show_fragment>
+</>
