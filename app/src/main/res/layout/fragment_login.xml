@@ -8,6 +8,7 @@
     android:backgroundTint="#FFFFFF">
 
     <LinearLayout
+        android:id="@+id/crapuzzi"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center_horizontal|center_vertical"
@@ -43,7 +44,6 @@
             android:ems="10"
             android:hint="@string/pw"
             android:inputType="textPassword"
-            android:textColor="#000000"
             android:textColorHint="@color/black" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
