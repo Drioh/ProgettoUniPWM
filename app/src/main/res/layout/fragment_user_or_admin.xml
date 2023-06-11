@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/us_or_ad"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -29,7 +30,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="50dp"
             android:backgroundTint="#000000"
-            android:onClick="userLogin"
             android:text="@string/userAcc"
             app:cornerRadius="45dp" />
 
@@ -39,7 +39,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="50dp"
             android:backgroundTint="#000000"
-            android:onClick="adminLogin"
             android:text="@string/adminAcc"
             app:cornerRadius="45dp" />
 
