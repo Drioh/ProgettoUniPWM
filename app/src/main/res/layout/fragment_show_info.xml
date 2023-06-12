@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/showInfoFrag"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -24,7 +25,7 @@
                 android:orientation="vertical">
 
                 <Button
-                    android:id="@+id/button8"
+                    android:id="@+id/buyTicketButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/black"

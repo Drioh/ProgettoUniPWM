@@ -2,14 +2,14 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/login_fragment"
+    android:id="@+id/LogFrag"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="#FFFFFF"
     android:backgroundTint="#FFFFFF">
 
     <LinearLayout
-        android:id="@+id/crapuzzi"
+        android:id="@+id/LogFragLinLay"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center_horizontal|center_vertical"
@@ -18,7 +18,6 @@
 
 
         <TextView
-            android:id="@+id/reg_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/login"
@@ -28,7 +27,7 @@
             android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/mailfield_id"
+            android:id="@+id/mailField"
             android:layout_width="300dp"
             android:layout_height="50dp"
             android:layout_marginTop="30dp"
@@ -38,7 +37,7 @@
             android:textColorHint="#000000" />
 
         <EditText
-            android:id="@+id/pwfield_id"
+            android:id="@+id/pwField"
             android:layout_width="300dp"
             android:layout_height="50dp"
             android:layout_marginTop="30dp"
@@ -54,7 +53,7 @@
             android:layout_marginTop="20dp">
 
             <Button
-                android:id="@+id/button2"
+                android:id="@+id/cancelButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:backgroundTint="#000000"
@@ -62,15 +61,15 @@
                 android:text="@string/cancel"
                 android:textColor="#FFFFFF"
                 app:cornerRadius="45dp"
-                app:layout_constraintBaseline_toBaselineOf="@+id/button3"
+                app:layout_constraintBaseline_toBaselineOf="@+id/confirmButton"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/button3"
+                app:layout_constraintEnd_toStartOf="@+id/confirmButton"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintHorizontal_chainStyle="spread"
                 app:layout_constraintStart_toStartOf="parent" />
 
             <Button
-                android:id="@+id/button3"
+                android:id="@+id/confirmButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:backgroundTint="#000000"
@@ -79,12 +78,12 @@
                 android:textColor="#FFFFFF"
                 app:cornerRadius="45dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/button2" />
+                app:layout_constraintStart_toEndOf="@+id/cancelButton" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <Button
-            android:id="@+id/button9"
+            android:id="@+id/registerButton"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"

@@ -12,7 +12,7 @@
         android:theme="@style/Theme.ProgettoUni"
         tools:targetApi="31">
         <activity
-            android:name=".RealApp"
+            android:name="fragment_classes.RealApp"
             android:exported="false"
             android:label="@string/title_activity_real_app"
             android:theme="@style/Theme.ProgettoUni.NoActionBar" />

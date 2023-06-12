@@ -2,7 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/us_or_ad"
+    android:id="@+id/usOrAdFrag"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -25,7 +25,7 @@
             android:textStyle="bold" />
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/userLoginButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="50dp"
@@ -34,7 +34,7 @@
             app:cornerRadius="45dp" />
 
         <Button
-            android:id="@+id/button3"
+            android:id="@+id/adminLoginButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="50dp"

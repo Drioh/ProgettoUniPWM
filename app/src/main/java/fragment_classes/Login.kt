@@ -20,19 +20,18 @@ class Login : Fragment(R.layout.fragment_login) {
         binding = FragmentLoginBinding.inflate(inflater)
         var MA = (activity as MainActivity?)!!
 
-
-        binding.button2.setOnClickListener{
-            binding.button2.setBackgroundColor(Color.parseColor("#F44336"))
+        binding.cancelButton.setOnClickListener{
+            binding.cancelButton.setBackgroundColor(Color.parseColor("#F44336"))
             MA.back()
 
         }
-        binding.button3.setOnClickListener{
-            binding.button3.setBackgroundColor(Color.parseColor("#F44336"))
-            MA.loginCheck(binding.mailfieldId.text.toString(),binding.pwfieldId.text.toString())
+        binding.confirmButton.setOnClickListener{
+            binding.confirmButton.setBackgroundColor(Color.parseColor("#F44336"))
+            MA.loginCheck(binding.mailField.text.toString(),binding.pwField.text.toString())
 
         }
-        binding.button9.setOnClickListener {
-            binding.button9.setBackgroundColor(Color.parseColor("#F44336"))
+        binding.registerButton.setOnClickListener {
+            binding.registerButton.setBackgroundColor(Color.parseColor("#F44336"))
             println("registrati")
         }
         return binding.root

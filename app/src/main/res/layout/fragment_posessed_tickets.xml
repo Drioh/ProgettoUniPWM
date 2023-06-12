@@ -15,7 +15,7 @@
         tools:visibility="visible">
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/cv"
+            android:id="@+id/ticket"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
@@ -34,7 +34,7 @@
                     app:srcCompat="@drawable/ticket_icon_white" />
 
                 <TextView
-                    android:id="@+id/person_name"
+                    android:id="@+id/ticketType"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
@@ -45,10 +45,10 @@
                     android:textSize="30sp" />
 
                 <TextView
-                    android:id="@+id/person_age"
+                    android:id="@+id/ticketPeriod"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/person_name"
+                    android:layout_below="@+id/ticketType"
                     android:layout_marginLeft="25dp"
                     android:layout_toRightOf="@id/imageView2"
                     android:text="@string/ticketPeriod"

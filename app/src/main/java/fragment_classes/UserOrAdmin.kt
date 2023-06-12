@@ -20,13 +20,13 @@ class UserOrAdmin : Fragment(R.layout.fragment_user_or_admin) {
         binding = FragmentUserOrAdminBinding.inflate(inflater)
         var MA = (activity as MainActivity?)!!
 
-        binding.button2.setOnClickListener{
-            binding.button2.setBackgroundColor(Color.parseColor("#F44336"))
-            MA.navigateTo(Login())
+        binding.userLoginButton.setOnClickListener{
+            binding.userLoginButton.setBackgroundColor(Color.parseColor("#F44336"))
+            MA.navigateTo(Login(),R.id.LogFrag.toString())
         }
-        binding.button3.setOnClickListener{
-            binding.button3.setBackgroundColor(Color.parseColor("#F44336"))
-            MA.navigateTo(Login())
+        binding.adminLoginButton.setOnClickListener{
+            binding.adminLoginButton.setBackgroundColor(Color.parseColor("#F44336"))
+            MA.navigateTo(Login(),R.id.LogFrag.toString())
 
         }
         return binding.root
