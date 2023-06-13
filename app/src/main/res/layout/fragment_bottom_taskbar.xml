@@ -8,23 +8,7 @@
     android:gravity="center_vertical">
 
     <ImageButton
-        android:id="@+id/imageButton4"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:background="#00000000"
-        app:srcCompat="@drawable/ticket_icon_white" />
-
-    <ImageButton
-        android:id="@+id/imageButton5"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:background="#00000000"
-        app:srcCompat="@drawable/search_icon" />
-
-    <ImageButton
-        android:id="@+id/imageButton2"
+        android:id="@+id/HomeButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
@@ -32,7 +16,23 @@
         app:srcCompat="@drawable/home_icon" />
 
     <ImageButton
-        android:id="@+id/imageButton3"
+        android:id="@+id/SearchButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="#00000000"
+        app:srcCompat="@drawable/search_icon" />
+
+    <ImageButton
+        android:id="@+id/TicketButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="#00000000"
+        app:srcCompat="@drawable/ticket_icon_white" />
+
+    <ImageButton
+        android:id="@+id/SubButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"

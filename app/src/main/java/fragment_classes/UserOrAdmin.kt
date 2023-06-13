@@ -22,11 +22,11 @@ class UserOrAdmin : Fragment(R.layout.fragment_user_or_admin) {
 
         binding.userLoginButton.setOnClickListener{
             binding.userLoginButton.setBackgroundColor(Color.parseColor("#F44336"))
-            MA.navigateTo(Login(),R.id.LogFrag.toString())
+            MA.navigateTo(Login(),"LogFrag")
         }
         binding.adminLoginButton.setOnClickListener{
             binding.adminLoginButton.setBackgroundColor(Color.parseColor("#F44336"))
-            MA.navigateTo(Login(),R.id.LogFrag.toString())
+            MA.navigateTo(Login(),"LogFrag")
 
         }
         return binding.root

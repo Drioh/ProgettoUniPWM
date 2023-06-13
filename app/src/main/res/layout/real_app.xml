@@ -7,7 +7,7 @@
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentContainerView4"
-        android:name="fragment_classes.Home"
+        android:name="fragment_classes.Void"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toTopOf="@+id/fragmentContainerView3"
@@ -15,7 +15,7 @@
         app:layout_constraintHorizontal_bias="0.54"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fragmentContainerView2"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_void" />
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentContainerView2"
