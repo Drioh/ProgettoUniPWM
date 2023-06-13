@@ -4,19 +4,19 @@ import com.google.gson.annotations.SerializedName
 
 data class UtenteJSON(
     @SerializedName("id_utente")
-    val id: Int,
+    val id: Int?,
     @SerializedName("mail")
-    val mail: String,
+    val mail: String?,
     @SerializedName("nome")
-    val nome: String,
+    val nome: String?,
     @SerializedName("cognome")
-    val cognome: String,
+    val cognome: String?,
     @SerializedName("password")
-    val password: String,
+    val password: String?,
     @SerializedName("propic")
-    val propic: String,
+    val propic: String?,
     @SerializedName("cod_ver")
-    val cod_ver: String,
+    val cod_ver: String?,
     @SerializedName("verificato")
-    val verificato: Boolean
+    val verificato: Boolean?
 )

@@ -5,6 +5,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import api.ApiService
+import api.UtenteJSON
 import com.example.progettouni.databinding.ActivityMainBinding
 import com.example.progettouni.databinding.RealAppBinding
 import fragment_classes.Home
@@ -17,12 +18,12 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.Response
 import retrofit2.Call
-import retrofit2.Callback
-class MainActivity : AppCompatActivity() {
+import retrofit2.
+
+class MainActivity : AppCompatActivity(), ApiService {
     private lateinit var binding: ActivityMainBinding
     private lateinit var realBinding: RealAppBinding
     private lateinit var log_type: String
-    private val apiService = ApiService()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,7 +60,7 @@ class MainActivity : AppCompatActivity() {
     fun loginCheck(mail: String, password: String) {
         CoroutineScope(Dispatchers.Main).launch {
             try {
-                val utenti = apiService.getUtenti()
+                val utenti = getUtenti()
                 println("Utenti nel database:")
                 utenti?.forEach {
                     println("ID: ${it.id}")
@@ -133,6 +134,10 @@ class MainActivity : AppCompatActivity() {
                 .commit()
         }
         super.getOnBackPressedDispatcher().onBackPressed()
+    }
+
+    override suspend fun getUtenti(): Response<List<UtenteJSON>> {
+        TODO("Not yet implemented")
     }
 
 

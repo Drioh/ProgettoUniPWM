@@ -14,21 +14,14 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 
 
-fun <T> Call<T>.isSuccessful(): Boolean {
-    return try {
-        val response = execute()
-        response.isSuccessful
-    } catch (e: Exception) {
-        false
-    }
-}
+
 
 
 
 interface ApiService {
 
     @GET("path")
-    suspend fun getUtenti(): Call<UtenteJSON>
+    suspend fun getUtenti(): Response<List<UtenteJSON>>
 
 
     fun parseJSON() {
@@ -49,7 +42,7 @@ interface ApiService {
                         val items = response.body()
 
                         if (items != null) {
-                            for (i in 0 until items.size) {
+                            for (i in 0 until items.count()) {
                                 val id = items[i].id
                                 val mail = items[i].mail
                                 val nome = items[i].nome
