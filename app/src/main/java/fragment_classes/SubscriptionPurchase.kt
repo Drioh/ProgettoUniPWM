@@ -1,9 +1,11 @@
 package fragment_classes
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import androidx.fragment.app.Fragment
 import com.example.progettouni.MainActivity
 import com.example.progettouni.R
@@ -12,6 +14,7 @@ import com.example.progettouni.databinding.FragmentSubscriptionPurchaseBinding
 
 class SubscriptionPurchase(teatro: String) : Fragment(R.layout.fragment_subscription_purchase) {
     private lateinit var binding: FragmentSubscriptionPurchaseBinding
+    private var selectedbutton: Button? = null
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -21,18 +24,34 @@ class SubscriptionPurchase(teatro: String) : Fragment(R.layout.fragment_subscrip
         var MA = (activity as MainActivity?)!!
 
         binding.oneMonthButton.setOnClickListener{
-            MA.realAppNavigateTo(ShowInfo(),"Biondo")
+            selectButton(binding.oneMonthButton)
         }
         binding.threeMonthButton.setOnClickListener{
-            MA.realAppNavigateTo(ShowInfo(),"Massimo")
+            selectButton(binding.threeMonthButton)
         }
         binding.sixMonthButton.setOnClickListener{
-            MA.realAppNavigateTo(ShowInfo(),"Politeama")
+            selectButton(binding.sixMonthButton)
         }
         binding.oneYearMonth.setOnClickListener{
-            MA.realAppNavigateTo(ShowInfo(),"Politeama")
+            selectButton(binding.oneYearMonth)
+        }
+        binding.confirmButton.setOnClickListener(){
+            MA.realAppNavigateTo(PaymentConfirmed(),"ConfirmedPayment")
+        }
+        binding.cancelButton.setOnClickListener(){
+            MA.backTo("SubscriptionChoice")
         }
 
         return binding.root
+    }
+    private fun selectButton(button: Button){
+        if(selectedbutton == null){
+            button.setBackgroundColor(Color.parseColor("#F44336"))
+            selectedbutton=button
+        } else{
+            selectedbutton!!.setBackgroundColor(Color.parseColor("#000000"))
+            selectedbutton=button
+            button.setBackgroundColor(Color.parseColor("#F44336"))
+        }
     }
 }

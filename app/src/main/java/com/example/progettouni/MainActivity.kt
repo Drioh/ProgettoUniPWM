@@ -1,6 +1,7 @@
 package com.example.progettouni
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.progettouni.databinding.ActivityMainBinding
@@ -65,13 +66,16 @@ class MainActivity : AppCompatActivity() {
             .addToBackStack("teatro "+teatro)
             .commit()
     }
+    fun showToast(text: String){
+        Toast.makeText(this, text, Toast.LENGTH_SHORT).show()
+    }
     override fun onBackPressed() {
         if(supportFragmentManager.backStackEntryCount ==1 && supportFragmentManager.getBackStackEntryAt(0).name == "Home"){
             supportFragmentManager.beginTransaction()
                 .replace(R.id.fragmentContainerView, UserOrAdmin())
                 .commit()
         }
-        super.onBackPressed()
+        super.getOnBackPressedDispatcher().onBackPressed()
     }
 
 

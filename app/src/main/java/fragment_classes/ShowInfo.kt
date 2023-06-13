@@ -23,7 +23,7 @@ class ShowInfo : Fragment(R.layout.fragment_show_info) {
 
         binding.buyTicketButton.setOnClickListener{
             binding.buyTicketButton.setBackgroundColor(Color.parseColor("#F44336"))
-            MA.backTo("Home")
+            MA.realAppNavigateTo(TicketPurchase(),"TicketPurchase")
         }
 
         return binding.root
