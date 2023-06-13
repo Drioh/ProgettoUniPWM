@@ -24,8 +24,7 @@ class RetrievePassword: Fragment(R.layout.fragment_retrieve_password){
 
         binding.confirmButton.setOnClickListener(){
             MA.back()
-            //effettuare un test
-            MA.showToast("Password modificata correttamente")
+            TODO("Interrogare il database e modificare la password")
         }
         binding.cancelButton.setOnClickListener(){
             MA.back()

@@ -20,7 +20,7 @@ class Shows : Fragment(R.layout.fragment_shows) {
     ): View? {
         binding = FragmentShowsBinding.inflate(inflater)
         var MA = (activity as MainActivity?)!!
-
+        TODO("Implementare la pagina degli spettacoli")
         binding.button2.setOnClickListener{
             binding.button2.setBackgroundColor(Color.parseColor("#F44336"))
             MA.realAppNavigateTo(ShowInfo(),"null")

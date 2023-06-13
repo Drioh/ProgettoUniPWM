@@ -1,5 +1,6 @@
 package fragment_classes
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -23,13 +24,14 @@ class EditMail: Fragment(R.layout.fragment_retrieve_password){
         binding = FragmentEditMailBinding.inflate(inflater)
         var MA = (activity as MainActivity?)!!
 
-
         binding.confirmButton.setOnClickListener(){
-            //effettuare un test sulla mail
+            binding.confirmButton.setBackgroundColor(Color.parseColor("#F44336"))
+            //viene effettutato un test sulla mail, se la vecchia mail corrisponde con quella nel database allora verrà permesso all'utente di modificarla
             MA.showToast("Mail modificata correttamente")
             MA.back()
         }
         binding.cancelButton.setOnClickListener(){
+            binding.cancelButton.setBackgroundColor(Color.parseColor("#F44336"))
             MA.back()
         }
 

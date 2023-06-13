@@ -31,7 +31,6 @@ class Login : Fragment(R.layout.fragment_login) {
         binding.cancelButton.setOnClickListener {
             binding.cancelButton.setBackgroundColor(Color.parseColor("#F44336"))
             MA.back()
-
         }
         binding.confirmButton.setOnClickListener {
             binding.confirmButton.setBackgroundColor(Color.parseColor("#F44336"))
@@ -44,7 +43,7 @@ class Login : Fragment(R.layout.fragment_login) {
 
         }
         binding.retrievePasswordButton.setOnClickListener {
-            binding.registerButton.setBackgroundColor(Color.parseColor("#F44336"))
+            binding.retrievePasswordButton.setBackgroundColor(Color.parseColor("#F44336"))
             MA.navigateTo(RetrievePassword(),"RetrievePassword")
         }
         return binding.root

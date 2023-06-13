@@ -20,7 +20,7 @@ class PosessedTickets : Fragment(R.layout.fragment_posessed_tickets) {
     ): View? {
         binding = FragmentPosessedTicketsBinding.inflate(inflater)
         var MA = (activity as MainActivity?)!!
-
+        TODO("Implementare la meccanica dei biglietti")
         return binding.root
     }
 }

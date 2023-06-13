@@ -22,9 +22,12 @@ class BottomTaskbar : Fragment(R.layout.fragment_bottom_taskbar) {
         binding = FragmentBottomTaskbarBinding.inflate(inflater)
         var MA = (activity as MainActivity?)!!
 
+        /*
+        A seconda del bottone premuto si potrà navigare sulle pagine home, spettacoli, biglietti e acquisto abbonamenti
+         */
+
         binding.HomeButton.setOnClickListener(){
                 MA.realAppNavigateTo(Home(), "Home")
-
         }
         binding.SearchButton.setOnClickListener(){
 

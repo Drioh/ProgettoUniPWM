@@ -1,5 +1,6 @@
 package fragment_classes
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -22,17 +23,21 @@ class Profile : Fragment(R.layout.fragment_register) {
 
 
         binding.mailButton.setOnClickListener(){
-            MA.back()
-            //effettuare un test
-            MA.showToast("Password modificata correttamente")
+            binding.mailButton.setBackgroundColor(Color.parseColor("#F44336"))
+            MA.realAppNavigateTo(EditMail(),"EditMail")
         }
         binding.passwordButton.setOnClickListener(){
-            MA.back()
+            binding.passwordButton.setBackgroundColor(Color.parseColor("#F44336"))
+            MA.realAppNavigateTo(EditPassword(),"EditMail")
+
         }
         binding.confirmButton.setOnClickListener(){
+            binding.confirmButton.setBackgroundColor(Color.parseColor("#F44336"))
+            TODO("impostare Nome e Cognome se diversi da quelli salvati in precedenza")
             MA.back()
         }
         binding.cancelButton.setOnClickListener(){
+            binding.cancelButton.setBackgroundColor(Color.parseColor("#F44336"))
             MA.back()
         }
 

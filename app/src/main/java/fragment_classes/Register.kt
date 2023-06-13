@@ -1,5 +1,6 @@
 package fragment_classes
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -19,7 +20,17 @@ class Register : Fragment(R.layout.fragment_register) {
     ): View? {
         binding = FragmentRegisterBinding.inflate(inflater)
         var MA = (activity as MainActivity?)!!
-
+        binding.propicButton.setOnClickListener(){
+            TODO("Capire se implementare o no l'immagine profilo")
+        }
+        binding.confirmButton.setOnClickListener(){
+            binding.confirmButton.setBackgroundColor(Color.parseColor("#F44336"))
+            TODO("Registrare le informazioni nel database")
+        }
+        binding.cancelButton.setOnClickListener(){
+            binding.cancelButton.setBackgroundColor(Color.parseColor("#F44336"))
+            MA.back()
+        }
         return binding.root
     }
 }

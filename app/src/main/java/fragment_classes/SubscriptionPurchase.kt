@@ -36,7 +36,11 @@ class SubscriptionPurchase(teatro: String) : Fragment(R.layout.fragment_subscrip
             selectButton(binding.oneYearMonth)
         }
         binding.confirmButton.setOnClickListener(){
-            MA.realAppNavigateTo(PaymentConfirmed(),"ConfirmedPayment")
+            if(selectedbutton!=null) {
+                MA.realAppNavigateTo(PaymentConfirmed(), "ConfirmedPayment")
+            }else{
+                MA.showToast("Selezionare prima un periodo di validità")
+            }
         }
         binding.cancelButton.setOnClickListener(){
             MA.backTo("SubscriptionChoice")

@@ -1,5 +1,6 @@
 package fragment_classes
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -22,14 +23,14 @@ class EditPassword: Fragment(R.layout.fragment_retrieve_password){
         binding = FragmentEditPasswordBinding.inflate(inflater)
         var MA = (activity as MainActivity?)!!
 
-
         binding.confirmButton.setOnClickListener(){
-
-            //effettuare un test
+            binding.confirmButton.setBackgroundColor(Color.parseColor("#F44336"))
+            //viene effettutato un test sulla mail, se la mail corrisponde con quella nel database allora verrà permesso all'utente di modificare la password
             MA.showToast("Password modificata correttamente")
             MA.back()
         }
         binding.cancelButton.setOnClickListener(){
+            binding.cancelButton.setBackgroundColor(Color.parseColor("#F44336"))
             MA.back()
         }
 

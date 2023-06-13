@@ -22,6 +22,7 @@ class PaymentConfirmed : Fragment(R.layout.fragment_confirmed_payment) {
         var MA = (activity as MainActivity?)!!
 
         binding.button.setOnClickListener(){
+            binding.button.setBackgroundColor(Color.parseColor("#F44336"))
             MA.backTo("Home")
         }
 

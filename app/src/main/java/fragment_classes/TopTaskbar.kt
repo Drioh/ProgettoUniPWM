@@ -25,7 +25,7 @@ class TopTaskbar : Fragment(R.layout.fragment_top_taskbar) {
         }
         binding.profileButton.setOnClickListener(){
 
-            MA.realAppNavigateTo(Shows(),"Show")
+            MA.realAppNavigateTo(Profile(),"Profile")
         }
 
         return binding.root
