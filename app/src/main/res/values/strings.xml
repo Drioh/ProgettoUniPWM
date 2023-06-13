@@ -30,12 +30,20 @@
     <string name="CardDate">Data di scadenza della carta</string>
     <string name="CVC">CVC</string>
     <string name="CorrPay">Acquisto avvenuto con successo!\nTroverai il tuo biglietto nella sezione\n"I miei biglietti"</string>
+    <string name="RetrPass">Recupera la tua password</string>
+    <string name="InsMail">Inserisci la tua mail</string>
+    <string name="InsMailNew">Inserisci la tua nuova mail</string>
+    <string name="InsPW">Inserisci la tua nuova password</string>
+    <string name="InsPWNow">Inserisci la tua password</string>
     <string name="Home">Torna alla pagina Home</string>
     <string name="ShowTicket">Scegli uno spettacolo</string>
     <string name="BuyTicket">Acquista il biglietto</string>
     <string name="Selling">Completa l\'acquisto</string>
     <string name="ShowInfo">Informazioni sullo spettacolo</string>
     <string name="title_activity_real_app">RealApp</string>
+    <string name="editMail">Modifica Mail</string>
+    <string name="editPW">Modifica Password</string>
+    <string name="retrPW">Hai dimenticato la password?</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>

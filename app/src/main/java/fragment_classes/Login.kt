@@ -32,7 +32,12 @@ class Login : Fragment(R.layout.fragment_login) {
         }
         binding.registerButton.setOnClickListener {
             binding.registerButton.setBackgroundColor(Color.parseColor("#F44336"))
-            println("registrati")
+            MA.navigateTo(Register(),"Register")
+
+        }
+        binding.retrievePasswordButton.setOnClickListener {
+            binding.registerButton.setBackgroundColor(Color.parseColor("#F44336"))
+            MA.navigateTo(RetrievePassword(),"RetrievePassword")
         }
         return binding.root
     }
