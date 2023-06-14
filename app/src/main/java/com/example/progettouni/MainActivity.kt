@@ -61,7 +61,7 @@ class MainActivity : AppCompatActivity() {
 
     fun loginCheck(mail: String, password: String) {
 
-        val query = "select * from Utente where mail = '${mail}' and password = '${password}';"
+        val query = "SELECT * FROM Utente WHERE mail = '${mail}' AND password = '${password}';"
 
        ApiService.retrofit.select(query).enqueue(
             object : Callback <JsonObject> {
