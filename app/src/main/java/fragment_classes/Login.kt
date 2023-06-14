@@ -2,7 +2,6 @@ package fragment_classes
 
 import android.graphics.Color
 import android.os.Bundle
-import android.telecom.Call
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,9 +10,6 @@ import api.ApiService
 import com.example.progettouni.MainActivity
 import com.example.progettouni.R
 import com.example.progettouni.databinding.FragmentLoginBinding
-import com.google.gson.JsonObject
-import okhttp3.Response
-import javax.security.auth.callback.Callback
 
 
 class Login : Fragment(R.layout.fragment_login) {

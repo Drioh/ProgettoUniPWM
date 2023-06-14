@@ -8,19 +8,21 @@ import api.ApiService
 import api.UtenteJSON
 import com.example.progettouni.databinding.ActivityMainBinding
 import com.example.progettouni.databinding.RealAppBinding
+import com.google.gson.JsonArray
 import fragment_classes.Home
 import fragment_classes.RealApp
 import fragment_classes.SubscriptionPurchase
 import fragment_classes.UserOrAdmin
 import com.google.gson.JsonObject
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.Response
 import retrofit2.Call
-import retrofit2.
 
-class MainActivity : AppCompatActivity(), ApiService {
+import retrofit2.Callback
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+
+class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var realBinding: RealAppBinding
     private lateinit var log_type: String
@@ -58,51 +60,46 @@ class MainActivity : AppCompatActivity(), ApiService {
     }
 
     fun loginCheck(mail: String, password: String) {
-        CoroutineScope(Dispatchers.Main).launch {
-            try {
-                val utenti = getUtenti()
-                println("Utenti nel database:")
-                utenti?.forEach {
-                    println("ID: ${it.id}")
-                    println("Mail: ${it.mail}")
-                    println("Nome: ${it.nome}")
-                    println("Cognome: ${it.cognome}")
-                    println("Password: ${it.password}")
-                    println("Profilo: ${it.propic}")
-                    println("Codice Verifica: ${it.cod_ver}")
-                    println("Verificato: ${it.verificato}")
-                    println("------------------------------")
-                }
-                if (!utenti.isNullOrEmpty()) {
-                    val utenteTrovato = utenti.find { it.mail == mail && it.password == password }
-                    if (utenteTrovato != null) {
-                        // Utente trovato nel database
-                        // Esegui l'azione di navigazione verso l'area riservata all'utente
-                        realBinding = RealAppBinding.inflate(layoutInflater)
-                        supportFragmentManager.popBackStack()
-                        supportFragmentManager.beginTransaction()
-                            .replace(R.id.fragmentContainerView, RealApp())
-                            .commit()
-                        supportFragmentManager.beginTransaction()
-                            .add(R.id.fragmentContainerView4, Home())
-                            .addToBackStack("Home")
-                            .commit()
-                    } else {
-                        // Utente non trovato o credenziali errate
-                        // Gestisci il caso di autenticazione fallita
-                        handleAuthenticationFailure()
+
+        val query = "select * from Utente where mail = '${mail}' and password = '${password}';"
+
+       ApiService.retrofit.select(query).enqueue(
+            object : Callback <JsonObject> {
+                override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
+                    if (response.isSuccessful) {
+                                if ((response.body()?.get("queryset") as JsonArray).size() == 1) {
+                                    realBinding = RealAppBinding.inflate(layoutInflater)
+                            supportFragmentManager.popBackStack()
+                            supportFragmentManager.beginTransaction()
+                                .replace(R.id.fragmentContainerView, RealApp())
+                                .commit()
+                            supportFragmentManager.beginTransaction()
+                                .add(R.id.fragmentContainerView4, Home())
+                                .addToBackStack("Home")
+                                .commit()
+
+                        } else {
+                            Toast.makeText(
+                                this@MainActivity,
+                                "credenziali errate",
+                                Toast.LENGTH_LONG
+                            ).show()
+
+                        }
                     }
-                } else {
-                    // Nessun utente nel database
-                    // Gestisci il caso di autenticazione fallita
-                    handleAuthenticationFailure()
                 }
-            } catch (e: Exception) {
-                // Gestisci l'errore di rete o altre eccezioni
-                handleNetworkFailure()
+
+                override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+                    /*
+                     * gestisci qui il fallimento della richiesta
+                     */
+                    handleNetworkFailure()
+                }
             }
-        }
+        )
+
     }
+
 
     private fun handleAuthenticationFailure() {
         Toast.makeText(this, "Autenticazione fallita. Credenziali errate.", Toast.LENGTH_SHORT).show()
@@ -136,9 +133,6 @@ class MainActivity : AppCompatActivity(), ApiService {
         super.getOnBackPressedDispatcher().onBackPressed()
     }
 
-    override suspend fun getUtenti(): Response<List<UtenteJSON>> {
-        TODO("Not yet implemented")
-    }
 
 
 }
