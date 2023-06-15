@@ -1,6 +1,7 @@
 package com.example.progettouni
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -61,7 +62,7 @@ class MainActivity : AppCompatActivity() {
 
     fun loginCheck(mail: String, password: String) {
 
-        val query = "SELECT * FROM Utente WHERE mail = '${mail}' AND password = '${password}';"
+        val query = "select * from Utente where mail = '${mail}' and password = '${password}';"
 
        ApiService.retrofit.select(query).enqueue(
             object : Callback <JsonObject> {
@@ -99,7 +100,6 @@ class MainActivity : AppCompatActivity() {
         )
 
     }
-
 
     private fun handleAuthenticationFailure() {
         Toast.makeText(this, "Autenticazione fallita. Credenziali errate.", Toast.LENGTH_SHORT).show()
