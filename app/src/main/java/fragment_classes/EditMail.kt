@@ -22,11 +22,12 @@ class EditMail: Fragment(R.layout.fragment_retrieve_password){
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentEditMailBinding.inflate(inflater)
-        var MA = (activity as MainActivity?)!!
+        var MA = (activity as MainActivity?)!! //reference alla Main Activity
 
         binding.confirmButton.setOnClickListener(){
             binding.confirmButton.setBackgroundColor(Color.parseColor("#F44336"))
-            //viene effettutato un test sulla mail, se la vecchia mail corrisponde con quella nel database allora verrà permesso all'utente di modificarla
+            /*viene effettutato un test sulla mail, se la vecchia mail corrisponde con quella
+            presente nel database allora verrà permesso all'utente di modificarla*/
             MA.showToast("Mail modificata correttamente")
             MA.back()
         }

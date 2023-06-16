@@ -18,7 +18,7 @@ class TopTaskbar : Fragment(R.layout.fragment_top_taskbar) {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentTopTaskbarBinding.inflate(inflater)
-        var MA = (activity as MainActivity?)!!
+        var MA = (activity as MainActivity?)!! //reference alla Main Activity
 
         binding.backButton.setOnClickListener(){
             MA.onBackPressed()

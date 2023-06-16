@@ -21,7 +21,7 @@ class TicketPurchase : Fragment(R.layout.fragment_buy_tickets) {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentBuyTicketsBinding.inflate(inflater)
-        var MA = (activity as MainActivity?)!!
+        var MA = (activity as MainActivity?)!! //reference alla Main Activity
 
         binding.confirmButton.setOnClickListener{
             TODO("Effettuare la query per la carta")

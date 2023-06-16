@@ -22,7 +22,7 @@ class Login : Fragment(R.layout.fragment_login) {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentLoginBinding.inflate(inflater)
-        var MA = (activity as MainActivity?)!!
+        var MA = (activity as MainActivity?)!! //reference alla Main Activity
 
         binding.cancelButton.setOnClickListener {
             binding.cancelButton.setBackgroundColor(Color.parseColor("#F44336"))

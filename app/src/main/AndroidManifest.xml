@@ -12,11 +12,7 @@
         android:theme="@style/Theme.ProgettoUni"
         tools:targetApi="31"
         android:networkSecurityConfig="@xml/network_security_config">
-        <activity
-            android:name="fragment_classes.RealApp"
-            android:exported="false"
-            android:label="@string/title_activity_real_app"
-            android:theme="@style/Theme.ProgettoUni.NoActionBar" />
+
         <activity
             android:name=".MainActivity"
             android:exported="true">

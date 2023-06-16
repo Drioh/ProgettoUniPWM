@@ -19,7 +19,8 @@ class PosessedTickets : Fragment(R.layout.fragment_posessed_tickets) {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentPosessedTicketsBinding.inflate(inflater)
-        var MA = (activity as MainActivity?)!!
+        var MA = (activity as MainActivity?)!! //reference alla Main Activity
+
         TODO("Implementare la meccanica dei biglietti")
         return binding.root
     }

@@ -21,7 +21,7 @@ class SubscriptionPurchase(teatro: String) : Fragment(R.layout.fragment_subscrip
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentSubscriptionPurchaseBinding.inflate(inflater)
-        var MA = (activity as MainActivity?)!!
+        var MA = (activity as MainActivity?)!! //reference alla Main Activity
 
         binding.oneMonthButton.setOnClickListener{
             selectButton(binding.oneMonthButton)

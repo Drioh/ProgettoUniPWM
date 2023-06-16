@@ -19,7 +19,7 @@ class PaymentConfirmed : Fragment(R.layout.fragment_confirmed_payment) {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentConfirmedPaymentBinding.inflate(inflater)
-        var MA = (activity as MainActivity?)!!
+        var MA = (activity as MainActivity?)!! //reference alla Main Activity
 
         binding.button.setOnClickListener(){
             binding.button.setBackgroundColor(Color.parseColor("#F44336"))

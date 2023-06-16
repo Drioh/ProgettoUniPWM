@@ -19,7 +19,8 @@ class Register : Fragment(R.layout.fragment_register) {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentRegisterBinding.inflate(inflater)
-        var MA = (activity as MainActivity?)!!
+        var MA = (activity as MainActivity?)!! //reference alla Main Activity
+
         binding.propicButton.setOnClickListener(){
             TODO("Capire se implementare o no l'immagine profilo")
         }

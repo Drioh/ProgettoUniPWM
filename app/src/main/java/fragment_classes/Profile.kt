@@ -19,7 +19,7 @@ class Profile : Fragment(R.layout.fragment_register) {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentProfileBinding.inflate(inflater)
-        var MA = (activity as MainActivity?)!!
+        var MA = (activity as MainActivity?)!! //reference alla Main Activity
 
 
         binding.mailButton.setOnClickListener(){

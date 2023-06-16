@@ -20,7 +20,7 @@ class RealApp: Fragment(R.layout.real_app) {
         savedInstanceState: Bundle?
     ): View? {
         binding = RealAppBinding.inflate(inflater)
-        var MA = (activity as MainActivity?)!!
+        var MA = (activity as MainActivity?)!! //reference alla Main Activity
 
         return binding.root
     }

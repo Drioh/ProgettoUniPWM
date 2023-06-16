@@ -19,7 +19,8 @@ class Shows : Fragment(R.layout.fragment_shows) {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentShowsBinding.inflate(inflater)
-        var MA = (activity as MainActivity?)!!
+        var MA = (activity as MainActivity?)!! //reference alla Main Activity
+
         TODO("Implementare la pagina degli spettacoli")
         binding.button2.setOnClickListener{
             binding.button2.setBackgroundColor(Color.parseColor("#F44336"))

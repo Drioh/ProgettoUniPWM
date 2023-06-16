@@ -19,7 +19,7 @@ class ShowInfo : Fragment(R.layout.fragment_show_info) {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentShowInfoBinding.inflate(inflater)
-        var MA = (activity as MainActivity?)!!
+        var MA = (activity as MainActivity?)!! //reference alla Main Activity
 
         binding.buyTicketButton.setOnClickListener{
             binding.buyTicketButton.setBackgroundColor(Color.parseColor("#F44336"))

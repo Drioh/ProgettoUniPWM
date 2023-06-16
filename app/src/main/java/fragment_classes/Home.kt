@@ -18,7 +18,7 @@ class Home: Fragment(R.layout.fragment_home) {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentHomeBinding.inflate(inflater)
-        var MA = (activity as MainActivity?)!!
+        var MA = (activity as MainActivity?)!! //reference alla Main Activity
 
         return binding.root
     }

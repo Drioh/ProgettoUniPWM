@@ -19,7 +19,7 @@ class RetrievePassword: Fragment(R.layout.fragment_retrieve_password){
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentRetrievePasswordBinding.inflate(inflater)
-        var MA = (activity as MainActivity?)!!
+        var MA = (activity as MainActivity?)!! //reference alla Main Activity
 
 
         binding.confirmButton.setOnClickListener(){

@@ -18,7 +18,7 @@ class Void: Fragment(R.layout.fragment_void) {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentVoidBinding.inflate(inflater)
-        var MA = (activity as MainActivity?)!!
+        var MA = (activity as MainActivity?)!! //reference alla Main Activity
 
         return binding.root
     }

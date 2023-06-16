@@ -20,10 +20,11 @@ class BottomTaskbar : Fragment(R.layout.fragment_bottom_taskbar) {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentBottomTaskbarBinding.inflate(inflater)
-        var MA = (activity as MainActivity?)!!
+        var MA = (activity as MainActivity?)!! //reference alla main Activity
 
         /*
-        A seconda del bottone premuto si potrà navigare sulle pagine home, spettacoli, biglietti e acquisto abbonamenti
+        A seconda del bottone premuto si potrà navigare sulle pagine home, spettacoli, biglietti e
+        acquisto abbonamenti.
          */
 
         binding.HomeButton.setOnClickListener(){

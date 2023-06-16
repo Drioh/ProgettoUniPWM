@@ -18,7 +18,7 @@ class UserOrAdmin : Fragment(R.layout.fragment_user_or_admin) {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentUserOrAdminBinding.inflate(inflater)
-        var MA = (activity as MainActivity?)!!
+        var MA = (activity as MainActivity?)!! //reference alla Main Activity
 
         binding.userLoginButton.setOnClickListener{
             binding.userLoginButton.setBackgroundColor(Color.parseColor("#F44336"))

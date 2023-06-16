@@ -19,7 +19,7 @@ class SubscriptionChoice : Fragment(R.layout.fragment_subscription_choice) {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentSubscriptionChoiceBinding.inflate(inflater)
-        var MA = (activity as MainActivity?)!!
+        var MA = (activity as MainActivity?)!! //reference alla Main Activity
 
         binding.biondoButton.setOnClickListener{
             MA.realAppNavigateTo(ShowInfo(),"Biondo")
