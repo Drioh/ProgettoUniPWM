@@ -2,6 +2,6 @@
 <network-security-config>
     <base-config cleartextTrafficPermitted="true"/>
     <domain-config cleartextTrafficPermitted="true">
-        <domain includeSubdomains="true">http://10.0.2.2:8080/webmobile/</domain>
+        <domain includeSubdomains="true">http://10.0.2.2:8000/webmobile/</domain>
     </domain-config>
 </network-security-config>
