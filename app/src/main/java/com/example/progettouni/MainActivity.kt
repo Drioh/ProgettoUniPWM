@@ -83,7 +83,14 @@ class MainActivity : AppCompatActivity() {
         tag: nome della transazione fino alla quale si vuole fare il pop del backstack*/
         supportFragmentManager.popBackStack(tag,0)
     }
+    /**
 
+    Verifica le credenziali di accesso dell'utente se sono corrette porta alla home dell'applicazione.
+
+    @param mail: Indirizzo email dell'utente.
+
+    @param password: Password dell'utente.
+     */
     fun loginCheck(mail: String, password: String) {
 
         val query = "select * from Utente where mail = '${mail}' and password = '${password}';"
@@ -115,7 +122,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         )
-        TODO("Verificare se è possibile creare una sola funzione per effettuare tutte le query")
+       
     }
 
     fun subChoice(teatro: String){
