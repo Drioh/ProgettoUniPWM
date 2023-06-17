@@ -18,5 +18,5 @@ data class UtenteJSON(
     @SerializedName("cod_ver")
     val cod_ver: String?,
     @SerializedName("verificato")
-    val verificato: Boolean?
+    val verificato: String?
 )

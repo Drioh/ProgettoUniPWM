@@ -39,18 +39,9 @@ class Register : Fragment(R.layout.fragment_register) {
             val cognome = binding.surnameField.text.toString()
             val mail = binding.mailField.text.toString()
             val password = binding.pwField.text.toString()
+            RegistrazioneDB(nome,cognome,mail,password)
 
-            RegistrazioneDB(nome, cognome, mail, password) { success ->
-                if (success) {
-                    // La registrazione è avvenuta con successo
-                    MA.showToast("Registrazione avvenuta con successo")
 
-                } else {
-                    // La registrazione è fallita
-                    MA.showToast("Registrazione fallita.")
-
-                }
-            }
         }
         binding.cancelButton.setOnClickListener(){
             binding.cancelButton.setBackgroundColor(Color.parseColor("#F44336"))
@@ -60,8 +51,8 @@ class Register : Fragment(R.layout.fragment_register) {
     }
 
     //String.format("%06d", (Math.random() * 1000000))
-    fun RegistrazioneDB(nome: String, cognome: String, mail: String, password: String, callback: (Boolean) -> Unit ){
-        val f=false
+    fun RegistrazioneDB(nome: String, cognome: String, mail: String, password: String ){
+        val f=0
         val s="miao"
         val otp = "1234"
         val query = "insert into Utente (mail, nome, cognome , password, propic , cod_ver, verificato ) values ('${mail}', '${nome}', '${cognome}', '${password}','${s}','${otp}','${f}'); "
@@ -70,14 +61,14 @@ class Register : Fragment(R.layout.fragment_register) {
        ApiService.retrofit.insert(query).enqueue(
             object: Callback <JsonObject> {
                 override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
-                    println(response.code())
+                    println(response.body())
                     Log.i("ApiService", "Registration successful!")
-                    callback(response.isSuccessful)
+
                 }
                 override fun onFailure(call: Call<JsonObject>, t: Throwable) {
                     Log.i("ApiService", "Registration failed!")
                     Log.e("ApiService", t.message.toString())
-                    callback(false)
+
                 }
             }
         )
