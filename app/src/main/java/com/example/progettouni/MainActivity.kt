@@ -33,7 +33,6 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
-
     }
     fun navigateTo(frag: Fragment,id: String){
         /*questo metodo viene invocato quando, prima di avere effettuato il login, ci si deve
@@ -47,7 +46,6 @@ class MainActivity : AppCompatActivity() {
             .replace(R.id.fragmentContainerView,frag)
             .addToBackStack(id)
             .commit()
-
     }
     fun realAppNavigateTo(frag: Fragment,id: String){
         /*questo metodo viene invocato e utilizzato quando, dopo avere effettuato il login, ci si
@@ -66,8 +64,6 @@ class MainActivity : AppCompatActivity() {
                 .addToBackStack(id)
                 .commit()
         }
-
-
     }
     fun back(){
         /*questo metodo viene invocato ogni qual volta che la funzionalità di un bottone è quella
@@ -92,9 +88,7 @@ class MainActivity : AppCompatActivity() {
     @param password: Password dell'utente.
      */
     fun loginCheck(mail: String, password: String) {
-
         val query = "select * from Utente where mail = '${mail}' and password = '${password}';"
-
         ApiService.retrofit.select(query).enqueue(
             object : Callback <JsonObject> {
                 override fun onResponse(call: Call<JsonObject>?, response: Response<JsonObject>) {
@@ -112,11 +106,9 @@ class MainActivity : AppCompatActivity() {
 
                         } else {
                             showToast("Credenziali Errate")
-
                         }
                     }
                 }
-
                 override fun onFailure(call: Call<JsonObject>, t: Throwable) {
                     showToast("Errore di rete")
                 }
@@ -124,7 +116,6 @@ class MainActivity : AppCompatActivity() {
         )
        
     }
-
     fun subChoice(teatro: String){
         /*questo metodo viene invocato quando viene selezionato un teatro per il quale acquistare
         un abbonamento.
@@ -154,7 +145,4 @@ class MainActivity : AppCompatActivity() {
         }
         super.getOnBackPressedDispatcher().onBackPressed()
     }
-
-
-
 }
