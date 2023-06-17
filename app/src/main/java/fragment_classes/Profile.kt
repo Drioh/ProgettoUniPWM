@@ -28,7 +28,7 @@ class Profile : Fragment(R.layout.fragment_register) {
         }
         binding.passwordButton.setOnClickListener(){
             binding.passwordButton.setBackgroundColor(Color.parseColor("#F44336"))
-            MA.realAppNavigateTo(EditPassword(),"EditMail")
+            MA.realAppNavigateTo(EditPassword(),"EditPassword")
 
         }
         binding.confirmButton.setOnClickListener(){
