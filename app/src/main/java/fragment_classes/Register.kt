@@ -39,18 +39,13 @@ class Register : Fragment(R.layout.fragment_register) {
             val cognome = binding.surnameField.text.toString()
             val mail = binding.mailField.text.toString()
             val password = binding.pwField.text.toString()
+           if(controllaValiditaPwd(password)) {
 
-            RegistrazioneDB(nome, cognome, mail, password) { success ->
-                if (success) {
-                    // La registrazione è avvenuta con successo
-                    MA.showToast("Registrazione avvenuta con successo")
-
-                } else {
-                    // La registrazione è fallita
-                    MA.showToast("Registrazione fallita.")
-
-                }
-            }
+               RegistrazioneDB(nome, cognome, mail, password)
+           }
+            else{
+                MA.showToast("La password deve avere almeno 8 caratteri, contenere almeno una lettera maiuscola, una lettera minuscola e un numero.")
+           }
         }
         binding.cancelButton.setOnClickListener(){
             binding.cancelButton.setBackgroundColor(Color.parseColor("#F44336"))
@@ -59,11 +54,11 @@ class Register : Fragment(R.layout.fragment_register) {
         return binding.root
     }
 
-    //String.format("%06d", (Math.random() * 1000000))
-    fun RegistrazioneDB(nome: String, cognome: String, mail: String, password: String, callback: (Boolean) -> Unit ){
-        val f=false
+
+    fun RegistrazioneDB(nome: String, cognome: String, mail: String, password: String){
+        val f=0
         val s="miao"
-        val otp = "1234"
+        val otp = String.format("%06d", (Math.random() * 1000000).toInt())
         val query = "insert into Utente (mail, nome, cognome , password, propic , cod_ver, verificato ) values ('${mail}', '${nome}', '${cognome}', '${password}','${s}','${otp}','${f}'); "
 
 
@@ -71,16 +66,31 @@ class Register : Fragment(R.layout.fragment_register) {
             object: Callback <JsonObject> {
                 override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
                     println(response.code())
-                    Log.i("ApiService", "Registration successful!")
-                    callback(response.isSuccessful)
+                    Log.i("ApiService", "Registrazione avvenuta correttamente!")
+
                 }
                 override fun onFailure(call: Call<JsonObject>, t: Throwable) {
-                    Log.i("ApiService", "Registration failed!")
+                    Log.i("ApiService", "Registration faillita")
                     Log.e("ApiService", t.message.toString())
-                    callback(false)
+
                 }
             }
         )
     }
-
+    /**
+     * Verifica la validità della password dell'utente, la password deve avere 8 caratteri, contenere una maiuscola e un numero.
+     *
+     * @param password La password dell'utente da controllare.
+     * @return True se la password è valida, altrimenti False.
+     */
+    fun controllaValiditaPwd(password: String): Boolean {
+        var isValid = password.length <= 20 && password.length >= 8
+        val upperCaseChars = "(.*[A-Z].*)".toRegex()
+        if (!password.matches(upperCaseChars)) isValid = false
+        val lowerCaseChars = "(.*[a-z].*)".toRegex()
+        if (!password.matches(lowerCaseChars)) isValid = false
+        val numbers = "(.*[0-9].*)".toRegex()
+        if (!password.matches(numbers)) isValid = false
+        return isValid
+    }
 }
