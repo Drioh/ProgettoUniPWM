@@ -38,6 +38,7 @@
     <string name="Home">Torna alla pagina Home</string>
     <string name="ShowTicket">Scegli uno spettacolo</string>
     <string name="BuyTicket">Acquista il biglietto</string>
+    <string name="PurchaseSubscription">Acquista l\'abbonamento</string>
     <string name="Selling">Completa l\'acquisto</string>
     <string name="ShowInfo">Informazioni sullo spettacolo</string>
     <string name="title_activity_real_app">RealApp</string>
