@@ -27,12 +27,15 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var realBinding: RealAppBinding
     private lateinit var log_type: String
-
+    private var userId: Int = 0 // Variabile per l'ID dell'utente
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
+    }
+    fun getUserId(): Int {
+        return userId
     }
     fun navigateTo(frag: Fragment,id: String){
         /*questo metodo viene invocato quando, prima di avere effettuato il login, ci si deve
@@ -94,6 +97,9 @@ class MainActivity : AppCompatActivity() {
                 override fun onResponse(call: Call<JsonObject>?, response: Response<JsonObject>) {
                     if (response.isSuccessful) {
                         if ((response.body()?.get("queryset") as JsonArray).size() == 1) {
+                            val userJsonObject = (response.body()?.get("queryset") as JsonArray)[0] as JsonObject
+                            userId = userJsonObject.get("id_utente").asInt // Assegna l'ID dell'utente alla variabile userId
+
                             realBinding = RealAppBinding.inflate(layoutInflater)
                             supportFragmentManager.popBackStack()
                             supportFragmentManager.beginTransaction()
