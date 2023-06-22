@@ -42,5 +42,8 @@ class BottomTaskbar : Fragment(R.layout.fragment_bottom_taskbar) {
         }
 
         return binding.root
+
+
+        //cazzi
     }
 }
