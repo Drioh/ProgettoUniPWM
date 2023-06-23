@@ -83,12 +83,12 @@ class MainActivity : AppCompatActivity() {
         supportFragmentManager.popBackStack(tag,0)
     }
     /**
-
-    Verifica le credenziali di accesso dell'utente se sono corrette porta alla home dell'applicazione.
-
-    @param mail: Indirizzo email dell'utente.
-
-    @param password: Password dell'utente.
+     *
+     *   Verifica le credenziali di accesso dell'utente se sono corrette porta alla home dell'applicazione.
+     *
+     *   @param mail: Indirizzo email dell'utente.
+     *
+     *   @param password: Password dell'utente.
      */
     fun loginCheck(mail: String, password: String) {
         val query = "select * from Utente where mail = '${mail}' and password = '${password}';"
@@ -120,7 +120,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         )
-       
+
     }
     fun subChoice(teatro: String){
         /*questo metodo viene invocato quando viene selezionato un teatro per il quale acquistare

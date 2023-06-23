@@ -26,9 +26,14 @@ class PosessedTickets : Fragment(R.layout.fragment_posessed_tickets) {
         var MA = (activity as MainActivity?)!! //reference alla Main Activity
         binding.ticketRecycler.layoutManager = LinearLayoutManager(this.context)
         val data = ArrayList<TicketModel>()
-        for (i in 1..20) {     //dovrei fare in modo di fare un while per scorrermi tutte le tuple del dbms
-            data.add(TicketModel(R.drawable.ticket_icon_white, type, period))     //type e period sono i valori che dovrebbero essere presi dal dbms
-        }
+        //for (i in 1..20) {     //dovrei fare in modo di fare un while per scorrermi tutte le tuple del dbms
+        type = "spettacolo"
+        period = "3 mesi"
+        data.add(TicketModel(R.drawable.ticket_icon_white, type, period))     //type e period sono i valori che dovrebbero essere presi dal dbms
+        type = "abbonamento"
+        period = "6 mesi"
+        data.add(TicketModel(R.drawable.ticket_icon_white, type, period))
+        //}
         val adapter = TicketAdapter(data)                          //importante creare l'adapter dopo gli add sennò viene passato un ArrayList vuoto
         binding.ticketRecycler.adapter = adapter
 
