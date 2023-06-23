@@ -23,38 +23,36 @@ class DBHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_V
         // TABLE NAMES
         const val TABLE_BIGLIETTI = "Biglietti"
         const val TABLE_ABBONAMENTO = "Abbonamento"
-
-        // COMMON COLUMNS
-        const val _ID = "_id"
+        
+        // DATABASE VERSION
+        const val DB_VERSION = 1
+        
 
         // TABLE BIGLIETTI COLUMNS
+        const val _ID_BIGLIETTO = "_id_biglietto"
         const val NOME_SPETTACOLO = "nome_spettacolo"
         const val DATA_SCADENZA = "data_scadenza"
 
         // TABLE ABBONAMENTO COLUMNS
+        const val _ID_ABBONAMENTO = "_id_abbonamento"
         const val TEATRO = "teatro"
         const val DATA_INIZIO = "data_inizio"
         const val DATA_FINE = "data_fine"
 
-        // DATABASE VERSION
-        const val DB_VERSION = 1
-
         // STRING TO CREATE TABLE BIGLIETTI
-
         private const val SQL_CREATE_TABLE_BIGLIETTI =
             "CREATE TABLE $TABLE_BIGLIETTI (" +
-                    "${_ID} INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    "${_ID_BIGLIETTO} INTEGER PRIMARY KEY AUTOINCREMENT," +
                     "${NOME_SPETTACOLO} TEXT NOT NULL," +
                     "${DATA_SCADENZA} TEXT NOT NULL);"
 
         // STRING TO CREATE TABLE ABBONAMENTO
         private const val SQL_CREATE_TABLE_ABBONAMENTO =
             "CREATE TABLE $TABLE_ABBONAMENTO (" +
-                    "${_ID} INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    "${_ID_ABBONAMENTO} INTEGER PRIMARY KEY AUTOINCREMENT," +
                     "${TEATRO} TEXT NOT NULL," +
                     "${DATA_INIZIO} TEXT NOT NULL," +
                     "${DATA_FINE} TEXT NOT NULL);"
-
 
         // STRING TO DROP TABLE BIGLIETTI
         private const val SQL_DROP_TABLE_BIGLIETTI = "DROP TABLE IF EXISTS $TABLE_BIGLIETTI;"
