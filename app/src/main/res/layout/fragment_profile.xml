@@ -16,11 +16,13 @@
 
         <ImageButton
             android:id="@+id/propicButton"
-            android:layout_width="125dp"
-            android:layout_height="125dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="25dp"
             android:backgroundTint="#000000"
-            android:src="@drawable/home_icon" />
+            android:src="@drawable/home_icon"
+            android:scaleType="fitCenter" />
+
 
         <EditText
             android:id="@+id/nameField"

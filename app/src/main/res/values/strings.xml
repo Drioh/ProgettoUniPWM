@@ -13,6 +13,7 @@
     <string name="userAcc">accesso come utente</string>
     <string name="adminAcc">accesso come amministratore</string>
     <string name="ticketInfo">Tipo di Biglietto</string>
+    <string name="map_content_description">Google Map showing theaters and user location</string>
     <string name="ticketPeriod">Durata (se abbonamento) data e ora (se singolo)</string>
     <string name="yourTickets">I tuoi biglietti</string>
     <string name="buySubscription">Acquista un abbonamento</string>

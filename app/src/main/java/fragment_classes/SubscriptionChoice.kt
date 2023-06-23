@@ -22,7 +22,7 @@ class SubscriptionChoice : Fragment(R.layout.fragment_subscription_choice) {
         var MA = (activity as MainActivity?)!! //reference alla Main Activity
 
         binding.biondoButton.setOnClickListener{
-            MA.realAppNavigateTo(ShowInfo(),"Biondo")
+            MA.realAppNavigateTo(TheatreInfo(),"Biondo")
         }
         binding.massimoButton.setOnClickListener{
             MA.realAppNavigateTo(ShowInfo(),"Massimo")

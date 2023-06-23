@@ -36,6 +36,7 @@
         android:layout_marginRight="20dp"
         android:layout_weight="0"
         android:background="#00FFFFFF"
-        app:srcCompat="@drawable/profile_icon" />
+        app:srcCompat="@drawable/profile_icon"
+        android:scaleType="fitCenter"/>
 
 </LinearLayout>

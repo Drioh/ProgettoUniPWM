@@ -57,9 +57,9 @@ class Register : Fragment(R.layout.fragment_register) {
 
     fun RegistrazioneDB(nome: String, cognome: String, mail: String, password: String){
         val f=0
-        val s="miao"
+        val propicPath = binding.propicButton.tag?.toString() // Ottieni il percorso dell'immagine caricata
         val otp = String.format("%06d", (Math.random() * 1000000).toInt())
-        val query = "insert into Utente (mail, nome, cognome , password, propic , cod_ver, verificato ) values ('${mail}', '${nome}', '${cognome}', '${password}','${s}','${otp}','${f}'); "
+        val query = "insert into Utente (mail, nome, cognome , password, propic , cod_ver, verificato ) values ('${mail}', '${nome}', '${cognome}', '${password}','${propicPath}','${otp}','${f}'); "
 
 
        ApiService.retrofit.insert(query).enqueue(

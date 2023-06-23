@@ -1,14 +1,23 @@
 package fragment_classes
 
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import api.ApiService
 import com.example.progettouni.MainActivity
 import com.example.progettouni.R
 import com.example.progettouni.databinding.FragmentBottomTaskbarBinding
 import com.example.progettouni.databinding.FragmentTopTaskbarBinding
+import com.google.gson.JsonObject
+import okhttp3.ResponseBody
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class TopTaskbar : Fragment(R.layout.fragment_top_taskbar) {
     private lateinit var binding: FragmentTopTaskbarBinding
@@ -19,7 +28,7 @@ class TopTaskbar : Fragment(R.layout.fragment_top_taskbar) {
     ): View? {
         binding = FragmentTopTaskbarBinding.inflate(inflater)
         var MA = (activity as MainActivity?)!! //reference alla Main Activity
-
+        getUrlbyID(MA.getUserId())
         binding.backButton.setOnClickListener(){
             MA.onBackPressed()
         }
@@ -29,5 +38,52 @@ class TopTaskbar : Fragment(R.layout.fragment_top_taskbar) {
         }
 
         return binding.root
+    }
+
+
+
+
+    fun getUrlbyID(id: Int) {
+        val query = "SELECT propic FROM Utente WHERE id_utente = '${id}';"
+        ApiService.retrofit.select(query).enqueue(object : Callback<JsonObject> {
+            override fun onResponse(call: Call<JsonObject>?, response: Response<JsonObject>) {
+                if (response.isSuccessful) {
+                    val jsonArray = response.body()?.getAsJsonArray("queryset")
+                    if (jsonArray?.size() == 1) {
+                        val propic = jsonArray[0].asJsonObject["propic"].asString
+                        getImageProfilo(propic)
+
+                    } else {
+                        Log.i("ApiService","n/a")
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+                Log.e("Errore di rete",t.message.toString())
+            }
+        })
+    }
+    private fun getImageProfilo(url: String){
+
+        ApiService.retrofit.image(url).enqueue(
+            object : Callback<ResponseBody> {
+                override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                    if(response.isSuccessful) {
+                        var image: Bitmap? = null
+                        if (response.body()!=null) {
+                            image = BitmapFactory.decodeStream(response.body()?.byteStream())
+                            binding.profileButton.setImageBitmap(image)
+                        }
+                    }
+                }
+
+                override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+
+                    Log.e("ApiService", t.message.toString())
+                }
+
+            }
+        )
     }
 }
