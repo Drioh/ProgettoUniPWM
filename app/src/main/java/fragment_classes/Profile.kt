@@ -147,7 +147,7 @@ class Profile : Fragment(R.layout.fragment_register) {
                         var image: Bitmap? = null
                         if (response.body()!=null) {
                             image = BitmapFactory.decodeStream(response.body()?.byteStream())
-                            binding.propicButton.setImageBitmap(image)
+                            binding.propicImage.setImageBitmap(image)
                         }
                     }
                 }

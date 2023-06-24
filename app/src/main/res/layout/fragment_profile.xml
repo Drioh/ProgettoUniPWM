@@ -6,55 +6,87 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:orientation="vertical"
-        tools:layout_editor_absoluteY="75dp">
+        android:layout_height="match_parent">
 
-
-        <ImageButton
-            android:id="@+id/propicButton"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
-            android:backgroundTint="#000000"
-            android:src="@drawable/home_icon"
-            android:scaleType="fitCenter" />
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
 
 
-        <EditText
-            android:id="@+id/nameField"
-            android:layout_width="300dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="30dp"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:text="@string/name" />
+            <ImageView
+                android:id="@+id/propicImage"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_marginTop="25dp"
+                android:backgroundTint="#000000"
+                android:scaleType="centerCrop"
+                android:src="@drawable/home_icon"
+                app:srcCompat="@drawable/teatro_placeholder" />
 
-        <EditText
-            android:id="@+id/surnameField"
-            android:layout_width="300dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="30dp"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:text="@string/surname" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/linearLayout3"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="20dp">
+            <EditText
+                android:id="@+id/nameField"
+                android:layout_width="300dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="30dp"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="@string/name" />
+
+            <EditText
+                android:id="@+id/surnameField"
+                android:layout_width="300dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="30dp"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="@string/surname" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/linearLayout3"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="20dp">
+
+                <Button
+                    android:id="@+id/cancelButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:backgroundTint="#000000"
+                    android:onClick="toLogin"
+                    android:text="@string/cancel"
+                    app:cornerRadius="45dp"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/confirmButton"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/confirmButton"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintHorizontal_chainStyle="spread"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <Button
+                    android:id="@+id/confirmButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:backgroundTint="#000000"
+                    android:onClick="register"
+                    android:text="@string/confirm"
+                    app:cornerRadius="45dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/cancelButton" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <Button
-                android:id="@+id/cancelButton"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:id="@+id/mailButton"
+                android:layout_width="300dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="30dp"
                 android:backgroundTint="#000000"
                 android:onClick="toLogin"
-                android:text="@string/cancel"
+                android:text="@string/editMail"
                 app:cornerRadius="45dp"
                 app:layout_constraintBaseline_toBaselineOf="@+id/confirmButton"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -64,46 +96,19 @@
                 app:layout_constraintStart_toStartOf="parent" />
 
             <Button
-                android:id="@+id/confirmButton"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:id="@+id/passwordButton"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
                 android:backgroundTint="#000000"
                 android:onClick="register"
-                android:text="@string/confirm"
+                android:text="@string/editPW"
                 app:cornerRadius="45dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/cancelButton" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <Button
-            android:id="@+id/mailButton"
-            android:layout_width="300dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="30dp"
-            android:backgroundTint="#000000"
-            android:onClick="toLogin"
-            android:text="@string/editMail"
-            app:cornerRadius="45dp"
-            app:layout_constraintBaseline_toBaselineOf="@+id/confirmButton"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/confirmButton"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintHorizontal_chainStyle="spread"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <Button
-            android:id="@+id/passwordButton"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:backgroundTint="#000000"
-            android:onClick="register"
-            android:text="@string/editPW"
-            app:cornerRadius="45dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/cancelButton" />
 
 
-    </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

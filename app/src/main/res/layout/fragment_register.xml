@@ -25,7 +25,7 @@
             android:textStyle="bold" />
 
         <Button
-            android:id="@+id/propicButton"
+            android:id="@+id/propicImage"
             android:layout_width="125dp"
             android:layout_height="125dp"
             android:layout_marginTop="25dp"

@@ -25,10 +25,10 @@ class SubscriptionChoice : Fragment(R.layout.fragment_subscription_choice) {
             MA.realAppNavigateTo(TheatreInfo(),"Biondo")
         }
         binding.massimoButton.setOnClickListener{
-            MA.realAppNavigateTo(ShowInfo(),"Massimo")
+            MA.realAppNavigateTo(TheatreInfo(),"Massimo")
         }
         binding.politeamaButton.setOnClickListener{
-            MA.realAppNavigateTo(ShowInfo(),"Politeama")
+            MA.realAppNavigateTo(TheatreInfo(),"Politeama")
         }
 
         return binding.root

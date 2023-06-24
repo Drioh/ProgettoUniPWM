@@ -29,9 +29,7 @@ class Register : Fragment(R.layout.fragment_register) {
         binding = FragmentRegisterBinding.inflate(inflater)
         var MA = (activity as MainActivity?)!! //reference alla Main Activity
 
-        binding.propicButton.setOnClickListener(){
-            TODO("Capire se implementare o no l'immagine profilo")
-        }
+
         binding.confirmButton.setOnClickListener {
             binding.confirmButton.setBackgroundColor(Color.parseColor("#F44336"))
 
@@ -57,7 +55,7 @@ class Register : Fragment(R.layout.fragment_register) {
 
     fun RegistrazioneDB(nome: String, cognome: String, mail: String, password: String){
         val f=0
-        val propicPath = binding.propicButton.tag?.toString() // Ottieni il percorso dell'immagine caricata
+        val propicPath = binding.propicImage.tag?.toString() // Ottieni il percorso dell'immagine caricata
         val otp = String.format("%06d", (Math.random() * 1000000).toInt())
         val query = "insert into Utente (mail, nome, cognome , password, propic , cod_ver, verificato ) values ('${mail}', '${nome}', '${cognome}', '${password}','${propicPath}','${otp}','${f}'); "
 
