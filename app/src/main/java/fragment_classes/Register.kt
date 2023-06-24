@@ -78,10 +78,10 @@ class Register : Fragment(R.layout.fragment_register) {
         )
     }
     /**
-     * Verifica la validità della password dell'utente, la password deve avere 8 caratteri, contenere una maiuscola e un numero.
+     *  Verifica la validità della password dell'utente, la password deve avere 8 caratteri, contenere una maiuscola e un numero.
      *
-     * @param password La password dell'utente da controllare.
-     * @return True se la password è valida, altrimenti False.
+     *  @param password La password dell'utente da controllare.
+     *  @return True se la password è valida, altrimenti False.
      */
     fun controllaValiditaPwd(password: String): Boolean {
         var isValid = password.length <= 20 && password.length >= 8

@@ -18,12 +18,17 @@ class TicketAdapter(private val myList: List<TicketModel>) : RecyclerView.Adapte
         val view = FragmentTicketCardBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(view)
     }
-    override fun getItemCount(): Int {   //indica il numero totale di oggetti
+
+    /**
+     *  @return numero totale degli oggetti nella recycler view
+     */
+    override fun getItemCount(): Int {
         return myList.size
     }
 
+
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        //assegno i valori a ogni singola card quando vengono create dall'adapter
+        //Vengono assegnati i valori a ogni singola card nel momento in cui viene creata dall'adapter
         val singleTicketModel = myList[position]
         holder.imageView.setImageResource(singleTicketModel.image)
         holder.textType.text = singleTicketModel.textType
