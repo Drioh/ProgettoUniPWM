@@ -39,6 +39,8 @@
     <string name="Home">Torna alla pagina Home</string>
     <string name="ShowTicket">Scegli uno spettacolo</string>
     <string name="BuyTicket">Acquista il biglietto</string>
+    <string name="myTicket">Il mio biglietto</string>
+    <string name="infoTicket">Visualizza info biglietto</string>
     <string name="PurchaseSubscription">Acquista l\'abbonamento</string>
     <string name="Selling">Completa l\'acquisto</string>
     <string name="ShowInfo">Informazioni sullo spettacolo</string>

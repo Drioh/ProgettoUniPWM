@@ -1,6 +1,5 @@
 package fragment_classes
 
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.progettouni.MainActivity
 import com.example.progettouni.R
-import com.example.progettouni.databinding.FragmentShowsBinding
 import com.example.progettouni.databinding.FragmentSubscriptionChoiceBinding
 
 class SubscriptionChoice : Fragment(R.layout.fragment_subscription_choice) {
@@ -22,13 +20,13 @@ class SubscriptionChoice : Fragment(R.layout.fragment_subscription_choice) {
         var MA = (activity as MainActivity?)!! //reference alla Main Activity
 
         binding.biondoButton.setOnClickListener{
-            MA.realAppNavigateTo(TheatreInfo(),"Biondo")
+            MA.realAppNavigateTo(TheatreInfo(), "Biondo")
         }
         binding.massimoButton.setOnClickListener{
-            MA.realAppNavigateTo(ShowInfo(),"Massimo")
+            MA.realAppNavigateTo(ShowInfo(), "Massimo")
         }
         binding.politeamaButton.setOnClickListener{
-            MA.realAppNavigateTo(ShowInfo(),"Politeama")
+            MA.realAppNavigateTo(ShowInfo(), "Politeama")
         }
 
         return binding.root

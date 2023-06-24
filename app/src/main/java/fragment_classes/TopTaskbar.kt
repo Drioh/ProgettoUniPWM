@@ -11,7 +11,6 @@ import androidx.fragment.app.Fragment
 import api.ApiService
 import com.example.progettouni.MainActivity
 import com.example.progettouni.R
-import com.example.progettouni.databinding.FragmentBottomTaskbarBinding
 import com.example.progettouni.databinding.FragmentTopTaskbarBinding
 import com.google.gson.JsonObject
 import okhttp3.ResponseBody
@@ -34,7 +33,7 @@ class TopTaskbar : Fragment(R.layout.fragment_top_taskbar) {
         }
         binding.profileButton.setOnClickListener(){
 
-            MA.realAppNavigateTo(Profile(),"Profile")
+            MA.realAppNavigateTo(Profile(), "Profile")
         }
 
         return binding.root
