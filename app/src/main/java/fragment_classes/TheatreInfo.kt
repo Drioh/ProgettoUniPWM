@@ -101,7 +101,7 @@ class TheatreInfo : Fragment(R.layout.fragment_show_info), OnMapReadyCallback {
         ) {
             googleMap.isMyLocationEnabled = true
 
-            val tuaLatitudine = 37.1157
+            val tuaLatitudine = 38.1157
             val tuaLongitudine = 13.3613
             val posizioneCorrente = LatLng(tuaLatitudine, tuaLongitudine)
 

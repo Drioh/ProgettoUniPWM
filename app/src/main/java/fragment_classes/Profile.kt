@@ -68,7 +68,7 @@ class Profile : Fragment(R.layout.fragment_register) {
         // Esegui operazioni di test
         performDatabaseTest()
 
-        // Resto del codice del Fragment...
+
     }
 
     private fun performDatabaseTest() {
