@@ -101,7 +101,9 @@ class MainActivity : AppCompatActivity() {
                     if (response.isSuccessful) {
                         if ((response.body()?.get("queryset") as JsonArray).size() == 1) {
                             val userJsonObject = (response.body()?.get("queryset") as JsonArray)[0] as JsonObject
-                            userId = userJsonObject.get("id_utente").asInt // Assegna l'ID dell'utente alla variabile userId
+
+                                userId =
+                                    userJsonObject.get("id_utente").asInt // Assegna l'ID dell'utente alla variabile userId
 
                             realBinding = RealAppBinding.inflate(layoutInflater)
                             supportFragmentManager.popBackStack()
@@ -157,6 +159,8 @@ class MainActivity : AppCompatActivity() {
             supportFragmentManager.beginTransaction()
                 .replace(R.id.fragmentContainerView, UserOrAdmin())
                 .commit()
+            //reset del valore userId
+            userId=0
         }
         super.getOnBackPressedDispatcher().onBackPressed()
     }
