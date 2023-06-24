@@ -9,7 +9,6 @@ import android.widget.Button
 import androidx.fragment.app.Fragment
 import com.example.progettouni.MainActivity
 import com.example.progettouni.R
-import com.example.progettouni.databinding.FragmentSubscriptionChoiceBinding
 import com.example.progettouni.databinding.FragmentSubscriptionPurchaseBinding
 
 class SubscriptionPurchase(teatro: String) : Fragment(R.layout.fragment_subscription_purchase) {

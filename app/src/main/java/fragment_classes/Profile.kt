@@ -15,7 +15,6 @@ import api.DBManager
 import com.example.progettouni.MainActivity
 import com.example.progettouni.R
 import com.example.progettouni.databinding.FragmentProfileBinding
-import com.example.progettouni.databinding.FragmentRetrievePasswordBinding
 import com.google.gson.JsonObject
 import okhttp3.ResponseBody
 import retrofit2.Call
@@ -36,11 +35,11 @@ class Profile : Fragment(R.layout.fragment_register) {
 
         binding.mailButton.setOnClickListener(){
             binding.mailButton.setBackgroundColor(Color.parseColor("#F44336"))
-            MA.realAppNavigateTo(EditMail(),"EditMail")
+            MA.realAppNavigateTo(EditMail(), "EditMail")
         }
         binding.passwordButton.setOnClickListener(){
             binding.passwordButton.setBackgroundColor(Color.parseColor("#F44336"))
-            MA.realAppNavigateTo(EditPassword(),"EditPassword")
+            MA.realAppNavigateTo(EditPassword(), "EditPassword")
 
         }
         binding.confirmButton.setOnClickListener(){

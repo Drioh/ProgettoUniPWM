@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment
 import com.example.progettouni.MainActivity
 import com.example.progettouni.R
 import com.example.progettouni.databinding.FragmentShowInfoBinding
-import com.example.progettouni.databinding.FragmentShowsBinding
 
 class ShowInfo (val id: String): Fragment(R.layout.fragment_show_info) {
     private lateinit var binding: FragmentShowInfoBinding
@@ -22,7 +21,7 @@ class ShowInfo (val id: String): Fragment(R.layout.fragment_show_info) {
         var MA = (activity as MainActivity?)!! //reference alla Main Activity
         binding.buyTicketButton.setOnClickListener{
             binding.buyTicketButton.setBackgroundColor(Color.parseColor("#F44336"))
-            MA.realAppNavigateTo(TicketPurchase(),"TicketPurchase")
+            MA.realAppNavigateTo(TicketPurchase(), "TicketPurchase")
         }
 
 
