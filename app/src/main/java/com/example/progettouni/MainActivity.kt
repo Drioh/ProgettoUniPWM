@@ -15,7 +15,7 @@ import fragment_classes.UserOrAdmin
 import com.google.gson.JsonObject
 import retrofit2.Response
 import retrofit2.Call
-
+import api.DBManager
 import retrofit2.Callback
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -30,6 +30,12 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
+        var db: DBManager = DBManager(this)
+        db.open()
+        db.insertAbbonamento("Massimo", "11/12/2001", "05/05/2002")
+        db.insertBiglietto("Duce appeso", "02/02/2010")
+        db.insertAbbonamento("Politeama", "11/11/2011", "04/04/2022")
+        db.insertBiglietto("Se ni mondo", "20/08/2021")
     }
     fun getUserId(): Int {
         return userId

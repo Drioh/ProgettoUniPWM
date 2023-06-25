@@ -6,9 +6,18 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import api.ApiService
+import api.DBHelper
+import api.DBManager
 import com.example.progettouni.MainActivity
 import com.example.progettouni.R
 import com.example.progettouni.databinding.FragmentPosessedTicketsBinding
+import com.google.gson.JsonArray
+import com.google.gson.JsonObject
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import android.database.Cursor
 
 class PosessedTickets : Fragment(R.layout.fragment_posessed_tickets) {
     private lateinit var binding: FragmentPosessedTicketsBinding
@@ -24,32 +33,14 @@ class PosessedTickets : Fragment(R.layout.fragment_posessed_tickets) {
         binding = FragmentPosessedTicketsBinding.inflate(inflater)
         var MA = (activity as MainActivity?)!! //reference alla Main Activity
         binding.ticketRecycler.layoutManager = LinearLayoutManager(this.context)
-        val data = ArrayList<TicketModel>()
-        val essence = ArrayList<Boolean>()     //mi indica se lavoro con un biglietto singolo o un abbonamento
-        val allId = ArrayList<String>()    //mi crea una lista di id
-        //for (i in 1..20) {     //dovrei fare in modo di fare un while per scorrermi tutte le tuple del dbms
-        type = "abbonamento"
-        period = "6 mesi"
-        id_ticket = "xlcsbm"    //devo prendermi dal database anche id del biglietto/abbonamento
-        data.add(TicketModel(R.drawable.ticket_icon_white, type, period))
-        if("abbonamento" == type){
-            essence.add(true)                           //se il biglietto cliccato è un abbonamento allora essence è true
-            id_ticket = "abbonamento$id_ticket"
-        } else {essence.add(false)}
-        allId.add(id_ticket)
+        val data : Cursor
+        val essence = ArrayList<Boolean>()     //booleani utili a capire se l'oggetto nel posto i-esimo è un abbonamento o un biglietto
+        val allId = ArrayList<String>()        //mi crea una lista di id
 
-        type = "Orlando Innamorato"
-        period = "3 mesi"
-        id_ticket = "jtrnnyj"
-        data.add(TicketModel(R.drawable.ticket_icon_white, type, period))     //type e period sono i valori che dovrebbero essere presi dal dbms
-        if("abbonamento" == type){
-            essence.add(true)
-            id_ticket = "abbonamento$id_ticket"
-        } else {essence.add(false)}
-        allId.add(id_ticket)
+        queryMembership(data, essence, allId)
+        queryTicket(data, essence, allId)
 
-        //}
-        val adapter = TicketAdapter(data)                          //importante creare l'adapter dopo gli add sennò viene passato un ArrayList vuoto
+        val adapter = TicketAdapter(data)            //importante creare l'adapter dopo gli add sennò viene passato un ArrayList vuoto
         binding.ticketRecycler.adapter = adapter
 
         adapter.setOnClickListener(object: TicketAdapter.OnClickListener {
@@ -58,5 +49,18 @@ class PosessedTickets : Fragment(R.layout.fragment_posessed_tickets) {
             }
         })
         return binding.root
+    }
+
+    private fun queryTicket(data: Cursor, essence: ArrayList<Boolean>, allId: ArrayList<String>) {
+        //la funzione serve a popolare i 3 arraylist tramite delle query al dbms locale
+
+
+    }
+
+    private fun queryMembership(data: Cursor, essence: ArrayList<Boolean>, allId: ArrayList<String>) {
+        //la funzione serve a popolare i 3 arraylist tramite delle query al dbms locale
+
+
+
     }
 }

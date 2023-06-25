@@ -1,4 +1,4 @@
 package fragment_classes
 
-class TicketModel(val image: Int, val textType: String, val textPeriod: String){
+class TicketModel(val textType: String, val textPeriod: String){
 }

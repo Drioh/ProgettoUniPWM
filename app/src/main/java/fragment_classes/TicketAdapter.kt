@@ -1,15 +1,18 @@
 package fragment_classes
 
+import android.annotation.SuppressLint
+import android.database.Cursor
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import api.DBHelper
 import com.example.progettouni.databinding.FragmentTicketCardBinding
 
-class TicketAdapter(private val myList: List<TicketModel>) : RecyclerView.Adapter<TicketAdapter.ViewHolder>() {
+class TicketAdapter(private val _cursor: Cursor) : RecyclerView.Adapter<TicketAdapter.ViewHolder>() {
     private var onClickListener: OnClickListener? = null
+
     class ViewHolder(binding: FragmentTicketCardBinding) : RecyclerView.ViewHolder(binding.root) {   //creo le caselle nel mio holder
-        val imageView = binding.imageView2
         val textType = binding.ticketType
         val textPeriod = binding.ticketPeriod
     }
@@ -23,19 +26,22 @@ class TicketAdapter(private val myList: List<TicketModel>) : RecyclerView.Adapte
      *  @return numero totale degli oggetti nella recycler view
      */
     override fun getItemCount(): Int {
-        return myList.size
+        return _cursor.count
     }
 
 
+    @SuppressLint("Range")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         //Vengono assegnati i valori a ogni singola card nel momento in cui viene creata dall'adapter
-        val singleTicketModel = myList[position]
-        holder.imageView.setImageResource(singleTicketModel.image)
-        holder.textType.text = singleTicketModel.textType
-        holder.textPeriod.text = singleTicketModel.textPeriod
+        if (_cursor.moveToPosition(position)) {
+            holder.textType.text =
+                _cursor.getString(_cursor.getColumnIndex(DBHelper._ID_BIGLIETTO))
+            holder.textPeriod.text =
+                _cursor.getString(_cursor.getColumnIndex(DBHelper.DATA_SCADENZA))
+        }
 
         holder.itemView.setOnClickListener {
-            onClickListener?.onClick(position, singleTicketModel)
+     //       onClickListener?.onClick(position, singleTicketModel)
         }
     }
     interface OnClickListener {
