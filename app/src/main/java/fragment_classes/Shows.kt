@@ -17,6 +17,7 @@ class Shows (val data: ArrayList<ShowModel>) : Fragment(R.layout.fragment_shows)
     private lateinit var name: String
     private lateinit var date: String
     private lateinit var id: String
+    private lateinit var theatre: String
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -25,13 +26,13 @@ class Shows (val data: ArrayList<ShowModel>) : Fragment(R.layout.fragment_shows)
         binding = FragmentShowsBinding.inflate(inflater)
         var MA = (activity as MainActivity?)!! //reference alla Main Activity
         binding.showsRecycler.layoutManager = LinearLayoutManager(this.context)
-
-        for (i in 1..20) {     //dovrei fare in modo di fare un while per scorrermi tutte le tuple del dbms
-            name = "spettacolo" +i
-            date = "3 mesi"
-            id = "show "+i
-            data.add(ShowModel(R.drawable.teatro_placeholder, name, date,id))     //type e period sono i valori che dovrebbero essere presi dal dbms
-        }
+/*
+        for (i in 0..data.size-1) {     //dovrei fare in modo di fare un while per scorrermi tutte le tuple del dbms
+            name = data[i].textName
+            date = data[i].textDate
+            id = data[i].id
+            theatre = data[i].textTheatre     //type e period sono i valori che dovrebbero essere presi dal dbms
+        }*/
         val adapter = ShowAdapter(data)                          //importante creare l'adapter dopo gli add sennò viene passato un ArrayList vuoto
         binding.showsRecycler.adapter = adapter
 

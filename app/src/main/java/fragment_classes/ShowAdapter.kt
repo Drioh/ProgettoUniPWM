@@ -13,6 +13,7 @@ class ShowAdapter(private val myList: List<ShowModel>) : RecyclerView.Adapter<Sh
         val imageView = binding.imageView2
         val textName = binding.ShowName
         val textDate = binding.ShowDate
+        val textTheatre = binding.showTheatre
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         //qui avviene l'inflate del layout, dando così uno stile alla singola riga
@@ -34,6 +35,8 @@ class ShowAdapter(private val myList: List<ShowModel>) : RecyclerView.Adapter<Sh
         holder.imageView.setImageResource(singleShowModel.image)
         holder.textName.text = singleShowModel.textName
         holder.textDate.text = singleShowModel.textDate
+        holder.textTheatre.text = singleShowModel.textTheatre
+
 
         holder.itemView.setOnClickListener {
             onClickListener?.onClick(position, singleShowModel)

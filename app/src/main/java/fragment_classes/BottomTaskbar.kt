@@ -38,7 +38,7 @@ class BottomTaskbar : Fragment(R.layout.fragment_bottom_taskbar) {
             MA.realAppNavigateTo(Home(), "Home")
         }
         binding.SearchButton.setOnClickListener(){
-            val query = "select  nome_spettacolo, data, nome_teatro, tipologia " +
+            val query = "select  nome_spettacolo, data, nome_teatro, id_spettacolo " +
                     "from Rappresentazione , Spettacolo , Teatro " +
                     "where id_spettacolo=ref_spettacolo and id_teatro = ref_teatro;"
             ApiService.retrofit.select(query).enqueue(
@@ -47,14 +47,19 @@ class BottomTaskbar : Fragment(R.layout.fragment_bottom_taskbar) {
                         println(response.code())
                         if (response.isSuccessful) {
                             val showsJsonObject = response.body()?.get("queryset") as JsonArray
+                            var data: ArrayList<ShowModel> = arrayListOf<ShowModel>()
+                            println(showsJsonObject)
                             for (i in 0 .. showsJsonObject.size()-1){
-                                println("spettacolo "+i +": "+ showsJsonObject[i].asJsonObject.get("nome_spettacolo").toString())
+                                val spettacolo = showsJsonObject[i].asJsonObject.get("nome_spettacolo").toString().substring(1,showsJsonObject[i].asJsonObject.get("nome_spettacolo").toString().length-1)
+                                val date = showsJsonObject[i].asJsonObject.get("data").toString().substring(1,showsJsonObject[i].asJsonObject.get("data").toString().length-1)
+                                val teatro = showsJsonObject[i].asJsonObject.get("nome_teatro").toString().substring(1,showsJsonObject[i].asJsonObject.get("nome_teatro").toString().length-1)
+                                val identificativo = showsJsonObject[i].asJsonObject.get("id_spettacolo").toString()
+                                data.add(ShowModel(0,spettacolo,date,identificativo,teatro))
                             }
-
+                            MA.realAppNavigateTo(Shows(data),"Shows")
                         }else
                         {
                             println("esito negativo")
-
                         }
                     }
                     override fun onFailure(call: Call<JsonObject>, t: Throwable) {
@@ -62,13 +67,6 @@ class BottomTaskbar : Fragment(R.layout.fragment_bottom_taskbar) {
                     }
                 }
             )
-
-
-
-
-
-            //val data = ArrayList<ShowModel>()
-            //MA.realAppNavigateTo(Shows(),"Shows")
         }
         binding.TicketButton.setOnClickListener(){
             MA.realAppNavigateTo(PosessedTickets(),"PosessedTickets")
