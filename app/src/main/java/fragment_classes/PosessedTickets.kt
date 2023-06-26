@@ -24,6 +24,7 @@ class PosessedTickets : Fragment(R.layout.fragment_posessed_tickets) {
     private lateinit var type: String
     private lateinit var period: String
     private lateinit var id_ticket: String
+    private lateinit var dbManager: DBManager
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,22 +33,23 @@ class PosessedTickets : Fragment(R.layout.fragment_posessed_tickets) {
     ): LinearLayout {
         binding = FragmentPosessedTicketsBinding.inflate(inflater)
         var MA = (activity as MainActivity?)!! //reference alla Main Activity
-        binding.ticketRecycler.layoutManager = LinearLayoutManager(this.context)
-        val data : Cursor
+        binding.ticketRecycler.layoutManager = LinearLayoutManager(context)
+        dbManager = DBManager(this)                                          //??
+        dbManager.open()
+        val cursor = dbManager.fetchAllBiglietti()
+        binding.ticketRecycler.adapter = TicketAdapter(cursor)    //importante creare l'adapter dopo gli add sennò viene passato un ArrayList vuoto
         val essence = ArrayList<Boolean>()     //booleani utili a capire se l'oggetto nel posto i-esimo è un abbonamento o un biglietto
         val allId = ArrayList<String>()        //mi crea una lista di id
 
-        queryMembership(data, essence, allId)
-        queryTicket(data, essence, allId)
+        //queryMembership(data, essence, allId)
+        //queryTicket(data, essence, allId)
 
-        val adapter = TicketAdapter(data)            //importante creare l'adapter dopo gli add sennò viene passato un ArrayList vuoto
-        binding.ticketRecycler.adapter = adapter
 
-        adapter.setOnClickListener(object: TicketAdapter.OnClickListener {
-            override fun onClick(position: Int, model: TicketModel) {
-                MA.realAppNavigateTo(Ticket(essence[position], allId[position]), "ticket")
-            }
-        })
+     //   cursor.setOnClickListener(object: TicketAdapter.OnClickListener {
+     //       override fun onClick(position: Int, model: TicketModel) {
+     //           MA.realAppNavigateTo(Ticket(essence[position], allId[position]), "ticket")
+     //       }
+     //   })
         return binding.root
     }
 
