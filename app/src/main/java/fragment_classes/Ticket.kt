@@ -19,7 +19,7 @@ import com.google.zxing.EncodeHintType
 import com.google.zxing.qrcode.QRCodeWriter
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel
 
-class Ticket(private val essence: Boolean, id: String): Fragment(R.layout.fragment_ticket) {
+class Ticket(private val isAbbonamento: Boolean, id: String): Fragment(R.layout.fragment_ticket) {
     private lateinit var binding: FragmentTicketBinding
     private lateinit var button: Button
     private lateinit var text: TextView
@@ -33,19 +33,21 @@ class Ticket(private val essence: Boolean, id: String): Fragment(R.layout.fragme
 
         binding = FragmentTicketBinding.inflate(inflater)
         var MA = (activity as MainActivity?)!! //reference alla Main Activity
-        button = binding.showInfoButton
-        text = binding.textView
-        image = binding.imageView
+        if(isAbbonamento){
+            binding.showInfoButton.setText(R.string.infoMembership)
+            binding.textView.setText(R.string.myMembership)
 
-        generateQRCode(id)
-
-        if(essence){
-            button.setText(R.string.infoMembership)
-            text.setText(R.string.myMembership)
-            //("inserire pagina di informazioni abbonamento")
+            id = id+"ABBONAMENTO"
         }
-        //("inserire pagina di informazioni biglietto")
-
+        else{
+            if(!isAbbonamento){
+                binding.showInfoButton.setText(R.string.infoTicket)
+                binding.textView.setText(R.string.myTicket)
+                id = id+"BIGLIETTO"
+            }
+        }
+        image = binding.imageView
+        generateQRCode(id)
         return binding.root
     }
 

@@ -34,22 +34,24 @@ class PosessedTickets : Fragment(R.layout.fragment_posessed_tickets) {
         binding = FragmentPosessedTicketsBinding.inflate(inflater)
         var MA = (activity as MainActivity?)!! //reference alla Main Activity
         binding.ticketRecycler.layoutManager = LinearLayoutManager(context)
-        dbManager = DBManager(this)                                          //??
+        dbManager = DBManager(requireContext())
         dbManager.open()
-        val cursor = dbManager.fetchAllBiglietti()
-        binding.ticketRecycler.adapter = TicketAdapter(cursor)    //importante creare l'adapter dopo gli add sennò viene passato un ArrayList vuoto
-        val essence = ArrayList<Boolean>()     //booleani utili a capire se l'oggetto nel posto i-esimo è un abbonamento o un biglietto
-        val allId = ArrayList<String>()        //mi crea una lista di id
+        val cursorBiglietti = dbManager.fetchAllBiglietti()
+        val cursorAbbonamenti = dbManager.fetchAllAbbonamenti()
+        println(cursorBiglietti.count+cursorAbbonamenti.count)
+        val adapter = TicketAdapter(cursorBiglietti,cursorAbbonamenti)
+        binding.ticketRecycler.adapter = adapter    //importante creare l'adapter dopo gli add sennò viene passato un ArrayList vuoto
+
 
         //queryMembership(data, essence, allId)
         //queryTicket(data, essence, allId)
 
 
-     //   cursor.setOnClickListener(object: TicketAdapter.OnClickListener {
-     //       override fun onClick(position: Int, model: TicketModel) {
-     //           MA.realAppNavigateTo(Ticket(essence[position], allId[position]), "ticket")
-     //       }
-     //   })
+        adapter.setOnClickListener(object: TicketAdapter.OnClickListener {
+            override fun onClick(position: Int, model: TicketModel) {
+                MA.realAppNavigateTo(Ticket(true,model.id),"TicketInfo")
+            }
+        })
         return binding.root
     }
 

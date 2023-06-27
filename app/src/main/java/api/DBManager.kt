@@ -164,4 +164,5 @@ class DBManager(val context: Context) {
         cursor?.moveToFirst()
         return cursor
     }
+
 }
