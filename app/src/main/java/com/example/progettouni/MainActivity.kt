@@ -1,5 +1,7 @@
 package com.example.progettouni
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -25,6 +27,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var realBinding: RealAppBinding
     private lateinit var log_type: String
     private var userId: Int = 0 // Variabile per l'ID dell'utente
+    private lateinit var sharedPreferences: SharedPreferences
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -38,9 +42,27 @@ class MainActivity : AppCompatActivity() {
         db.insertAbbonamento("Politeama", "11/11/2011", "04/04/2022")
         db.insertBiglietto("Se ni mondo", "20/08/2021")
         */
+
+        // Controllo se ci sono credenziali salvate nelle SharedPreferences
+         sharedPreferences = getSharedPreferences("UserData", Context.MODE_PRIVATE)
+        val email = sharedPreferences.getString("email", "")
+        val password = sharedPreferences.getString("password", "")
+
+
+
+        if (!email.isNullOrEmpty() && !password.isNullOrEmpty()) {
+            // Eseguo automaticamente l'accesso al profilo dell'utente
+            loginCheck(email, password)
+        }
     }
     fun getUserId(): Int {
         return userId
+    }
+    fun getSharedPreferences(): SharedPreferences {
+        if (!::sharedPreferences.isInitialized) {
+            sharedPreferences = applicationContext.getSharedPreferences("UserCredentials", Context.MODE_PRIVATE)
+        }
+        return sharedPreferences
     }
     /**
      *Questo metodo viene invocato quando, prima di avere effettuato il login, ci si deve
@@ -95,39 +117,42 @@ class MainActivity : AppCompatActivity() {
      *@param mail: Indirizzo email dell'utente.
      *@param password: Password dell'utente.
      */
-    fun loginCheck(mail: String,password: String){
+
+    fun loginCheck(mail: String, password: String) {
         val query = "select * from Utente where mail = '${mail}' and password = '${password}';"
         ApiService.retrofit.select(query).enqueue(
             object : Callback <JsonObject> {
                 override fun onResponse(call: Call<JsonObject>?, response: Response<JsonObject>) {
                     if (response.isSuccessful) {
-                        val userJsonObject = (response.body()?.get("queryset") as JsonArray)[0] as JsonObject
-                        userId = userJsonObject.get("id_utente").asInt // Assegna l'ID dell'utente alla variabile userId
-                        realBinding = RealAppBinding.inflate(layoutInflater)
-                        supportFragmentManager.popBackStack()
-                        supportFragmentManager.beginTransaction()
-                            .replace(R.id.fragmentContainerView, RealApp())
-                            .commit()
-                        supportFragmentManager.beginTransaction()
-                            .add(R.id.fragmentContainerView4, Home())
-                            .addToBackStack("Home")
-                            .commit()
-                    }else {
-                        showToast("Credenziali Errate")
+                        if ((response.body()?.get("queryset") as JsonArray).size() == 1) {
+                            val userJsonObject = (response.body()?.get("queryset") as JsonArray)[0] as JsonObject
+                            userId = userJsonObject.get("id_utente").asInt // Assegna l'ID dell'utente alla variabile userId
+                            val userName = userJsonObject.get("nome_utente").asString
+                            val pw = userJsonObject.get("password").asString
+                            val  email = userJsonObject.get("mail").asString
+                            this@MainActivity.saveUserData(userId, userName, email, pw)
+                            realBinding = RealAppBinding.inflate(layoutInflater)
+                            supportFragmentManager.popBackStack()
+                            supportFragmentManager.beginTransaction()
+                                .replace(R.id.fragmentContainerView, RealApp())
+                                .commit()
+                            supportFragmentManager.beginTransaction()
+                                .add(R.id.fragmentContainerView4, Home())
+                                .addToBackStack("Home")
+                                .commit()
+
+                        } else {
+                            showToast("Credenziali Errate")
+                        }
                     }
-
                 }
-
-                    override fun onFailure(call: Call<JsonObject>, t: Throwable) {
-                showToast("Errore di rete")
-                return
+                override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+                    showToast("Errore di rete")
+                }
             }
+        )
+
     }
-    )
-
-
-
-}
 /**questo metodo viene invocato quando viene selezionato un teatro per il quale acquistare
  *un abbonamento.
  *@param teatro: nome del teatro selezionato (uno tra Politeama, Biondo e Massimo)
@@ -179,4 +204,21 @@ fun makeQuery(query: String): JsonArray{
     )
     return outputArray
 }
+    private fun saveUserData(userId: Int, userName: String, email: String, password: String) {
+        sharedPreferences = getSharedPreferences("UserData", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.putInt("userId", userId)
+        editor.putString("userName", userName)
+        editor.putString("email", email)
+        editor.putString("password", password)
+        editor.apply()
+    }
+
+    private fun loadUserData() {
+         sharedPreferences = getSharedPreferences("UserData", Context.MODE_PRIVATE)
+        userId = sharedPreferences.getInt("userId", 0)
+        val  userName = sharedPreferences.getString("userName", "") ?: ""
+        val   email = sharedPreferences.getString("email", "") ?: ""
+        val  pw = sharedPreferences.getString("password", "") ?: ""
+    }
 }

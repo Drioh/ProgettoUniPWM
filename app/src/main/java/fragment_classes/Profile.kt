@@ -4,6 +4,7 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Base64
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -20,6 +21,8 @@ import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.io.ByteArrayOutputStream
+import java.io.File
 
 class Profile : Fragment(R.layout.fragment_register) {
     private lateinit var binding: FragmentProfileBinding
@@ -31,6 +34,13 @@ class Profile : Fragment(R.layout.fragment_register) {
     ): View? {
         binding = FragmentProfileBinding.inflate(inflater)
         var MA = (activity as MainActivity?)!! //reference alla Main Activity
+        val sharedPreferences = MA.getSharedPreferences()
+
+        val propic = sharedPreferences.getString("propic", "")
+        if (!propic.isNullOrEmpty()) {
+            val decodedImage = decodeBase64ToBitmap(propic)
+            binding.propicImage.setImageBitmap(decodedImage)
+        }
         getUrlbyID(MA.getUserId())
 
         binding.mailButton.setOnClickListener(){
@@ -147,6 +157,14 @@ class Profile : Fragment(R.layout.fragment_register) {
                         if (response.body()!=null) {
                             image = BitmapFactory.decodeStream(response.body()?.byteStream())
                             binding.propicImage.setImageBitmap(image)
+
+                            //SharedPreferences
+                            var MA = (activity as MainActivity?)!!
+                            val sharedPreferences = MA.getSharedPreferences()
+                            val editor = sharedPreferences.edit()
+                            val encodedImage = encodeBitmapToBase64(image)
+                            editor.putString("propic", encodedImage)
+                            editor.apply()
                         }
                     }
                 }
@@ -159,5 +177,15 @@ class Profile : Fragment(R.layout.fragment_register) {
             }
         )
     }
+    private fun decodeBase64ToBitmap(encodedImage: String): Bitmap {
+        val decodedBytes = Base64.decode(encodedImage, Base64.DEFAULT)
+        return BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.size)
+    }
 
+    private fun encodeBitmapToBase64(bitmap: Bitmap): String {
+        val byteArrayOutputStream = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream)
+        val byteArray: ByteArray = byteArrayOutputStream.toByteArray()
+        return Base64.encodeToString(byteArray, Base64.DEFAULT)
+    }
 }

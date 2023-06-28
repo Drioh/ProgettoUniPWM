@@ -1,5 +1,7 @@
 package fragment_classes
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -31,6 +33,8 @@ class Login : Fragment(R.layout.fragment_login) {
         binding.confirmButton.setOnClickListener {
             binding.confirmButton.setBackgroundColor(Color.parseColor("#F44336"))
             //MA.loginCheck(binding.mailField.text.toString(),binding.pwField.text.toString() )
+            // Controllo se ci sono credenziali salvate nelle SharedPreferences
+
             MA.loginCheck(binding.mailField.text.toString() ,binding.pwField.text.toString())
 
         }
