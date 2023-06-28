@@ -59,7 +59,7 @@ class TicketAdapter(private val cursorB: Cursor, private val cursorA: Cursor) : 
                 println(cursorA.getString(cursorA.getColumnIndex(DBHelper.TEATRO)))
                 var id = cursorA.getString(cursorA.getColumnIndex(DBHelper._ID_ABBONAMENTO))
                 var nomeTeatro = cursorA.getString(cursorA.getColumnIndex(DBHelper.TEATRO))
-                var periodo = cursorA.getString(cursorA.getColumnIndex(DBHelper.DATA_FINE))
+                var periodo = cursorA.getString(cursorA.getColumnIndex(DBHelper.DATA_INIZIO)) + "-"+cursorA.getString(cursorA.getColumnIndex(DBHelper.DATA_FINE))
                 holder.textType.text = nomeTeatro
                 holder.textPeriod.text = periodo
 
@@ -68,7 +68,6 @@ class TicketAdapter(private val cursorB: Cursor, private val cursorA: Cursor) : 
                 }
             }
         }
-
     }
     interface OnClickListener {
         fun onClick(position: Int, model: TicketModel)

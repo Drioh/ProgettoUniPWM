@@ -30,7 +30,8 @@ class Login : Fragment(R.layout.fragment_login) {
         }
         binding.confirmButton.setOnClickListener {
             binding.confirmButton.setBackgroundColor(Color.parseColor("#F44336"))
-            MA.loginCheck(binding.mailField.text.toString(), binding.pwField.text.toString())
+            //MA.loginCheck(binding.mailField.text.toString(),binding.pwField.text.toString() )
+            MA.loginCheck(binding.mailField.text.toString() ,binding.pwField.text.toString())
 
         }
         binding.registerButton.setOnClickListener {

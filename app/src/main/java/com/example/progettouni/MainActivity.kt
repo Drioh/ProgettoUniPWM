@@ -42,27 +42,29 @@ class MainActivity : AppCompatActivity() {
     fun getUserId(): Int {
         return userId
     }
+    /**
+     *Questo metodo viene invocato quando, prima di avere effettuato il login, ci si deve
+     *spostare tra le pagine di registrazione e login.
+     *Metodo creato per facilitare il movimento tra fragment.
+     *@param frag: Fragment che si desidera raggiungere
+     *@param id: nome con cui si vuole salvare la transazione
+     */
     fun navigateTo(frag: Fragment,id: String){
-        /**questo metodo viene invocato quando, prima di avere effettuato il login, ci si deve
-         *spostare tra le pagine di registrazione e login.
-         *Metodo creato per facilitare il movimento tra fragment.
-         *@param frag: Fragment che si desidera raggiungere
-         *@param id: nome con cui si vuole salvare la transazione
-         */
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragmentContainerView,frag)
             .addToBackStack(id)
             .commit()
     }
+    /**
+     *Questo metodo viene invocato e utilizzato quando, dopo avere effettuato il login, ci si
+     *deve spostare tra le pagine dell'applicazione.
+     *viene utilizzato un'altro FragmentContainerView perchè appartenente a un'altro layout, che
+     *questa volta comprende anche taskbar inferiore e superiore.
+     *Metodo creato per facilitare il movimento tra fragment.
+     *@param frag: Fragment che si desidera raggiungere
+     *@param id: nome con cui si vuole salvare la transazione
+     */
     fun realAppNavigateTo(frag: Fragment, id: String){
-        /**questo metodo viene invocato e utilizzato quando, dopo avere effettuato il login, ci si
-         *deve spostare tra le pagine dell'applicazione.
-         *viene utilizzato un'altro FragmentContainerView perchè appartenente a un'altro layout, che
-         *questa volta comprende anche taskbar inferiore e superiore.
-         *Metodo creato per facilitare il movimento tra fragment.
-         *@param frag: Fragment che si desidera raggiungere
-         *@param id: nome con cui si vuole salvare la transazione
-         */
         var old_id = supportFragmentManager.getBackStackEntryAt(supportFragmentManager.backStackEntryCount-1).name
         if (old_id!=id){
             supportFragmentManager.beginTransaction()
@@ -71,88 +73,110 @@ class MainActivity : AppCompatActivity() {
                 .commit()
         }
     }
+    /**
+     *Questo metodo viene invocato ogni qual volta che la funzionalità di un bottone è quella
+     *di tornare alla pagina precedentemente salvata nel backstack
+     */
     fun back(){
-        /**questo metodo viene invocato ogni qual volta che la funzionalità di un bottone è quella
-         *di tornare alla pagina precedentemente salvata nel backstack
-         */
         supportFragmentManager.popBackStack()
     }
+    /**
+     *Questo metodo viene invocato ogni qual volta che la funzionalità di un bottone è quella
+     *di tornare alla pagina precedentemente salvata nel backstack.
+     *si specifica il fragent a cui si deve arrivare, permettendo quindi di fare il pop di più
+     *fragment contemporaneamente fino a quello desiderato.
+     *@param tag: nome della transazione fino alla quale si vuole fare il pop del backstack
+     */
     fun backTo(tag: String){
-        /**questo metodo viene invocato ogni qual volta che la funzionalità di un bottone è quella
-         *di tornare alla pagina precedentemente salvata nel backstack.
-         *si specifica il fragent a cui si deve arrivare, permettendo quindi di fare il pop di più
-         *fragment contemporaneamente fino a quello desiderato.
-         *@param tag: nome della transazione fino alla quale si vuole fare il pop del backstack
-         */
         supportFragmentManager.popBackStack(tag,0)
     }
     /**
-     *
-     *   Verifica le credenziali di accesso dell'utente se sono corrette porta alla home dell'applicazione.
-     *
-     *   @param mail: Indirizzo email dell'utente.
-     *
-     *   @param password: Password dell'utente.
+     *Verifica le credenziali di accesso dell'utente se sono corrette porta alla home dell'applicazione.
+     *@param mail: Indirizzo email dell'utente.
+     *@param password: Password dell'utente.
      */
-    fun loginCheck(mail: String, password: String) {
+    fun loginCheck(mail: String,password: String){
         val query = "select * from Utente where mail = '${mail}' and password = '${password}';"
         ApiService.retrofit.select(query).enqueue(
             object : Callback <JsonObject> {
                 override fun onResponse(call: Call<JsonObject>?, response: Response<JsonObject>) {
                     if (response.isSuccessful) {
-                        if ((response.body()?.get("queryset") as JsonArray).size() == 1) {
-                            val userJsonObject = (response.body()?.get("queryset") as JsonArray)[0] as JsonObject
-                            userId = userJsonObject.get("id_utente").asInt // Assegna l'ID dell'utente alla variabile userId
-
-                            realBinding = RealAppBinding.inflate(layoutInflater)
-                            supportFragmentManager.popBackStack()
-                            supportFragmentManager.beginTransaction()
-                                .replace(R.id.fragmentContainerView, RealApp())
-                                .commit()
-                            supportFragmentManager.beginTransaction()
-                                .add(R.id.fragmentContainerView4, Home())
-                                .addToBackStack("Home")
-                                .commit()
-
-                        } else {
-                            showToast("Credenziali Errate")
-                        }
+                        val userJsonObject = (response.body()?.get("queryset") as JsonArray)[0] as JsonObject
+                        userId = userJsonObject.get("id_utente").asInt // Assegna l'ID dell'utente alla variabile userId
+                        realBinding = RealAppBinding.inflate(layoutInflater)
+                        supportFragmentManager.popBackStack()
+                        supportFragmentManager.beginTransaction()
+                            .replace(R.id.fragmentContainerView, RealApp())
+                            .commit()
+                        supportFragmentManager.beginTransaction()
+                            .add(R.id.fragmentContainerView4, Home())
+                            .addToBackStack("Home")
+                            .commit()
+                    }else {
+                        showToast("Credenziali Errate")
                     }
+
                 }
-                override fun onFailure(call: Call<JsonObject>, t: Throwable) {
-                    showToast("Errore di rete")
+
+                    override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+                showToast("Errore di rete")
+                return
+            }
+    }
+    )
+
+
+
+}
+/**questo metodo viene invocato quando viene selezionato un teatro per il quale acquistare
+ *un abbonamento.
+ *@param teatro: nome del teatro selezionato (uno tra Politeama, Biondo e Massimo)
+ */
+fun subChoice(teatro: String){
+    supportFragmentManager.beginTransaction()
+        .replace(R.id.fragmentContainerView4,SubscriptionPurchase(teatro))
+        .addToBackStack("teatro "+teatro)
+        .commit()
+}
+/**Questo metodo viene invocato ogni qual volta che si vuole mostrare a schermo un toast.
+ * Metodo creato per facilitare la creazione di Toast
+ *@param text: testo da mostrare a schermo tramite toast
+ */
+fun showToast(text: String){
+    Toast.makeText(this, text, Toast.LENGTH_SHORT).show()
+}
+/**Metodo che gestisce tramite override il bottone back di android.
+ *Nel caso in cui si arrivi al fragment di home, se non ci sono fragment a cui ritornare,
+ *si opta per forzare un ritorno alla schermata di login
+ */
+override fun onBackPressed() {
+    if(supportFragmentManager.backStackEntryCount ==1 && supportFragmentManager.getBackStackEntryAt(0).name == "Home"){
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragmentContainerView, UserOrAdmin())
+            .commit()
+        userId = 0
+    }
+    super.getOnBackPressedDispatcher().onBackPressed()
+}
+fun makeQuery(query: String): JsonArray{
+    var outputArray: JsonArray = JsonArray()
+    ApiService.retrofit.select(query).enqueue(
+        object : Callback <JsonObject> {
+            override fun onResponse(call: Call<JsonObject>?, response: Response<JsonObject>) {
+                if (response.isSuccessful) {
+                    outputArray = response.body()?.get("queryset") as JsonArray
+                    println(outputArray)
+                }else{
+                    showToast("Richiesta al database fallita")
+                    return
                 }
             }
-        )
-
-    }
-    fun subChoice(teatro: String){
-        /**questo metodo viene invocato quando viene selezionato un teatro per il quale acquistare
-         *un abbonamento.
-         *@param teatro: nome del teatro selezionato (uno tra Politeama, Biondo e Massimo)
-         */
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.fragmentContainerView4,SubscriptionPurchase(teatro))
-            .addToBackStack("teatro "+teatro)
-            .commit()
-    }
-    fun showToast(text: String){
-        /**Questo metodo viene invocato ogni qual volta che si vuole mostrare a schermo un toast.
-         * Metodo creato per facilitare la creazione di Toast
-         *@param text: testo da mostrare a schermo tramite toast
-         */
-        Toast.makeText(this, text, Toast.LENGTH_SHORT).show()
-    }
-    override fun onBackPressed() {
-        /**Metodo che gestisce tramite override il bottone back di android.
-         *Nel caso in cui si arrivi al fragment di home, se non ci sono fragment a cui ritornare,
-         *si opta per forzare un ritorno alla schermata di login
-         */
-        if(supportFragmentManager.backStackEntryCount ==1 && supportFragmentManager.getBackStackEntryAt(0).name == "Home"){
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.fragmentContainerView, UserOrAdmin())
-                .commit()
+            override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+                showToast("Errore di rete")
+                return
+            }
         }
-        super.getOnBackPressedDispatcher().onBackPressed()
-    }
+    )
+    return outputArray
+}
 }
