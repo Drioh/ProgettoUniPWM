@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import api.ApiService
 import api.DBHelper
 import api.DBManager
@@ -60,6 +61,20 @@ class Profile : Fragment(R.layout.fragment_register) {
         binding.cancelButton.setOnClickListener(){
             binding.cancelButton.setBackgroundColor(Color.parseColor("#F44336"))
             MA.back()
+        }
+        binding.logoutButton.setOnClickListener(){
+            binding.logoutButton.setBackgroundColor(Color.parseColor("#F44336"))
+            // Svuota le SharedPreferences
+            sharedPreferences
+            val editor = sharedPreferences.edit()
+            editor.clear()
+            editor.apply()
+
+            // Torna al fragment di login
+            MA.supportFragmentManager.popBackStack("Login", FragmentManager.POP_BACK_STACK_INCLUSIVE)
+            MA.supportFragmentManager.beginTransaction()
+                .replace(R.id.fragmentContainerView, Login())
+                .commit()
         }
 
         return binding.root
@@ -188,4 +203,6 @@ class Profile : Fragment(R.layout.fragment_register) {
         val byteArray: ByteArray = byteArrayOutputStream.toByteArray()
         return Base64.encodeToString(byteArray, Base64.DEFAULT)
     }
+
+
 }

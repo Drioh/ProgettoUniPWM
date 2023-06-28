@@ -52,7 +52,15 @@ class MainActivity : AppCompatActivity() {
 
         if (!email.isNullOrEmpty() && !password.isNullOrEmpty()) {
             // Eseguo automaticamente l'accesso al profilo dell'utente
-            loginCheck(email, password)
+            realBinding = RealAppBinding.inflate(layoutInflater)
+            supportFragmentManager.popBackStack()
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.fragmentContainerView, RealApp())
+                .commit()
+            supportFragmentManager.beginTransaction()
+                .add(R.id.fragmentContainerView4, Home())
+                .addToBackStack("Home")
+                .commit()
         }
     }
     fun getUserId(): Int {
