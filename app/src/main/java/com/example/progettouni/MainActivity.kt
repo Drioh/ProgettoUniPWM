@@ -7,20 +7,18 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import api.ApiService
+import api.DBManager
 import com.example.progettouni.databinding.ActivityMainBinding
 import com.example.progettouni.databinding.RealAppBinding
 import com.google.gson.JsonArray
+import com.google.gson.JsonObject
 import fragment_classes.Home
 import fragment_classes.RealApp
 import fragment_classes.SubscriptionPurchase
 import fragment_classes.UserOrAdmin
-import com.google.gson.JsonObject
-import retrofit2.Response
 import retrofit2.Call
-import api.DBManager
 import retrofit2.Callback
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -44,7 +42,7 @@ class MainActivity : AppCompatActivity() {
         */
 
         // Controllo se ci sono credenziali salvate nelle SharedPreferences
-         sharedPreferences = getSharedPreferences("UserData", Context.MODE_PRIVATE)
+        sharedPreferences = getSharedPreferences("UserData", Context.MODE_PRIVATE)
         val email = sharedPreferences.getString("email", "")
         val password = sharedPreferences.getString("password", "")
 
@@ -65,6 +63,9 @@ class MainActivity : AppCompatActivity() {
     }
     fun getUserId(): Int {
         return userId
+    }
+    fun setUserId(id: Int){
+        userId = id
     }
     fun getSharedPreferences(): SharedPreferences {
         if (!::sharedPreferences.isInitialized) {
@@ -159,59 +160,47 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         )
-
     }
-/**questo metodo viene invocato quando viene selezionato un teatro per il quale acquistare
- *un abbonamento.
- *@param teatro: nome del teatro selezionato (uno tra Politeama, Biondo e Massimo)
- */
-fun subChoice(teatro: String){
-    supportFragmentManager.beginTransaction()
-        .replace(R.id.fragmentContainerView4,SubscriptionPurchase(teatro))
-        .addToBackStack("teatro "+teatro)
-        .commit()
-}
-/**Questo metodo viene invocato ogni qual volta che si vuole mostrare a schermo un toast.
- * Metodo creato per facilitare la creazione di Toast
- *@param text: testo da mostrare a schermo tramite toast
- */
-fun showToast(text: String){
-    Toast.makeText(this, text, Toast.LENGTH_SHORT).show()
-}
-/**Metodo che gestisce tramite override il bottone back di android.
- *Nel caso in cui si arrivi al fragment di home, se non ci sono fragment a cui ritornare,
- *si opta per forzare un ritorno alla schermata di login
- */
-override fun onBackPressed() {
-    if(supportFragmentManager.backStackEntryCount ==1 && supportFragmentManager.getBackStackEntryAt(0).name == "Home"){
+
+    fun logout() {
+        for (i in 0 until supportFragmentManager.getBackStackEntryCount()) {
+            supportFragmentManager.popBackStack()
+        }
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragmentContainerView, UserOrAdmin())
             .commit()
         userId = 0
     }
-    super.getOnBackPressedDispatcher().onBackPressed()
-}
-fun makeQuery(query: String): JsonArray{
-    var outputArray: JsonArray = JsonArray()
-    ApiService.retrofit.select(query).enqueue(
-        object : Callback <JsonObject> {
-            override fun onResponse(call: Call<JsonObject>?, response: Response<JsonObject>) {
-                if (response.isSuccessful) {
-                    outputArray = response.body()?.get("queryset") as JsonArray
-                    println(outputArray)
-                }else{
-                    showToast("Richiesta al database fallita")
-                    return
-                }
-            }
-            override fun onFailure(call: Call<JsonObject>, t: Throwable) {
-                showToast("Errore di rete")
-                return
-            }
+
+    /**questo metodo viene invocato quando viene selezionato un teatro per il quale acquistare
+     *un abbonamento.
+     *@param teatro: nome del teatro selezionato (uno tra Politeama, Biondo e Massimo)
+     */
+    fun subChoice(teatro: String){
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragmentContainerView4,SubscriptionPurchase(teatro))
+            .addToBackStack("teatro "+teatro)
+            .commit()
+    }
+    /**Questo metodo viene invocato ogni qual volta che si vuole mostrare a schermo un toast.
+     * Metodo creato per facilitare la creazione di Toast
+     *@param text: testo da mostrare a schermo tramite toast
+     */
+    fun showToast(text: String){
+        Toast.makeText(this, text, Toast.LENGTH_SHORT).show()
+    }
+    /**Metodo che gestisce tramite override il bottone back di android.
+     *Nel caso in cui si arrivi al fragment di home, se non ci sono fragment a cui ritornare,
+     *si opta per forzare un ritorno alla schermata di login
+     */
+    override fun onBackPressed() {
+        if(supportFragmentManager.backStackEntryCount ==1){
+            finish()
         }
-    )
-    return outputArray
-}
+        super.getOnBackPressedDispatcher().onBackPressed()
+    }
+
+
     private fun saveUserData(userId: Int, userName: String, email: String, password: String) {
         sharedPreferences = getSharedPreferences("UserData", Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
@@ -223,7 +212,7 @@ fun makeQuery(query: String): JsonArray{
     }
 
     private fun loadUserData() {
-         sharedPreferences = getSharedPreferences("UserData", Context.MODE_PRIVATE)
+        sharedPreferences = getSharedPreferences("UserData", Context.MODE_PRIVATE)
         userId = sharedPreferences.getInt("userId", 0)
         val  userName = sharedPreferences.getString("userName", "") ?: ""
         val   email = sharedPreferences.getString("email", "") ?: ""

@@ -8,49 +8,29 @@
     android:background="#FFFFFF"
     android:gravity="center_vertical">
 
-    <ImageButton
-        android:id="@+id/backButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginRight="20dp"
-        android:background="#00FFFFFF"
-        android:src="@drawable/backarrow_icon"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/TopTaskbarText"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <TextView
         android:id="@+id/TopTaskbarText"
         android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginRight="20dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="24dp"
         android:gravity="center_vertical"
         android:text="prova"
         android:textAlignment="center"
         android:textColor="#000000"
         android:textSize="26sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/profileButton"
-        app:layout_constraintStart_toEndOf="@+id/backButton"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ImageButton
         android:id="@+id/profileButton"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginEnd="20dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
         android:adjustViewBounds="true"
         android:background="#00FFFFFF"
         android:scaleType="centerInside"
         android:src="@drawable/profile_icon"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/TopTaskbarText"
         app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -49,7 +49,7 @@ class PosessedTickets : Fragment(R.layout.fragment_posessed_tickets) {
 
         adapter.setOnClickListener(object: TicketAdapter.OnClickListener {
             override fun onClick(position: Int, model: TicketModel) {
-                MA.realAppNavigateTo(Ticket(true,model.id),"TicketInfo")
+                MA.realAppNavigateTo(Ticket(model.isAbbonamento,model.id),"TicketInfo")
             }
         })
         return binding.root

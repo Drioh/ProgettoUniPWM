@@ -39,10 +39,8 @@ class TopTaskbar : Fragment(R.layout.fragment_top_taskbar) {
             binding.profileButton.setImageBitmap(decodedImage)
         }
 
-        //getUrlbyID(MA.getUserId())
-        binding.backButton.setOnClickListener(){
-            MA.onBackPressed()
-        }
+        getUrlbyID(MA.getUserId())
+
         binding.profileButton.setOnClickListener(){
 
             MA.realAppNavigateTo(Profile(), "Profile")

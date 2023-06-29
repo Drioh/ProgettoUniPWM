@@ -41,7 +41,19 @@ class TicketAdapter(private val cursorB: Cursor, private val cursorA: Cursor) : 
     @SuppressLint("Range")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         //Vengono assegnati i valori a ogni singola card nel momento in cui viene creata dall'adapter
-        if (cursorB.moveToPosition(position)){
+        if (cursorA.moveToPosition(position)){
+            println(cursorA.getString(cursorA.getColumnIndex(DBHelper.TEATRO)))
+            var id = cursorA.getString(cursorA.getColumnIndex(DBHelper._ID_ABBONAMENTO))
+            var nomeTeatro = cursorA.getString(cursorA.getColumnIndex(DBHelper.TEATRO))
+            var periodo = cursorA.getString(cursorA.getColumnIndex(DBHelper.DATA_INIZIO)) + "-"+cursorA.getString(cursorA.getColumnIndex(DBHelper.DATA_FINE))
+            holder.textType.text = nomeTeatro
+            holder.textPeriod.text = periodo
+
+            holder.itemView.setOnClickListener {
+                onClickListener?.onClick(position, TicketModel(nomeTeatro, periodo, true,id))
+            }
+        }
+        else{if (cursorB.moveToPosition(position-cursorA.count)){
 
             println(cursorB.getString(cursorB.getColumnIndex(DBHelper.NOME_SPETTACOLO)))
             var id = cursorB.getString(cursorB.getColumnIndex(DBHelper._ID_BIGLIETTO))
@@ -54,19 +66,8 @@ class TicketAdapter(private val cursorB: Cursor, private val cursorA: Cursor) : 
                 onClickListener?.onClick(position, TicketModel(nomeSpettacolo,dataScadenza,false, id))
             }
 
-        }else{
-            if (cursorA.moveToPosition(position-cursorB.count)){
-                println(cursorA.getString(cursorA.getColumnIndex(DBHelper.TEATRO)))
-                var id = cursorA.getString(cursorA.getColumnIndex(DBHelper._ID_ABBONAMENTO))
-                var nomeTeatro = cursorA.getString(cursorA.getColumnIndex(DBHelper.TEATRO))
-                var periodo = cursorA.getString(cursorA.getColumnIndex(DBHelper.DATA_INIZIO)) + "-"+cursorA.getString(cursorA.getColumnIndex(DBHelper.DATA_FINE))
-                holder.textType.text = nomeTeatro
-                holder.textPeriod.text = periodo
+        }
 
-                holder.itemView.setOnClickListener {
-                    onClickListener?.onClick(position, TicketModel(nomeTeatro, periodo, true,id))
-                }
-            }
         }
     }
     interface OnClickListener {

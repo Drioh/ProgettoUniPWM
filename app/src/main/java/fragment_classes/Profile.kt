@@ -71,10 +71,7 @@ class Profile : Fragment(R.layout.fragment_register) {
             editor.apply()
 
             // Torna al fragment di login
-            MA.supportFragmentManager.popBackStack("Login", FragmentManager.POP_BACK_STACK_INCLUSIVE)
-            MA.supportFragmentManager.beginTransaction()
-                .replace(R.id.fragmentContainerView, Login())
-                .commit()
+            MA.logout()
         }
 
         return binding.root
