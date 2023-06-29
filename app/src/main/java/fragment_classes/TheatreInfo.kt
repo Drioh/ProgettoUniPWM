@@ -28,16 +28,16 @@ import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.OnMapReadyCallback
 
-class TheatreInfo : Fragment(R.layout.fragment_show_info), OnMapReadyCallback {
+class TheatreInfo (val idTeatro: String): Fragment(R.layout.fragment_show_info), OnMapReadyCallback {
     private lateinit var binding: FragmentTheatreInfoBinding
     private lateinit var mapView: MapView
     private lateinit var googleMap: GoogleMap
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     private val LOCATION_PERMISSION_REQUEST_CODE = 1
     private val teatri = listOf(
-        Teatro("Teatro Massimo", 38.1197, 13.3550),
-        Teatro("Teatro Biondo", 38.1244, 13.3657),
-        Teatro("Politeama", 38.1228, 13.3654)
+        Teatro("Teatro Massimo", 38.12029014707951, 13.357262849337985),
+        Teatro("Teatro Biondo", 38.12508909561492, 13.356498048923825),
+        Teatro("Politeama", 38.11783642954718, 13.36291279682799)
     )
     data class Teatro(val nome: String, val latitudine: Double, val longitudine: Double)
     override fun onCreateView(
@@ -47,6 +47,30 @@ class TheatreInfo : Fragment(R.layout.fragment_show_info), OnMapReadyCallback {
     ): View? {
         binding = FragmentTheatreInfoBinding.inflate(inflater)
         var MA = (activity as MainActivity?)!! // reference alla MainActivity
+        println(idTeatro)
+        when (idTeatro){
+            "Massimo"->{
+                println("Questo è il teatro Massimo")
+                binding.TheatreName.setText(R.string.TMassimo)
+                binding.DescText.setText(R.string.MassimoDesription)
+                binding.theatreImage.setImageResource(R.drawable.teatro_massimo)
+            }
+            "Politeama"->{
+                println("Questo è il teatro Politeama")
+                binding.TheatreName.setText(R.string.TPoliteama)
+                binding.DescText.setText(R.string.PoliteamaDescription)
+                binding.theatreImage.setImageResource(R.drawable.teatro_politeama)
+
+            }
+            "Biondo"->{
+                println("Questo è il teatro Biondo")
+                binding.TheatreName.setText(R.string.TBiondo)
+                binding.DescText.setText(R.string.BiondoDescription)
+                binding.theatreImage.setImageResource(R.drawable.teatro_biondo)
+
+            }
+            else -> println("Errore")
+        }
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireContext())
 
@@ -130,4 +154,5 @@ class TheatreInfo : Fragment(R.layout.fragment_show_info), OnMapReadyCallback {
             )
         }
     }
+
 }

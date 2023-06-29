@@ -19,12 +19,11 @@ import com.google.zxing.EncodeHintType
 import com.google.zxing.qrcode.QRCodeWriter
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel
 
-class Ticket(private val isAbbonamento: Boolean, id: String): Fragment(R.layout.fragment_ticket) {
+class Ticket(private val isAbbonamento: Boolean, var id: String, val teatro: String): Fragment(R.layout.fragment_ticket) {
     private lateinit var binding: FragmentTicketBinding
     private lateinit var button: Button
     private lateinit var text: TextView
     private lateinit var image: ImageView
-    private var id = id
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -33,37 +32,45 @@ class Ticket(private val isAbbonamento: Boolean, id: String): Fragment(R.layout.
 
         binding = FragmentTicketBinding.inflate(inflater)
         var MA = (activity as MainActivity?)!! //reference alla Main Activity
+        image = binding.imageView
         if(isAbbonamento){
             binding.showInfoButton.setText(R.string.infoMembership)
             binding.textView.setText(R.string.myMembership)
-
+            // modifica della stringa dell'id per aggiungere varietà in modo tale da garantire l'unicità del codice QR
             id = id+"ABBONAMENTO"
+            binding.showInfoButton.setOnClickListener(){
+                println("Teatrazzo")
+                MA.realAppNavigateTo(TheatreInfo(teatro),"TheatreInfo")
+            }
         }
         else{
             if(!isAbbonamento){
                 binding.showInfoButton.setText(R.string.infoTicket)
                 binding.textView.setText(R.string.myTicket)
+                // modifica della stringa dell'id per aggiungere varietà in modo tale da garantire l'unicità del codice QR
                 id = id+"BIGLIETTO"
+                binding.showInfoButton.setOnClickListener(){
+                    println("Bigliettazzo")
+                }
             }
         }
-        image = binding.imageView
         generateQRCode(id)
         return binding.root
     }
 
     private fun generateQRCode(data: String) {
         try {
-            // Set QR code parameters
+            // Setting dei parametri
             val hints = Hashtable<EncodeHintType, Any>()
             hints[EncodeHintType.CHARACTER_SET] = "UTF-8"
             hints[EncodeHintType.ERROR_CORRECTION] = ErrorCorrectionLevel.H
             hints[EncodeHintType.MARGIN] = 2
 
-            // Create QR code writer and encode the data
+            // Crea il codice QR ed effettua l'encode dei dati
             val qrCodeWriter = QRCodeWriter()
             val bitMatrix = qrCodeWriter.encode(data, BarcodeFormat.QR_CODE, 512, 512, hints)
 
-            // Convert bit matrix to bitmap
+            // Conversione dalla matrice di bit a una bitmap
             val width = bitMatrix.width
             val height = bitMatrix.height
             val bmp = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565)

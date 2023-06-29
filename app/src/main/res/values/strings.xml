@@ -19,7 +19,7 @@
     <string name="buySubscription">Acquista un abbonamento</string>
     <string name="chooseTheatre">Scegli un teatro</string>
     <string name="choosePeriod">Per quanto vuoi che valga l\'abbonamento?</string>
-    <string name="TMassimo">Teatro Massimo</string>
+    <string name="TMassimo">Teatro Massimo Vittorio Emanuele</string>
     <string name="TPoliteama">Teatro Politeama</string>
     <string name="TBiondo">Teatro Biondo</string>
     <string name="M1">Un \nMese \n15€</string>
@@ -50,6 +50,44 @@
     <string name="editMail">Modifica Mail</string>
     <string name="editPW">Modifica Password</string>
     <string name="retrPW">Hai dimenticato la password?</string>
+    <string name="closestTheatre">Questo è il teatro più vicino a te!</string>
+    <string name="position">Posizione:</string>
+    <string name="MassimoDesription">Il Teatro Massimo Vittorio Emanuele, meglio noto come Teatro Massimo,
+    di Palermo è il più grande edificio teatrale lirico d\’Italia,
+    e uno dei più grandi d\’Europa (terzo per ordine di grandezza architettonica dopo l\’Opéra
+    National di Parigi e la Staatsoper di Vienna). \n
+    Alla sua apertura, per monumentalità e dimensione (oltre 7.730 metri quadrati), suscitò le
+    invidie di molti, come si può facilmente verificare leggendo i giornali italiani dell\’epoca.\n
+    Nel 1990 il teatro è stato lo scenario di alcune riprese del film Il padrino - Parte III di
+    Francis Ford Coppola, con Al Pacino, Andy García e Sofia Coppola, in cui il padrino Michael
+    Corleone si reca a Palermo per assistere al debutto del figlio nella Cavalleria rusticana,
+    di Pietro Mascagni.
+</string>
+    <string name="PoliteamaDescription">Il Politeama Garibaldi (da molti erroneamente chiamato Teatro
+    Politeama) si trova sulla Piazza Ruggero Settimo (a sua volta usualmente denominata Piazza
+    Politeama) al centro di Palermo.\n Già negli anni venti, sempre come "Politeama Garibaldi" e
+    più intensamente dal dopoguerra l\’ edificio ospitò l\’attività di cinematografo, di prima
+    visione, alternando le proiezioni alle attività teatrali ospitando, anche, spettacoli
+    circensi. Gli spettacoli cinematografici furono proposti, sino alla seconda metà degli anni
+    sessanta. Dal 1974, il teatro tornerà
+    alle attività teatrali, intensificandole, a causa della chiusura del Teatro Massimo Vittorio
+    Emanuele. Nel 2000, in occasione del G8 ospitato in città, vennero realizzati i restauri
+    delle decorazioni policrome in stile pompeiano dei loggiati. Dal 2001 il teatro è sede
+    dell\’Orchestra Sinfonica Siciliana. A partire dall\’estate del 2011 iniziano i lavori di
+    restauro della facciata posteriore del teatro.
+
+</string>
+    <string name="BiondoDescription">Il Teatro Biondo di Palermo è uno stabile situato sulla centralissima
+    e commerciale via Roma. Costruito nel 1903, è il più recente dei teatri storici di Palermo.\n
+    Il teatro Biondo si inaugura nell\’ottobre del 1903 e Margherita Biondo invita per il
+    battesimo del palcoscenico una delle personalità teatrali più illustri dell\’epoca, forse,
+    insieme a Eleonora Duse, la più illustre: Ermete Novelli. Novelli, attore ormai leggendario
+    nella storia teatrale italiana, era in quel momento uno dei personaggi più noti al pubblico
+    della borghesia colta e agiata italiana. La signora Biondo, che con Franca Florio aveva già
+    visto recitare l\’attore a Roma, capisce subito che far venire Novelli a Palermo può
+    costituire l\’evento di cui c\’è bisogno per lanciare il teatro.
+
+</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>

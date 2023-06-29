@@ -7,41 +7,92 @@
     android:layout_height="wrap_content"
     tools:context=".MainActivity">
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="16dp"
-        android:visibility="visible"
-        tools:visibility="visible">
+        android:nestedScrollingEnabled="true"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="16dp">
 
-        <ScrollView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-            <LinearLayout
+            <ImageView
+                android:id="@+id/theatreImage"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:scaleType="centerCrop"
+                app:srcCompat="@drawable/teatro_biondo" />
+
+            <TextView
+                android:id="@+id/TheatreName"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:gravity="center_vertical"
+                android:text="TextView"
+                android:textAlignment="center"
+                android:textColor="#000000"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/DescText"
+                android:layout_width="375dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="20dp"
+                android:background="#ECE4DB"
+                android:padding="20dp"
+                android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis in rhoncus massa. Nunc vestibulum, eros pretium aliquet malesuada, elit nulla pretium ante, et lobortis risus nisi vitae justo. Sed eu semper nulla, non ultrices lorem. Nam suscipit dui quis ligula eleifend pellentesque. Nam massa lorem, scelerisque non sapien sit amet, ullamcorper feugiat massa. Curabitur consectetur commodo fermentum. Etiam vel commodo ipsum. Nulla facilisi. Duis velit quam, efficitur ac commodo id, viverra ut felis. Curabitur ac auctor quam. Integer ultricies arcu nec felis elementum, nec vestibulum odio ornare. Sed eu maximus lectus, at suscipit lacus. In nisl diam, sodales in dignissim pellentesque, tempor quis urna. Vivamus finibus massa elit, sed rutrum ante rutrum sed. Sed vestibulum sollicitudin sollicitudin."
+                android:textColor="#000000"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/textView12"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="20dp"
+                android:text="@string/position"
+                android:textAlignment="center"
+                android:textColor="#000000"
+                android:textSize="20sp" />
 
-                <Button
-                    android:id="@+id/buySubscriptionButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:backgroundTint="@color/black"
-                    android:text="@string/PurchaseSubscription"
-                    app:cornerRadius="45dp" />
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
                 <com.google.android.gms.maps.MapView
                     android:id="@+id/mapView"
                     android:layout_width="match_parent"
-                    android:layout_height="414dp"
+                    android:layout_height="250dp"
                     android:contentDescription="@string/map_content_description" />
+            </FrameLayout>
 
-            </LinearLayout>
-        </ScrollView>
+            <TextView
+                android:id="@+id/textView11"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:background="#F44336"
+                android:padding="8sp"
+                android:text="@string/closestTheatre"
+                android:textAlignment="center"
+                android:textColor="#000000" />
 
-    </LinearLayout>
+            <Button
+                android:id="@+id/buySubscriptionButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="50dp"
+                android:backgroundTint="@color/black"
+                android:text="@string/PurchaseSubscription"
+                app:cornerRadius="45dp" />
+
+        </LinearLayout>
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
