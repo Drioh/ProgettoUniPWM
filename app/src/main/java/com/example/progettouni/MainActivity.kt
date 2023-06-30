@@ -41,13 +41,6 @@ class MainActivity : AppCompatActivity() {
 
         db.open()
 
-        /*
-        db.insertAbbonamento("Massimo", "11/12/2001", "05/05/2002")
-        db.insertBiglietto("Duce appeso", "02/02/2010")
-        db.insertAbbonamento("Politeama", "11/11/2011", "04/04/2022")
-        db.insertBiglietto("Se ni mondo", "20/08/2021")*/
-
-
         // Controllo se ci sono credenziali salvate nelle SharedPreferences
         sharedPreferences = getSharedPreferences("UserData", Context.MODE_PRIVATE)
         val email = sharedPreferences.getString("email", "")
