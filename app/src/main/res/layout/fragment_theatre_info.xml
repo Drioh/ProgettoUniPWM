@@ -112,6 +112,7 @@
                     android:layout_height="150dp"
                     android:layout_gravity="bottom|right"
                     android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
                     android:layout_marginBottom="24dp"
                     android:backgroundTint="#E4E4E4"
                     android:fontFamily="serif"
@@ -128,6 +129,7 @@
                     app:cornerRadius="10sp"
                     app:iconTint="#FFFFFF"
                     app:layout_constraintBottom_toTopOf="@+id/buySubscriptionButton"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/DescText" />
 
                 <com.google.android.material.imageview.ShapeableImageView
