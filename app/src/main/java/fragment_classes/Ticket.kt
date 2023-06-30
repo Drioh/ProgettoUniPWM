@@ -40,7 +40,7 @@ class Ticket(private val isAbbonamento: Boolean, var id: String, val teatro: Str
             id = id+"ABBONAMENTO"
             binding.showInfoButton.setOnClickListener(){
                 println("Teatrazzo")
-                MA.realAppNavigateTo(TheatreInfo(teatro),"TheatreInfo")
+                MA.realAppNavigateTo(TheatreInfo(teatro, false),"TheatreInfo")
             }
         }
         else{

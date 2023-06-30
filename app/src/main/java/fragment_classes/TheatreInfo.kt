@@ -30,7 +30,7 @@ import java.lang.Math.sqrt
 import java.util.*
 import kotlin.math.pow
 
-class TheatreInfo (val idTeatro: String): Fragment(R.layout.fragment_show_info), OnMapReadyCallback {
+class TheatreInfo (val idTeatro: String, val purchase: Boolean): Fragment(R.layout.fragment_show_info), OnMapReadyCallback {
     private lateinit var binding: FragmentTheatreInfoBinding
     private lateinit var mapView: MapView
     private lateinit var googleMap: GoogleMap
@@ -39,8 +39,8 @@ class TheatreInfo (val idTeatro: String): Fragment(R.layout.fragment_show_info),
     private val LOCATION_PERMISSION_REQUEST_CODE = 1
     private val teatri = listOf(
         Teatro("Teatro Massimo", 38.12029014707951, 13.357262849337985),
-        Teatro("Teatro Biondo", 38.12508909561492, 13.356498048923825),
-        Teatro("Politeama", 38.11783642954718, 13.36291279682799)
+        Teatro("Teatro Politeama", 38.12508909561492, 13.356498048923825),
+        Teatro("Teatro Biondo", 38.11783642954718, 13.36291279682799)
     )
 
     data class Teatro(val nome: String, val latitudine: Double, val longitudine: Double)
@@ -59,9 +59,10 @@ class TheatreInfo (val idTeatro: String): Fragment(R.layout.fragment_show_info),
         when (idTeatro) {
             "Massimo" -> {
                 println("Questo è il teatro Massimo")
-                binding.TheatreName.setText(R.string.TMassimo)
+                binding.TheatreName.setText((R.string.TMassimo))
                 binding.DescText.setText(R.string.MassimoDesription)
                 binding.theatreImage.setImageResource(R.drawable.teatro_massimo)
+                binding.DYKText.setText(R.string.MassimoDYK)
                 binding.wikiButton.setOnClickListener {
                     val url = "https://it.wikipedia.org/wiki/Teatro_Massimo_Vittorio_Emanuele"
                     val intent = Intent(Intent.ACTION_VIEW)
@@ -74,34 +75,42 @@ class TheatreInfo (val idTeatro: String): Fragment(R.layout.fragment_show_info),
                 binding.TheatreName.setText(R.string.TPoliteama)
                 binding.DescText.setText(R.string.PoliteamaDescription)
                 binding.theatreImage.setImageResource(R.drawable.teatro_politeama)
+                binding.DYKText.setText(R.string.PoliteamaDYK)
+
                 binding.wikiButton.setOnClickListener {
                     val url = "https://it.wikipedia.org/wiki/Teatro_Politeama_(Palermo)"
                     val intent = Intent(Intent.ACTION_VIEW)
                     intent.data = Uri.parse(url)
                     startActivity(intent)
                 }
-
             }
             "Biondo" -> {
                 println("Questo è il teatro Biondo")
                 binding.TheatreName.setText(R.string.TBiondo)
                 binding.DescText.setText(R.string.BiondoDescription)
                 binding.theatreImage.setImageResource(R.drawable.teatro_biondo)
+                binding.DYKText.setText(R.string.BiondoDYK)
+
                 binding.wikiButton.setOnClickListener {
                     val url = "https://it.wikipedia.org/wiki/Teatro_Biondo"
                     val intent = Intent(Intent.ACTION_VIEW)
                     intent.data = Uri.parse(url)
                     startActivity(intent)
                 }
-
             }
             else -> println("Errore")
         }
+        if(!purchase){
+            binding.buySubscriptionButton.visibility = View.INVISIBLE
+        }
+        binding.buySubscriptionButton.setOnClickListener{
+            MA.realAppNavigateTo(SubscriptionPurchase(idTeatro),"SubscriptionPurchase")
+        }
+        binding.closestButton.setOnClickListener{
+            MA.showToast(R.string.closestTheatre as String)
+        }
         fusedLocationProviderClient =
             LocationServices.getFusedLocationProviderClient(requireContext())
-
-
-
         return binding.root
     }
 
@@ -140,19 +149,7 @@ class TheatreInfo (val idTeatro: String): Fragment(R.layout.fragment_show_info),
 
     override fun onMapReady(map: GoogleMap) {
         googleMap = map
-        googleMap.setOnMapClickListener {
 
-            val latitude = teatri[0].latitudine
-            val longitude = teatri[0].longitudine // Longitudine della posizione desiderata
-            val label = teatri[0].nome
-            val uri = "geo:$latitude,$longitude?q=$latitude,$longitude($label)"
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(uri))
-            intent.setPackage("com.google.android.apps.maps") // Specifica che l'intent dovrebbe essere gestito da Google Maps
-            if (intent.resolveActivity(requireActivity().packageManager) != null) {
-                startActivity(intent)
-            }
-
-        }
 
         if (ContextCompat.checkSelfPermission(
                 requireContext(),
@@ -168,6 +165,21 @@ class TheatreInfo (val idTeatro: String): Fragment(R.layout.fragment_show_info),
                     googleMap.addMarker(
                         MarkerOptions().position(posizioneTeatro).title(teatri[0].nome)
                     )
+                    googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(posizioneTeatro, 15f))
+                    googleMap.setOnMapClickListener {
+
+
+                        val latitude = teatri[0].latitudine
+                        val longitude = teatri[0].longitudine // Longitudine della posizione desiderata
+                        val label = teatri[0].nome
+                        val uri = "geo:$latitude,$longitude?q=$latitude,$longitude($label)"
+                        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(uri))
+                        intent.setPackage("com.google.android.apps.maps") // Specifica che l'intent dovrebbe essere gestito da Google Maps
+                        if (intent.resolveActivity(requireActivity().packageManager) != null) {
+                            startActivity(intent)
+                        }
+
+                    }
                 }
 
                 "Politeama" -> {
@@ -175,6 +187,21 @@ class TheatreInfo (val idTeatro: String): Fragment(R.layout.fragment_show_info),
                     googleMap.addMarker(
                         MarkerOptions().position(posizioneTeatro).title(teatri[1].nome)
                     )
+                    googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(posizioneTeatro, 15f))
+                    googleMap.setOnMapClickListener {
+
+
+                        val latitude = teatri[1].latitudine
+                        val longitude = teatri[1].longitudine // Longitudine della posizione desiderata
+                        val label = teatri[1].nome
+                        val uri = "geo:$latitude,$longitude?q=$latitude,$longitude($label)"
+                        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(uri))
+                        intent.setPackage("com.google.android.apps.maps") // Specifica che l'intent dovrebbe essere gestito da Google Maps
+                        if (intent.resolveActivity(requireActivity().packageManager) != null) {
+                            startActivity(intent)
+                        }
+
+                    }
                 }
 
 
@@ -183,53 +210,70 @@ class TheatreInfo (val idTeatro: String): Fragment(R.layout.fragment_show_info),
                     googleMap.addMarker(
                         MarkerOptions().position(posizioneTeatro).title(teatri[2].nome)
                     )
+                    googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(posizioneTeatro, 15f))
+                    googleMap.setOnMapClickListener {
+
+
+                        val latitude = teatri[2].latitudine
+                        val longitude = teatri[2].longitudine // Longitudine della posizione desiderata
+                        val label = teatri[2].nome
+                        val uri = "geo:$latitude,$longitude?q=$latitude,$longitude($label)"
+                        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(uri))
+                        intent.setPackage("com.google.android.apps.maps") // Specifica che l'intent dovrebbe essere gestito da Google Maps
+                        if (intent.resolveActivity(requireActivity().packageManager) != null) {
+                            startActivity(intent)
+                        }
+
+                    }
                 }
 
                 else -> println("Errore")
             }
+/*
             var location = fusedLocationProviderClient.lastLocation
             location.addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     val currentLocation = task.result
                     if (currentLocation != null) {
+                        println("bravissimo")
                         val tuaLatitudine = currentLocation.latitude
                         val tuaLongitudine = currentLocation.longitude
                         posizioneCorrente = LatLng(tuaLatitudine, tuaLongitudine)
                         println(posizioneCorrente.toString())
+                        googleMap.addMarker(
+                            MarkerOptions().position(posizioneCorrente).title("La Tua Posizione")
+                        )
+                        val teatrovicino = teatri.minByOrNull { teatro ->
+                            calcolaDistanza(
+                                posizioneCorrente,
+                                LatLng(teatro.latitudine, teatro.longitudine)
+                            )
+                        }
+
+                        if (teatrovicino != null && teatrovicino.nome == "TEATRO "+idTeatro.uppercase()) {
+
+                                binding.closestButton.visibility = View.VISIBLE
+
+                        }else{
+                            println("Teatro più vicino non trovato")
+                        }
+
+                        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(posizioneCorrente, 13f))
+                    } else {
+                        ActivityCompat.requestPermissions(
+                            requireActivity(),
+                            arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                            LOCATION_PERMISSION_REQUEST_CODE
+                        )
+                    }
                     } else {
                         println("erroraccio")
                     }
 
-                }
-            }
-
-            googleMap.addMarker(
-                MarkerOptions().position(posizioneCorrente).title("La Tua Posizione")
-            )
-
-            val teatroPiùVicino = teatri.minByOrNull { teatro ->
-                calcolaDistanza(
-                    posizioneCorrente,
-                    LatLng(teatro.latitudine, teatro.longitudine)
-                )
-            }
-
-            teatroPiùVicino?.let { teatro ->
-                val distanza = calcolaDistanza(
-                    posizioneCorrente,
-                    LatLng(teatro.latitudine, teatro.longitudine)
-                )
-                //binding.distanzaTextView.text = String.format("Distanza: %.2f km", distanza)
-            }
-
-            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(posizioneCorrente, 13f))
-        } else {
-            ActivityCompat.requestPermissions(
-                requireActivity(),
-                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-                LOCATION_PERMISSION_REQUEST_CODE
-            )
+                }*/
         }
+
+
     }
 
 }

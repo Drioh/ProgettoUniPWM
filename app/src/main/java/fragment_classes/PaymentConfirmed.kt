@@ -11,7 +11,7 @@ import com.example.progettouni.R
 import com.example.progettouni.databinding.FragmentBuyTicketsBinding
 import com.example.progettouni.databinding.FragmentConfirmedPaymentBinding
 
-class PaymentConfirmed : Fragment(R.layout.fragment_confirmed_payment) {
+class PaymentConfirmed (type: String) : Fragment(R.layout.fragment_confirmed_payment) {
     private lateinit var binding: FragmentConfirmedPaymentBinding
     override fun onCreateView(
         inflater: LayoutInflater,

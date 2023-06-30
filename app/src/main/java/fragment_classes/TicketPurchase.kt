@@ -26,7 +26,7 @@ class TicketPurchase : Fragment(R.layout.fragment_buy_tickets) {
             var isCVCValid = binding.cvcField.text.length==3
             if (isCardValid && isCVCValid) {
                 binding.confirmButton.setBackgroundColor(Color.parseColor("#F44336"))
-                MA.realAppNavigateTo(PaymentConfirmed(), "ConfirmedPayment")
+                MA.realAppNavigateTo(PaymentConfirmed("Biglietto"), "ConfirmedPayment")
                 TODO("Generare il QR code")
             }else{
                 MA.showToast("Carta non valida")

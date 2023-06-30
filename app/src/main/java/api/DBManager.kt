@@ -91,7 +91,7 @@ class DBManager(val context: Context) {
      * @param dataFine La nuova data di fine dell'abbonamento.
      * @return Il numero di righe aggiornate nel database.
      */
-    fun updateAbbonamento(id_abbonamento: Long, teatro: String, dataInizio: String, dataFine: String): Int {
+    fun updateAbbonamento(id_abbonamento: Int, teatro: String, dataInizio: String, dataFine: String): Int {
         val selection = "${DBHelper._ID_ABBONAMENTO} = ?"
         val selectionArgs = arrayOf(id_abbonamento.toString())
 
@@ -109,7 +109,7 @@ class DBManager(val context: Context) {
      *
      * @param id_biglietto L'ID del record da eliminare.
      */
-    fun deleteBiglietto(id_biglietto: Long) {
+    fun deleteBiglietto(id_biglietto: Int) {
         val selection = "${DBHelper._ID_BIGLIETTO} = ?"
         val selectionArgs = arrayOf(id_biglietto.toString())
         db.delete(DBHelper.TABLE_BIGLIETTI, selection, selectionArgs)
@@ -119,7 +119,7 @@ class DBManager(val context: Context) {
      *
      * @param id_abbonamento L'ID del record da eliminare.
      */
-    fun deleteAbbonamento(id_abbonamento: Long) {
+    fun deleteAbbonamento(id_abbonamento: Int) {
         val selection = "${DBHelper._ID_ABBONAMENTO} = ?"
         val selectionArgs = arrayOf(id_abbonamento.toString())
         db.delete(DBHelper.TABLE_ABBONAMENTO, selection, selectionArgs)

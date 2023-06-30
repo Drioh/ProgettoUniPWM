@@ -19,9 +19,9 @@
     <string name="buySubscription">Acquista un abbonamento</string>
     <string name="chooseTheatre">Scegli un teatro</string>
     <string name="choosePeriod">Per quanto vuoi che valga l\'abbonamento?</string>
-    <string name="TMassimo">Teatro Massimo Vittorio Emanuele</string>
-    <string name="TPoliteama">Teatro Politeama</string>
-    <string name="TBiondo">Teatro Biondo</string>
+    <string name="TMassimo">TEATRO MASSIMO VITTORIO EMANUELE</string>
+    <string name="TPoliteama">TEATRO POLITEAMA</string>
+    <string name="TBiondo">TEATRO BIONDO</string>
     <string name="M1">Un \nMese \n15€</string>
     <string name="M3">Tre \nMesi \n35€</string>
     <string name="M6">Sei \nMesi \n50€</string>
@@ -30,7 +30,8 @@
     <string name="CardUN">Nome del possessore della carta</string>
     <string name="CardDate">Data di scadenza della carta</string>
     <string name="CVC">CVC</string>
-    <string name="CorrPay">Acquisto avvenuto con successo!\nTroverai il tuo biglietto nella sezione\n"I miei biglietti"</string>
+    <string name="CorrPay">Acquisto avvenuto con successo!\nTroverai il tuo biglietto nella sezione\n"Biglietti e Abbonamenti"</string>
+    <string name="CorrSubPay">Acquisto avvenuto con successo!\nTroverai il tuo abbonamento nella sezione\n"Biglietti e Abbonamenti"</string>
     <string name="RetrPass">Recupera la tua password</string>
     <string name="InsMail">Inserisci la tua mail</string>
     <string name="InsMailNew">Inserisci la tua nuova mail</string>
@@ -52,15 +53,20 @@
     <string name="retrPW">Hai dimenticato la password?</string>
     <string name="closestTheatre">Questo è il teatro più vicino a te!</string>
     <string name="position">Posizione:</string>
-    <string name="MassimoDesription">Il Teatro Massimo Vittorio Emanuele
-    di Palermo è il più grande edificio teatrale lirico d\’Italia
-    e uno dei più grandi d\’Europa. \n
-    Alla sua apertura, per monumentalità e dimensione (oltre 7.730 metri quadrati), suscitò le
-    invidie di molti.\n
-    Nel 1990 il teatro è stato lo scenario di alcune riprese del film Il padrino - Parte III di
-    Francis Ford Coppola in cui il padrino Michael
-    Corleone si reca a Palermo per assistere al debutto del figlio nella Cavalleria rusticana.
+    <string name="MassimoDesription">Il Teatro Massimo Vittorio Emanuele, meglio noto come Teatro Massimo, è il più grande edificio teatrale
+lirico d\'Italia, e uno dei più grandi d\'Europa (terzo per ordine di grandezza architettonica).
+Alla sua apertura, per monumentalità e dimensione (oltre 7.730 metri quadrati),
+suscitò le invidie di molti, come si può facilmente verificare leggendo i giornali italiani dell\'epoca.\n
+Il teatro, da sempre molto sensibile alle istanze della comunità LGBT,
+nell\'agosto 2015 sigla un accordo con le parti sindacali con il quale ai propri dipendenti omosessuali viene riconosciuto
+il diritto di usufruire dei permessi matrimoniali per nozze e unioni civili, altrove previsto solo per i matrimoni etero.
+È il primo teatro italiano ad equiparare i dipendenti omosessuali a quelli etero. Già da tempo, in concomitanza
+con la settimana delle celebrazioni del pride, illumina le imponenti colonne della sua facciata con i colori della
+bandiera arcobaleno.Nel 1990 il teatro è stato lo scenario di alcune riprese del film Il padrino - Parte III di Francis
+Ford Coppola, con Al Pacino, Andy García e Sofia Coppola, in cui il padrino Michael Corleone si reca a Palermo per assistere
+al debutto del figlio nella Cavalleria rusticana, di Pietro Mascagni.
 </string>
+    <string name="MassimoDYK">La storia del Teatro Massimo di Palermo è circondata da segreti inconfessabili e un alone di mistero. La leggenda più famosa riguarda il fantasma di Sant\'Agata, la cui chiesa fu distrutta per far spazio all\'edificio e si dice ancora oggi vaghi tra i corridoi e i palchi del teatro.</string>
     <string name="PoliteamaDescription">Il Politeama Garibaldi (da molti erroneamente chiamato Teatro
     Politeama) si trova sulla Piazza Ruggero Settimo al centro di Palermo.\n Già negli anni venti e
     più intensamente dal dopoguerra l\’ edificio ospitò l\’attività di cinematografo, di prima
@@ -74,6 +80,8 @@
     restauro della facciata posteriore del teatro.
 
 </string>
+    <string name="PoliteamaDYK">Giuseppe Damiani Almeyda s\'ispirò ai modelli del classicismo accademico in voga alla fine dell\'Ottocento.\nSul palco del teatro Politeama Garibaldi Totò recitò il suo ultimo spettacolo</string>
+
     <string name="BiondoDescription">Il Teatro Biondo di Palermo è uno stabile situato sulla centralissima
     e commerciale via Roma. Costruito nel 1903, è il più recente dei teatri storici di Palermo.\n
     Il teatro Biondo si inaugura nell\’ottobre del 1903 e Margherita Biondo invita per il
@@ -83,8 +91,9 @@
     della borghesia colta e agiata italiana. La signora Biondo, che con Franca Florio aveva già
     visto recitare l\’attore a Roma, capisce subito che far venire Novelli a Palermo può
     costituire l\’evento di cui c\’è bisogno per lanciare il teatro.
-
 </string>
+    <string name="BiondoDYK">All\'origine fu un punto di ritrovo del "dopo teatro" per le famiglie più in vista della città, centro di interessi culturali e mondani. Oggi la sala Strehler è la seconda del teatro e vanta un\'ulteriore stagione dedicata.</string>
+
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>

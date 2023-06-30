@@ -1,5 +1,6 @@
 package com.example.progettouni
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -7,6 +8,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import api.ApiService
+import api.DBHelper
 import api.DBManager
 import com.example.progettouni.databinding.ActivityMainBinding
 import com.example.progettouni.databinding.RealAppBinding
@@ -27,19 +29,20 @@ class MainActivity : AppCompatActivity() {
     private var userId: Int = 0 // Variabile per l'ID dell'utente
     private lateinit var sharedPreferences: SharedPreferences
 
+    @SuppressLint("Range")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
         var db: DBManager = DBManager(this)
-        /*
-        db.open()
+
+        /*db.open()
         db.insertAbbonamento("Massimo", "11/12/2001", "05/05/2002")
         db.insertBiglietto("Duce appeso", "02/02/2010")
         db.insertAbbonamento("Politeama", "11/11/2011", "04/04/2022")
-        db.insertBiglietto("Se ni mondo", "20/08/2021")
-        */
+        db.insertBiglietto("Se ni mondo", "20/08/2021")*/
+
 
         // Controllo se ci sono credenziali salvate nelle SharedPreferences
         sharedPreferences = getSharedPreferences("UserData", Context.MODE_PRIVATE)

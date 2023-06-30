@@ -27,9 +27,9 @@
                 android:id="@+id/closestButton"
                 android:layout_width="60sp"
                 android:layout_height="60sp"
-                android:layout_gravity="bottom|right"
+                android:layout_gravity="right|top"
+                android:layout_marginTop="10dp"
                 android:layout_marginRight="10dp"
-                android:layout_marginBottom="10dp"
                 android:backgroundTint="#F44336"
                 android:gravity="center_horizontal|center_vertical"
                 android:insetTop="0dp"
@@ -40,6 +40,7 @@
                 android:paddingBottom="0dp"
                 android:text="!"
                 android:textSize="48sp"
+                android:visibility="gone"
                 app:cornerRadius="10sp"
                 app:iconTint="#FFFFFF" />
         </FrameLayout>
@@ -75,16 +76,35 @@
                     android:id="@+id/DescText"
                     android:layout_width="200dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="24dp"
                     android:background="#ECE4DB"
                     android:padding="20dp"
                     android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis in rhoncus massa. Nunc vestibulum, eros pretium aliquet malesuada, elit nulla pretium ante, et lobortis risus nisi vitae justo. Sed eu semper nulla, non ultrices lorem. Nam suscipit dui quis ligula eleifend pellentesque. Nam massa lorem, scelerisque non sapien sit amet, ullamcorper feugiat massa. Curabitur consectetur commodo fermentum. Etiam vel commodo ipsum. Nulla facilisi. Duis velit quam, efficitur ac commodo id, viverra ut felis. Curabitur ac auctor quam. Integer ultricies arcu nec felis elementum, nec vestibulum odio ornare. Sed eu maximus lectus, at suscipit lacus. In nisl diam, sodales in dignissim pellentesque, tempor quis urna. Vivamus finibus massa elit, sed rutrum ante rutrum sed. Sed vestibulum sollicitudin sollicitudin."
                     android:textColor="#000000"
                     android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/TheatreName"
                     tools:layout_conversion_absoluteHeight="622dp"
-                    tools:layout_conversion_absoluteWidth="250dp"
-                    tools:layout_editor_absoluteX="20dp" />
+                    tools:layout_conversion_absoluteWidth="250dp" />
 
+
+                <TextView
+                    android:id="@+id/DYKText"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:background="#000000"
+                    android:padding="20dp"
+                    android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis in rhoncus massa. Nunc vestibulum, eros pretium aliquet malesuada, elit nulla pretium ante, et lobortis risus nisi vitae justo. Sed eu semper nulla, non ultrices lorem. Nam suscipit dui quis ligula eleifend pellentesque. "
+                    android:textColor="#FFFFFF"
+                    app:layout_constraintBottom_toTopOf="@+id/wikiButton"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/DescText"
+                    app:layout_constraintTop_toBottomOf="@+id/theatreImage" />
 
                 <Button
                     android:id="@+id/wikiButton"
@@ -115,6 +135,7 @@
                     android:layout_width="150dp"
                     android:layout_height="200dp"
                     android:layout_marginStart="20dp"
+                    android:layout_marginTop="24dp"
                     android:layout_marginEnd="20dp"
                     android:scaleType="centerCrop"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -130,8 +151,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
+                    android:layout_marginBottom="32dp"
                     android:backgroundTint="@color/black"
                     android:text="@string/PurchaseSubscription"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/DescText"

@@ -53,19 +53,18 @@ class TicketAdapter(private val cursorB: Cursor, private val cursorA: Cursor) : 
                 onClickListener?.onClick(position, TicketModel(nomeTeatro, periodo, true,id, nomeTeatro))
             }
         }
-        else{if (cursorB.moveToPosition(position-cursorA.count)){
+        else{if (cursorB.moveToPosition(position-(cursorA.count-1))){
 
             println(cursorB.getString(cursorB.getColumnIndex(DBHelper.NOME_SPETTACOLO)))
             var id = cursorB.getString(cursorB.getColumnIndex(DBHelper._ID_BIGLIETTO))
             var nomeSpettacolo = cursorB.getString(cursorB.getColumnIndex(DBHelper.NOME_SPETTACOLO))
-            var nomeTeatro = cursorA.getString(cursorA.getColumnIndex(DBHelper.TEATRO))
 
             var dataScadenza = cursorB.getString(cursorB.getColumnIndex(DBHelper.DATA_SCADENZA))
             holder.textType.text = nomeSpettacolo
             holder.textPeriod.text = dataScadenza
 
             holder.itemView.setOnClickListener{
-                onClickListener?.onClick(position, TicketModel(nomeSpettacolo,dataScadenza,false, id, nomeTeatro))
+                onClickListener?.onClick(position, TicketModel(nomeSpettacolo,dataScadenza,false, id, ""))
             }
 
         }
