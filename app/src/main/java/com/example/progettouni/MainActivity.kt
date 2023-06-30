@@ -174,18 +174,18 @@ class MainActivity : AppCompatActivity() {
 
     @SuppressLint("Range")
     fun syncDB(){
-        data class Abbonamento(var id : String, var teatro: String, var dataInizio: String, var datafine: String)
-        data class Biglietto(var id : String, var noemSpettacolo: String, var dataScadenza: String)
+        data class Abbonamento(var id : Int, var teatro: String, var dataInizio: String, var dataFine: String)
+        data class Biglietto(var id : Int, var nomeSpettacolo: String, var dataScadenza: String)
         var abb = db.fetchAllAbbonamenti()
         var tick = db.fetchAllBiglietti()
         if (abb.count !=0){
-        do{
-            db.deleteAbbonamento(abb.getInt(abb.getColumnIndex(DBHelper._ID_ABBONAMENTO)))
-        }while(abb.moveToNext())}
+            do{
+                db.deleteAbbonamento(abb.getInt(abb.getColumnIndex(DBHelper._ID_ABBONAMENTO)))
+            }while(abb.moveToNext())}
         if(tick.count !=0){
-        do{
-            db.deleteBiglietto(tick.getInt(tick.getColumnIndex(DBHelper._ID_BIGLIETTO)))
-        }while(tick.moveToNext())}
+            do{
+                db.deleteBiglietto(tick.getInt(tick.getColumnIndex(DBHelper._ID_BIGLIETTO)))
+            }while(tick.moveToNext())}
 //BIGLIETTI
         var query = "select * " +
                 "from Biglietto_singolo, Spettacolo, Rappresentazione " +
@@ -197,9 +197,13 @@ class MainActivity : AppCompatActivity() {
                 override fun onResponse(call: Call<JsonObject>?, response: Response<JsonObject>) {
                     if (response.isSuccessful) {
                         var risposta = response.body()?.get("queryset") as JsonArray
-                        var Biglietti : List<Biglietto>
-                        for (i in 1 .. risposta.count()){
-                            println("cazzotto")
+                        var Biglietti  = emptyList<Biglietto>().toMutableList()
+                        for (i in 0 until risposta.count()){
+                            var elemento = risposta[i] as JsonObject
+                            Biglietti.add(Biglietto(elemento.get("id_biglietto").asInt,elemento.get("nome_spettacolo").asString,elemento.get("data").asString))
+                        }
+                        for (i in 0 until Biglietti.size){
+                            db.insertBiglietto(Biglietti[i].id,Biglietti[i].nomeSpettacolo,Biglietti[i].dataScadenza)
                         }
                     } else {
                         showToast("Richiesta biglietti non andata a buon termine")
@@ -220,9 +224,13 @@ class MainActivity : AppCompatActivity() {
                 override fun onResponse(call: Call<JsonObject>?, response: Response<JsonObject>) {
                     if (response.isSuccessful) {
                         var risposta = response.body()?.get("queryset") as JsonArray
-                        var Biglietti : List<Biglietto>
-                        for (i in 1 .. risposta.count()){
-                            println("crenotti")
+                        var Abbonamenti  = emptyList<Abbonamento>().toMutableList()
+                        for (i in 0 until risposta.count()){
+                            var elemento = risposta[i] as JsonObject
+                            Abbonamenti.add(Abbonamento(elemento.get("id_abbonamento").asInt,elemento.get("nome_teatro").asString,elemento.get("data_scadenza").asString,elemento.get("data_scadenza").asString))
+                        }
+                        for (i in 0 until Abbonamenti.size){
+                            db.insertAbbonamento(Abbonamenti[i].id,Abbonamenti[i].teatro,Abbonamenti[i].dataInizio,Abbonamenti[i].dataFine)
                         }
                     } else {
                         showToast("Richiesta biglietti non andata a buon termine")

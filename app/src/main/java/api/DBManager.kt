@@ -35,11 +35,13 @@ class DBManager(val context: Context) {
     /**
      * Inserisce un nuovo record nella tabella "Biglietti" del database.
      *
+     * @param idBiglietto L'id del biglietto preso dal database
      * @param nomeSpettacolo Il nome dello spettacolo del biglietto.
      * @param dataScadenza La data di scadenza del biglietto.
      */
-    fun insertBiglietto(nomeSpettacolo: String, dataScadenza: String) {
+    fun insertBiglietto(idBiglietto: Int, nomeSpettacolo: String, dataScadenza: String) {
         val values = ContentValues().apply {
+            put(DBHelper._ID_BIGLIETTO,idBiglietto)
             put(DBHelper.NOME_SPETTACOLO, nomeSpettacolo)
             put(DBHelper.DATA_SCADENZA, dataScadenza)
         }
@@ -49,12 +51,14 @@ class DBManager(val context: Context) {
     /**
      * Inserisce un nuovo record nella tabella "Abbonamento" del database.
      *
+     * @param idAbbonamento L'id dell'abbonemanto preso dal database
      * @param teatro Il nome del teatro per l'abbonamento.
      * @param dataInizio La data di inizio dell'abbonamento.
      * @param dataFine La data di fine dell'abbonamento.
      */
-    fun insertAbbonamento(teatro: String, dataInizio: String, dataFine: String) {
+    fun insertAbbonamento(idAbbonamento: Int,teatro: String, dataInizio: String, dataFine: String) {
         val values = ContentValues().apply {
+            put(DBHelper._ID_ABBONAMENTO,idAbbonamento)
             put(DBHelper.TEATRO, teatro)
             put(DBHelper.DATA_INIZIO, dataInizio)
             put(DBHelper.DATA_FINE, dataFine)

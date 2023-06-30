@@ -42,14 +42,14 @@ class DBHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_V
         // STRING TO CREATE TABLE BIGLIETTI
         private const val SQL_CREATE_TABLE_BIGLIETTI =
             "CREATE TABLE $TABLE_BIGLIETTI (" +
-                    "${_ID_BIGLIETTO} INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    "${_ID_BIGLIETTO} INTEGER NOT NULL," +
                     "${NOME_SPETTACOLO} TEXT NOT NULL," +
                     "${DATA_SCADENZA} TEXT NOT NULL);"
 
         // STRING TO CREATE TABLE ABBONAMENTO
         private const val SQL_CREATE_TABLE_ABBONAMENTO =
             "CREATE TABLE $TABLE_ABBONAMENTO (" +
-                    "${_ID_ABBONAMENTO} INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    "${_ID_ABBONAMENTO} INTEGER NOT NULL," +
                     "${TEATRO} TEXT NOT NULL," +
                     "${DATA_INIZIO} TEXT NOT NULL," +
                     "${DATA_FINE} TEXT NOT NULL);"

@@ -87,11 +87,11 @@ class Profile : Fragment(R.layout.fragment_register) {
         dbManager = DBManager(requireContext())
 
         // Esegui operazioni di test
-        performDatabaseTest()
+        //performDatabaseTest()
 
 
     }
-
+/*                  DEBUG
     private fun performDatabaseTest() {
         // Apri il database
         dbManager.open()
@@ -106,6 +106,7 @@ class Profile : Fragment(R.layout.fragment_register) {
         // Chiudi il database
         dbManager.close()
     }
+
     private fun insertData() {
         dbManager.insertBiglietto("Spettacolo 1", "2023-06-30")
         dbManager.insertBiglietto("Spettacolo 2", "2023-07-15")
@@ -134,7 +135,7 @@ class Profile : Fragment(R.layout.fragment_register) {
                 } while (cursor.moveToNext())
             }
         }
-    }
+    }*/
 
 
 
