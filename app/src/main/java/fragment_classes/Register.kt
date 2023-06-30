@@ -68,7 +68,7 @@ class Register : Fragment(R.layout.fragment_register) {
 
                 }
                 override fun onFailure(call: Call<JsonObject>, t: Throwable) {
-                    Log.i("ApiService", "Registration faillita")
+                    Log.i("ApiService", "Registration fallita")
                     Log.e("ApiService", t.message.toString())
 
                 }
