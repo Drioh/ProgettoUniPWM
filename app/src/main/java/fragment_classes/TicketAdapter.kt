@@ -53,7 +53,7 @@ class TicketAdapter(private val cursorB: Cursor, private val cursorA: Cursor) : 
                 onClickListener?.onClick(position, TicketModel(nomeTeatro, periodo, true,id, nomeTeatro))
             }
         }
-        else{if (cursorB.moveToPosition(position-(cursorA.count-1))){
+        else{if (cursorB.moveToPosition(position-(cursorA.count))){
 
             println(cursorB.getString(cursorB.getColumnIndex(DBHelper.NOME_SPETTACOLO)))
             var id = cursorB.getString(cursorB.getColumnIndex(DBHelper._ID_BIGLIETTO))
