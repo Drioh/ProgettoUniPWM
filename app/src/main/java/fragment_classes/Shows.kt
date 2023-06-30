@@ -38,7 +38,7 @@ class Shows (val data: ArrayList<ShowModel>) : Fragment(R.layout.fragment_shows)
 
         adapter.setOnClickListener(object: ShowAdapter.OnClickListener {
             override fun onClick(position: Int, model: ShowModel) {
-            MA.realAppNavigateTo(ShowInfo(model.id),"ShowInfo")
+            MA.realAppNavigateTo(ShowInfo(model.id, model.textName, model.textDate),"ShowInfo")
             }
         })
         return binding.root
