@@ -10,14 +10,21 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import api.ApiService
 import com.example.progettouni.MainActivity
 import com.example.progettouni.R
 import com.example.progettouni.databinding.FragmentTicketBinding
+import com.example.progettouni.databinding.RealAppBinding
+import com.google.gson.JsonArray
+import com.google.gson.JsonObject
 import java.util.*
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.EncodeHintType
 import com.google.zxing.qrcode.QRCodeWriter
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class Ticket(private val isAbbonamento: Boolean, var id: String, val teatro: String): Fragment(R.layout.fragment_ticket) {
     private lateinit var binding: FragmentTicketBinding
@@ -45,13 +52,44 @@ class Ticket(private val isAbbonamento: Boolean, var id: String, val teatro: Str
         }
         else{
             if(!isAbbonamento){
-                binding.showInfoButton.setText(R.string.infoTicket)
+                /*binding.showInfoButton.setText(R.string.infoTicket)
                 binding.textView.setText(R.string.myTicket)
                 // modifica della stringa dell'id per aggiungere varietà in modo tale da garantire l'unicità del codice QR
-                id = id+"BIGLIETTO"
                 binding.showInfoButton.setOnClickListener(){
-                    println("Bigliettazzo")
-                }
+                    val query = "select * from Spettacolo, Rappresentazione where id_spettacolo=ref_spettacolo and id_spettacolo=${id};"
+                    ApiService.retrofit.select(query).enqueue(
+                        object : Callback<JsonObject> {
+                            override fun onResponse(call: Call<JsonObject>?, response: Response<JsonObject>) {
+                                if (response.isSuccessful) {
+                                    if ((response.body()?.get("queryset") as JsonArray).size() == 1) {
+                                        val userJsonObject = (response.body()?.get("queryset") as JsonArray)[0] as JsonObject
+                                        userId = userJsonObject.get("id_utente").asInt // Assegna l'ID dell'utente alla variabile userId
+                                        val userName = userJsonObject.get("nome_utente").asString
+                                        val pw = userJsonObject.get("password").asString
+                                        val  email = userJsonObject.get("mail").asString
+                                        this@MainActivity.saveUserData(userId, userName, email, pw)
+                                        realBinding = RealAppBinding.inflate(layoutInflater)
+                                        supportFragmentManager.popBackStack()
+                                        supportFragmentManager.beginTransaction()
+                                            .replace(R.id.fragmentContainerView, RealApp())
+                                            .commit()
+                                        supportFragmentManager.beginTransaction()
+                                            .add(R.id.fragmentContainerView4, Home())
+                                            .addToBackStack("Home")
+                                            .commit()
+
+                                    } else {
+                                        showToast("Credenziali Errate")
+                                    }
+                                }
+                            }
+                            override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+                                showToast("Errore di rete")
+                            }
+                        }
+                    )
+                }*/
+                id = id+"BIGLIETTO"
             }
         }
         generateQRCode(id)
