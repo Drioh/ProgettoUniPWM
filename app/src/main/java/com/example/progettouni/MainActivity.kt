@@ -218,4 +218,5 @@ class MainActivity : AppCompatActivity() {
         val   email = sharedPreferences.getString("email", "") ?: ""
         val  pw = sharedPreferences.getString("password", "") ?: ""
     }
+
 }
