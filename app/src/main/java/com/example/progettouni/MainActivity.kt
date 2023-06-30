@@ -26,8 +26,10 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var realBinding: RealAppBinding
     private lateinit var log_type: String
+    private lateinit var db: DBManager
     private var userId: Int = 0 // Variabile per l'ID dell'utente
     private lateinit var sharedPreferences: SharedPreferences
+
 
     @SuppressLint("Range")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,6 +37,16 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
+        db = DBManager(this)
+
+        db.open()
+
+        /*
+        db.insertAbbonamento("Massimo", "11/12/2001", "05/05/2002")
+        db.insertBiglietto("Duce appeso", "02/02/2010")
+        db.insertAbbonamento("Politeama", "11/11/2011", "04/04/2022")
+        db.insertBiglietto("Se ni mondo", "20/08/2021")*/
+
 
         // Controllo se ci sono credenziali salvate nelle SharedPreferences
         sharedPreferences = getSharedPreferences("UserData", Context.MODE_PRIVATE)
@@ -45,6 +57,7 @@ class MainActivity : AppCompatActivity() {
 
         if (!email.isNullOrEmpty() && !password.isNullOrEmpty()) {
             // Eseguo automaticamente l'accesso al profilo dell'utente
+            loadUserData()
             realBinding = RealAppBinding.inflate(layoutInflater)
             supportFragmentManager.popBackStack()
             supportFragmentManager.beginTransaction()
@@ -55,6 +68,8 @@ class MainActivity : AppCompatActivity() {
                 .addToBackStack("Home")
                 .commit()
         }
+        syncDB()
+
     }
     fun getUserId(): Int {
         return userId
@@ -157,6 +172,69 @@ class MainActivity : AppCompatActivity() {
         )
     }
 
+    @SuppressLint("Range")
+    fun syncDB(){
+        data class Abbonamento(var id : String, var teatro: String, var dataInizio: String, var datafine: String)
+        data class Biglietto(var id : String, var noemSpettacolo: String, var dataScadenza: String)
+        var abb = db.fetchAllAbbonamenti()
+        var tick = db.fetchAllBiglietti()
+        if (abb.count !=0){
+        do{
+            db.deleteAbbonamento(abb.getInt(abb.getColumnIndex(DBHelper._ID_ABBONAMENTO)))
+        }while(abb.moveToNext())}
+        if(tick.count !=0){
+        do{
+            db.deleteBiglietto(tick.getInt(tick.getColumnIndex(DBHelper._ID_BIGLIETTO)))
+        }while(tick.moveToNext())}
+//BIGLIETTI
+        var query = "select * " +
+                "from Biglietto_singolo, Spettacolo, Rappresentazione " +
+                "where id_rappresentazione=ref_rappresentazione_biglietto and " +
+                "ref_spettacolo = id_spettacolo and " +
+                "ref_utente = ${userId};"
+        ApiService.retrofit.select(query).enqueue(
+            object : Callback <JsonObject> {
+                override fun onResponse(call: Call<JsonObject>?, response: Response<JsonObject>) {
+                    if (response.isSuccessful) {
+                        var risposta = response.body()?.get("queryset") as JsonArray
+                        var Biglietti : List<Biglietto>
+                        for (i in 1 .. risposta.count()){
+                            println("cazzotto")
+                        }
+                    } else {
+                        showToast("Richiesta biglietti non andata a buon termine")
+                    }
+                }
+                override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+                    showToast("Errore di rete")
+                }
+            }
+        )
+        //ABBONAMENTI
+        query = "select * " +
+                "from Abbonamento, Teatro " +
+                "where id_teatro=ref_teatro and " +
+                "ref_utente = ${userId};"
+        ApiService.retrofit.select(query).enqueue(
+            object : Callback <JsonObject> {
+                override fun onResponse(call: Call<JsonObject>?, response: Response<JsonObject>) {
+                    if (response.isSuccessful) {
+                        var risposta = response.body()?.get("queryset") as JsonArray
+                        var Biglietti : List<Biglietto>
+                        for (i in 1 .. risposta.count()){
+                            println("crenotti")
+                        }
+                    } else {
+                        showToast("Richiesta biglietti non andata a buon termine")
+                    }
+                }
+                override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+                    showToast("Errore di rete")
+                }
+            }
+        )
+    }
+
     fun logout() {
         for (i in 0 until supportFragmentManager.getBackStackEntryCount()) {
             supportFragmentManager.popBackStack()
@@ -210,7 +288,7 @@ class MainActivity : AppCompatActivity() {
         sharedPreferences = getSharedPreferences("UserData", Context.MODE_PRIVATE)
         userId = sharedPreferences.getInt("userId", 0)
         val  userName = sharedPreferences.getString("userName", "") ?: ""
-        val   email = sharedPreferences.getString("email", "") ?: ""
+        val  email = sharedPreferences.getString("email", "") ?: ""
         val  pw = sharedPreferences.getString("password", "") ?: ""
     }
 

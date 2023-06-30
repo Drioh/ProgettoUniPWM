@@ -6,34 +6,210 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="16dp"
-        android:visibility="visible"
-        tools:visibility="visible">
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="16dp">
 
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="350sp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:orientation="vertical">
 
-            <LinearLayout
+            <TextView
+                android:id="@+id/Show"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:text="@string/Placeholder"
+                android:textAlignment="center"
+                android:textColor="#000000"
+                android:textSize="24sp" />
 
-                <Button
-                    android:id="@+id/buyTicketButton"
+            <LinearLayout
+                android:id="@+id/DirectorLinearLayout"
+                android:layout_width="350sp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20sp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/directorHeading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Regista"
+                    android:textAlignment="viewStart"
+                    android:textColor="#000000"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/directorText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="@color/black"
-                    android:text="@string/BuyTicket"
-                    app:cornerRadius="45dp" />
-            </LinearLayout>
-        </ScrollView>
+                    android:layout_weight="1"
+                    android:text="@string/Placeholder"
+                    android:textAlignment="textEnd"
+                    android:textColor="#000000"
+                    android:textSize="16sp" />
 
-    </LinearLayout>
+            </LinearLayout>
+
+            <View
+                android:id="@+id/Separator"
+                android:layout_width="350sp"
+                android:layout_height="3sp"
+                android:layout_gravity="center_horizontal"
+                android:background="@android:color/black" />
+
+            <LinearLayout
+                android:id="@+id/FirstLinearLayout"
+                android:layout_width="350sp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20sp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/FirstHeading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Protagonista"
+                    android:textAlignment="viewStart"
+                    android:textColor="#000000"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/FirstText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/Placeholder"
+                    android:textAlignment="textEnd"
+                    android:textColor="#000000"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+            <View
+                android:id="@+id/separator2"
+                android:layout_width="350sp"
+                android:layout_height="3sp"
+                android:layout_gravity="center_horizontal"
+                android:background="@android:color/black" />
+
+            <LinearLayout
+                android:id="@+id/CompanyLinearLayout"
+                android:layout_width="350sp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20sp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/CompanyHeading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Compagnia"
+                    android:textAlignment="viewStart"
+                    android:textColor="#000000"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/CompanyText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/Placeholder"
+                    android:textAlignment="textEnd"
+                    android:textColor="#000000"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+            <View
+                android:id="@+id/separator3"
+                android:layout_width="350sp"
+                android:layout_height="3sp"
+                android:layout_gravity="center_horizontal"
+                android:background="@android:color/black" />
+
+            <LinearLayout
+                android:layout_width="350sp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20sp"
+                android:background="#000000"
+                android:orientation="vertical"
+                android:padding="20sp">
+
+                <TextView
+                    android:id="@+id/Desc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Desc"
+                    android:textAlignment="center"
+                    android:textColor="#FFFFFF"
+                    android:textSize="24sp" />
+
+                <View
+                    android:id="@+id/separator4"
+                    android:layout_width="match_parent"
+                    android:layout_height="1sp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="10sp"
+                    android:layout_marginBottom="10sp"
+                    android:background="@color/white" />
+
+                <TextView
+                    android:id="@+id/ShowDesc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="TextView"
+                    android:textColor="#FFFFFF"
+                    android:textSize="16sp" />
+
+                <View
+                    android:id="@+id/separator5"
+                    android:layout_width="match_parent"
+                    android:layout_height="1sp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="10sp"
+                    android:layout_marginBottom="10sp"
+                    android:background="@color/white" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/show"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20sp"
+                android:layout_marginBottom="10sp"
+                android:text="@string/where"
+                android:textAlignment="center"
+                android:textColor="#000000"
+                android:textSize="24sp" />
+
+            <Button
+                android:id="@+id/theatreButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="20sp"
+                android:backgroundTint="#F44336"
+                android:text="@string/Placeholder"
+                app:cornerRadius="45dp" />
+
+            <Button
+                android:id="@+id/buyTicketButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/black"
+                android:text="@string/BuyTicket"
+                app:cornerRadius="45dp" />
+        </LinearLayout>
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
