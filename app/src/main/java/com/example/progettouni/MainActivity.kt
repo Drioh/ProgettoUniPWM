@@ -157,6 +157,12 @@ class MainActivity : AppCompatActivity() {
             }
         )
     }
+
+    /**
+     * Questo metodo si occupa della sincronizzazione del database locale partendo dai dati presenti nel database remoto.
+     * Si controlla quali id di abbonamenti e biglietti NON sono presenti nel database locale ma sono presenti nel database remoto, e vengono implementati
+     * MANTENENDO GLI ID CONSISTENTI (se un biglietto ha id = x nel database remoto, anche nel database locale tale biglietto presenterà id = x
+     */
     @SuppressLint("Range")
     fun syncDB(){
         data class Abbonamento(var id : Int, var teatro: String, var dataInizio: String, var dataFine: String)
@@ -270,6 +276,10 @@ class MainActivity : AppCompatActivity() {
         )
     }
 
+    /**
+     * Questo metodo si occupa di eseguire il logout dell'utente cancellando i suoi dati dalle shared preferences, in modo da non rendere automatico il login all'accesso successivo.
+     * Inoltre viene ripulito il database locale, in modo tale da potere i dati su biglietti e abbonamenti separati in caso si loggasse con credenziali diverse
+     */
     @SuppressLint("Range")
     fun logout() {
         for (i in 0 until supportFragmentManager.getBackStackEntryCount()) {
@@ -291,7 +301,8 @@ class MainActivity : AppCompatActivity() {
         setUserId(0)
     }
 
-    /**questo metodo viene invocato quando viene selezionato un teatro per il quale acquistare
+    /**
+     * Questo metodo viene invocato quando viene selezionato un teatro per il quale acquistare
      *un abbonamento.
      *@param teatro: nome del teatro selezionato (uno tra Politeama, Biondo e Massimo)
      */

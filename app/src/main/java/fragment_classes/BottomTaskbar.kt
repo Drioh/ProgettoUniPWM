@@ -37,6 +37,9 @@ class BottomTaskbar : Fragment(R.layout.fragment_bottom_taskbar) {
         binding.HomeButton.setOnClickListener(){
             MA.realAppNavigateTo(Home(), "Home")
         }
+        /*
+        Viene interrogato il databse remoto e viene popolata la recycle view che si occupa degli spettacoli per i quali l'utente può acquistare dei biglietti
+         */
         binding.SearchButton.setOnClickListener(){
             val query = "select  nome_spettacolo, data, nome_teatro, id_spettacolo " +
                     "from Rappresentazione , Spettacolo , Teatro " +
@@ -48,13 +51,21 @@ class BottomTaskbar : Fragment(R.layout.fragment_bottom_taskbar) {
                         if (response.isSuccessful) {
                             val showsJsonObject = response.body()?.get("queryset") as JsonArray
                             var data: ArrayList<ShowModel> = arrayListOf<ShowModel>()
-                            println(showsJsonObject)
+                            println(showsJsonObject) //DEBUG
                             for (i in 0 .. showsJsonObject.size()-1){
                                 val spettacolo = showsJsonObject[i].asJsonObject.get("nome_spettacolo").toString().substring(1,showsJsonObject[i].asJsonObject.get("nome_spettacolo").toString().length-1)
                                 val date = showsJsonObject[i].asJsonObject.get("data").toString().substring(1,showsJsonObject[i].asJsonObject.get("data").toString().length-1)
                                 val teatro = showsJsonObject[i].asJsonObject.get("nome_teatro").toString().substring(1,showsJsonObject[i].asJsonObject.get("nome_teatro").toString().length-1)
                                 val identificativo = showsJsonObject[i].asJsonObject.get("id_spettacolo").toString()
-                                data.add(ShowModel(0,spettacolo,date,identificativo,teatro))
+                                data.add(
+                                    ShowModel(
+                                        0,
+                                        spettacolo,
+                                        date,
+                                        identificativo,
+                                        teatro
+                                    )
+                                )
                             }
                             MA.realAppNavigateTo(Shows(data),"Shows")
                         }else
@@ -74,8 +85,6 @@ class BottomTaskbar : Fragment(R.layout.fragment_bottom_taskbar) {
         binding.SubButton.setOnClickListener(){
             MA.realAppNavigateTo(SubscriptionChoice(),"SubscriptionChoice")
         }
-
         return binding.root
-
     }
 }

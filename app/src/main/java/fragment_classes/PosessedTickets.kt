@@ -64,14 +64,8 @@ class PosessedTickets : Fragment(R.layout.fragment_posessed_tickets) {
 
     private fun queryTicket(data: Cursor, essence: ArrayList<Boolean>, allId: ArrayList<String>) {
         //la funzione serve a popolare i 3 arraylist tramite delle query al dbms locale
-
-
     }
-
     private fun queryMembership(data: Cursor, essence: ArrayList<Boolean>, allId: ArrayList<String>) {
         //la funzione serve a popolare i 3 arraylist tramite delle query al dbms locale
-
-
-
     }
 }
