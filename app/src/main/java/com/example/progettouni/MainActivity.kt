@@ -14,10 +14,7 @@ import com.example.progettouni.databinding.ActivityMainBinding
 import com.example.progettouni.databinding.RealAppBinding
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
-import fragment_classes.Home
-import fragment_classes.RealApp
-import fragment_classes.SubscriptionPurchase
-import fragment_classes.UserOrAdmin
+import fragment_classes.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -38,15 +35,12 @@ class MainActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
         db = DBManager(this)
-
         db.open()
 
         // Controllo se ci sono credenziali salvate nelle SharedPreferences
         sharedPreferences = getSharedPreferences("UserData", Context.MODE_PRIVATE)
         val email = sharedPreferences.getString("email", "")
         val password = sharedPreferences.getString("password", "")
-
-
 
         if (!email.isNullOrEmpty() && !password.isNullOrEmpty()) {
             // Eseguo automaticamente l'accesso al profilo dell'utente
@@ -129,7 +123,6 @@ class MainActivity : AppCompatActivity() {
      *@param mail: Indirizzo email dell'utente.
      *@param password: Password dell'utente.
      */
-
     fun loginCheck(mail: String, password: String) {
         val query = "select * from Utente where mail = '${mail}' and password = '${password}';"
         ApiService.retrofit.select(query).enqueue(
@@ -138,7 +131,7 @@ class MainActivity : AppCompatActivity() {
                     if (response.isSuccessful) {
                         if ((response.body()?.get("queryset") as JsonArray).size() == 1) {
                             val userJsonObject = (response.body()?.get("queryset") as JsonArray)[0] as JsonObject
-                            userId = userJsonObject.get("id_utente").asInt // Assegna l'ID dell'utente alla variabile userId
+                            setUserId(userJsonObject.get("id_utente").asInt) // Assegna l'ID dell'utente alla variabile userId
                             val userName = userJsonObject.get("nome_utente").asString
                             val pw = userJsonObject.get("password").asString
                             val  email = userJsonObject.get("mail").asString
@@ -152,7 +145,7 @@ class MainActivity : AppCompatActivity() {
                                 .add(R.id.fragmentContainerView4, Home())
                                 .addToBackStack("Home")
                                 .commit()
-
+                            syncDB()
                         } else {
                             showToast("Credenziali Errate")
                         }
@@ -164,22 +157,26 @@ class MainActivity : AppCompatActivity() {
             }
         )
     }
-
     @SuppressLint("Range")
     fun syncDB(){
         data class Abbonamento(var id : Int, var teatro: String, var dataInizio: String, var dataFine: String)
         data class Biglietto(var id : Int, var nomeSpettacolo: String, var dataScadenza: String)
+        var abbLocaliI  = emptyList<Int>().toMutableList()
+        var tickLocaliI  = emptyList<Int>().toMutableList()
         var abb = db.fetchAllAbbonamenti()
         var tick = db.fetchAllBiglietti()
         if (abb.count !=0){
             do{
-                db.deleteAbbonamento(abb.getInt(abb.getColumnIndex(DBHelper._ID_ABBONAMENTO)))
+                abbLocaliI.add(abb.getInt(abb.getColumnIndex(DBHelper._ID_ABBONAMENTO)))
             }while(abb.moveToNext())}
+        println("Abbonamenti Locali: "+abbLocaliI) // DEBUG
         if(tick.count !=0){
             do{
-                db.deleteBiglietto(tick.getInt(tick.getColumnIndex(DBHelper._ID_BIGLIETTO)))
+                tickLocaliI.add(tick.getInt(tick.getColumnIndex(DBHelper._ID_BIGLIETTO)))
             }while(tick.moveToNext())}
-//BIGLIETTI
+        println("Biglietti Locali: "+tickLocaliI) // DEBUG
+
+        //BIGLIETTI
         var query = "select * " +
                 "from Biglietto_singolo, Spettacolo, Rappresentazione " +
                 "where id_rappresentazione=ref_rappresentazione_biglietto and " +
@@ -193,10 +190,28 @@ class MainActivity : AppCompatActivity() {
                         var Biglietti  = emptyList<Biglietto>().toMutableList()
                         for (i in 0 until risposta.count()){
                             var elemento = risposta[i] as JsonObject
-                            Biglietti.add(Biglietto(elemento.get("id_biglietto").asInt,elemento.get("nome_spettacolo").asString,elemento.get("data").asString))
+                            println("Id biglietto "+i+" database: "+ elemento.get("id_biglietto").asInt)
+                            if(!(elemento.get("id_biglietto").asInt in tickLocaliI)){
+                                println("c'è un biglietto non trovato, procedo alla sincronizzazione")
+                                Biglietti.add(
+                                    Biglietto(
+                                        elemento.get("id_biglietto").asInt,
+                                        elemento.get("nome_spettacolo").asString,
+                                        elemento.get("data").asString
+                                    )
+                                )
+
+                            }else{
+                                println("trovato biglietto!")
+
+                            }
                         }
                         for (i in 0 until Biglietti.size){
-                            db.insertBiglietto(Biglietti[i].id,Biglietti[i].nomeSpettacolo,Biglietti[i].dataScadenza)
+                            db.insertBiglietto(
+                                Biglietti[i].id,
+                                Biglietti[i].nomeSpettacolo,
+                                Biglietti[i].dataScadenza
+                            )
                         }
                     } else {
                         showToast("Richiesta biglietti non andata a buon termine")
@@ -217,16 +232,35 @@ class MainActivity : AppCompatActivity() {
                 override fun onResponse(call: Call<JsonObject>?, response: Response<JsonObject>) {
                     if (response.isSuccessful) {
                         var risposta = response.body()?.get("queryset") as JsonArray
-                        var Abbonamenti  = emptyList<Abbonamento>().toMutableList()
-                        for (i in 0 until risposta.count()){
+                        var Abbonamenti = emptyList<Abbonamento>().toMutableList()
+                        for (i in 0 until risposta.count()) {
                             var elemento = risposta[i] as JsonObject
-                            Abbonamenti.add(Abbonamento(elemento.get("id_abbonamento").asInt,elemento.get("nome_teatro").asString,elemento.get("data_scadenza").asString,elemento.get("data_scadenza").asString))
+
+                            if (!(elemento.get("id_abbonamento").asInt in abbLocaliI)) {
+                                println("C'è un abbonamento non trovato, procedo alla sincronizzazione")
+                                Abbonamenti.add(
+                                    Abbonamento(
+                                        elemento.get("id_abbonamento").asInt,
+                                        elemento.get("nome_teatro").asString,
+                                        elemento.get("data_scadenza").asString,
+                                        elemento.get("data_scadenza").asString
+                                    )
+                                )
+
+                            }else{
+                                println("trovato abbonamento!")
+                            }
                         }
-                        for (i in 0 until Abbonamenti.size){
-                            db.insertAbbonamento(Abbonamenti[i].id,Abbonamenti[i].teatro,Abbonamenti[i].dataInizio,Abbonamenti[i].dataFine)
+                        for (i in 0 until Abbonamenti.size) {
+                            db.insertAbbonamento(
+                                Abbonamenti[i].id,
+                                Abbonamenti[i].teatro,
+                                Abbonamenti[i].dataInizio,
+                                Abbonamenti[i].dataFine
+                            )
                         }
-                    } else {
-                        showToast("Richiesta biglietti non andata a buon termine")
+                    }else {
+                        showToast("Richiesta abbonamenti non andata a buon termine")
                     }
                 }
                 override fun onFailure(call: Call<JsonObject>, t: Throwable) {
@@ -236,14 +270,25 @@ class MainActivity : AppCompatActivity() {
         )
     }
 
+    @SuppressLint("Range")
     fun logout() {
         for (i in 0 until supportFragmentManager.getBackStackEntryCount()) {
             supportFragmentManager.popBackStack()
         }
+        var abb = db.fetchAllAbbonamenti()
+        var tick = db.fetchAllBiglietti()
+        if (abb.count !=0){
+            do{
+                db.deleteAbbonamento(abb.getInt(abb.getColumnIndex(DBHelper._ID_ABBONAMENTO)))
+            }while(abb.moveToNext())}
+        if(tick.count !=0){
+            do{
+                db.deleteBiglietto(tick.getInt(tick.getColumnIndex(DBHelper._ID_BIGLIETTO)))
+            }while(tick.moveToNext())}
         supportFragmentManager.beginTransaction()
-            .replace(R.id.fragmentContainerView, UserOrAdmin())
+            .replace(R.id.fragmentContainerView, Login())
             .commit()
-        userId = 0
+        setUserId(0)
     }
 
     /**questo metodo viene invocato quando viene selezionato un teatro per il quale acquistare
@@ -273,8 +318,6 @@ class MainActivity : AppCompatActivity() {
         }
         super.getOnBackPressedDispatcher().onBackPressed()
     }
-
-
     private fun saveUserData(userId: Int, userName: String, email: String, password: String) {
         sharedPreferences = getSharedPreferences("UserData", Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
