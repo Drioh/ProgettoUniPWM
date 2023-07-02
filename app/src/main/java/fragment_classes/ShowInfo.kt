@@ -21,7 +21,7 @@ class ShowInfo(var id: String, var name: String, var date: String): Fragment(R.l
         var MA = (activity as MainActivity?)!! //reference alla Main Activity
         binding.buyTicketButton.setOnClickListener{
             binding.buyTicketButton.setBackgroundColor(Color.parseColor("#F44336"))
-            MA.realAppNavigateTo(TicketPurchase(id, name, date), "TicketPurchase")
+            MA.realAppNavigateTo(ChoosePlace(id, name, date), "ChoosePlace") //da mettere qui o dopo il navigate per ChoosePlace
         }
 
 
