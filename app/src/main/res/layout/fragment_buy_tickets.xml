@@ -66,7 +66,8 @@
                 android:ems="10"
                 android:hint="@string/CardDateMonth"
                 android:inputType="date"
-                android:textSize="14sp" />
+                android:textSize="14sp"
+                android:importantForAutofill="noExcludeDescendants"/>
 
             <EditText
                 android:id="@+id/cardExpireYearField"
