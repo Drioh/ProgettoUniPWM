@@ -9,20 +9,24 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import api.ApiService
-import api.DBManager
 import com.example.progettouni.MainActivity
 import com.example.progettouni.R
 import com.example.progettouni.databinding.FragmentBuyTicketsBinding
-import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.time.LocalDate
 
-class TicketPurchase (var id: String, var type: String, var period: String) : Fragment(R.layout.fragment_buy_tickets) {
+class TicketPurchase(
+    var id_show: String,
+    var type: String,
+    var period: String,
+    var selectedPlace: String,
+    var ticketQuantity: Int,
+    var textTheatre: String
+) : Fragment(R.layout.fragment_buy_tickets) {
     private lateinit var binding: FragmentBuyTicketsBinding
-    private lateinit var dbManager: DBManager
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -32,21 +36,21 @@ class TicketPurchase (var id: String, var type: String, var period: String) : Fr
         var MA = (activity as MainActivity?)!! //reference alla Main Activity
 
         binding.confirmButton.setOnClickListener{
-            dbManager = DBManager(requireContext())
-            //inserire il biglietto nella posizione di id remoto
             var cardNumber = binding.cardField.text.toString()
             var numberCVC = binding.cvcField.text.toString()
-            var expireYear = binding.cardExpireYearField.text.toString().toInt()
-            var expireMonth = binding.cardExpireMonthField.text.toString().toInt()
-            if(expireYear < 100){    //quindi se non inserisco il "20" prima dell'anno
-                expireYear += 2000
-            }
+            var expireYear = binding.cardExpireYearField.text.toString()
+            var expireMonth = binding.cardExpireMonthField.text.toString()
+            var place: Char = choosePlace(selectedPlace)
+            expireYear = adjustYear(expireYear)
             if ((cardNumber.length == 16) && (numberCVC.length == 3) && verifyExpire(expireYear, expireMonth)) {
                 val utente: Int = MA.getUserId()
+                if(expireMonth.length == 1) {    //quindi se non inserisco il "20" prima dell'anno
+                    expireMonth = "0${expireMonth}"
+                }
                 insertCartaCredito(utente, cardNumber, numberCVC, expireYear, expireMonth)
                 binding.confirmButton.setBackgroundColor(Color.parseColor("#F44336"))
-                insertBigliettoInRemoto(utente, id)
-                insertBigliettoInLocale(utente, id, dbManager, type, period)
+                insertBigliettoInRemoto(utente, id_show)
+                MA.syncDB()
                 MA.realAppNavigateTo(PaymentConfirmed("Biglietto"), "ConfirmedPayment")
             }else{
                 MA.showToast("Carta non valida")
@@ -61,7 +65,24 @@ class TicketPurchase (var id: String, var type: String, var period: String) : Fr
         return binding.root
     }
 
-    private fun verifyExpire(expireYear: Int, expireMonth: Int): Boolean {
+    private fun choosePlace(selectedPlace: String): Char {
+        var place: Char
+        when(selectedPlace){
+            "Piccionaia" ->
+        }
+    }
+
+    private fun adjustYear(expireYear: String): String {
+        var year: Int = Integer.parseInt(expireYear)
+        if(year < 100){    //quindi se non inserisco il "20" prima dell'anno
+            year += 2000
+        }
+        return year.toString()
+    }
+
+    private fun verifyExpire(year: String, month: String): Boolean {
+        var expireYear: Int = Integer.parseInt(year)
+        var expireMonth: Int = Integer.parseInt(month)
         val current_year = Calendar.getInstance().get(Calendar.YEAR)
         val current_month = Calendar.getInstance().get(Calendar.MONTH)
         if(expireMonth > 12){
@@ -76,7 +97,7 @@ class TicketPurchase (var id: String, var type: String, var period: String) : Fr
     return false
     }
 
-    private fun insertCartaCredito(utente: Int, cardNumber: String, numberCVC: String, expireYear: Int, expireMonth: Int) {
+    private fun insertCartaCredito(utente: Int, cardNumber: String, numberCVC: String, expireYear: String, expireMonth: String) {
         var date = LocalDate.parse("${expireYear}-${expireMonth}-01")
         val query = "insert into Carte_credito (numero, ref_utente, data_scadenza_carta, cvc ) values ('${cardNumber}', '${utente}', '${date}', '${numberCVC}'); "
         ApiService.retrofit.insert(query).enqueue(
@@ -94,35 +115,8 @@ class TicketPurchase (var id: String, var type: String, var period: String) : Fr
         )
     }
 
-    private fun insertBigliettoInLocale(
-        userId: Int,
-        ticket_id: String,
-        dbManager: DBManager,
-        name: String,
-        date: String
-    ) {
-        val query = "select id_biglietto from Biglietto_singolo where ref_utente = '${userId}' and ref_rappresentazione_biglietto = '${ticket_id}';"
-        ApiService.retrofit.select(query).enqueue(
-            object : Callback <JsonObject> {
-                override fun onResponse(call: Call<JsonObject>?, response: Response<JsonObject>) {
-                    if (response.isSuccessful) {
-                        if ((response.body()?.get("queryset") as JsonArray).size() == 1) {
-                            val userJsonObject = (response.body()?.get("queryset") as JsonArray)[0] as JsonObject
-                            val position = userJsonObject.get("id_biglietto").asInt
-                            dbManager.insertBiglietto(position, name, date)
-                        }
-                    }
-                }
-                override fun onFailure(call: Call<JsonObject>, t: Throwable) {
-                    Log.i("ApiService", "Connessione assente")
-                    Log.e("ApiService", t.message.toString())
-                }
-            }
-        )
-    }
-
-    private fun insertBigliettoInRemoto(utente: Int, id: String) {
-        val query = "insert into Biglietto_singolo (ref_utente, ref_rappresentazione_biglietto ) values ('${utente}', '${id}'); "
+    private fun insertBigliettoInRemoto(utente: Int, id_show: String) {
+        val query = "insert into Biglietto_singolo (ref_utente, ref_rappresentazione_biglietto ) values ('${utente}', '${this.id_show}'); "
         ApiService.retrofit.insert(query).enqueue(
             object: Callback<JsonObject> {
                 override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {

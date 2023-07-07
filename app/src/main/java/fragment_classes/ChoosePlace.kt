@@ -3,17 +3,15 @@ package fragment_classes
 import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.progettouni.MainActivity
 import com.example.progettouni.R
 import com.example.progettouni.databinding.FragmentChoosePlaceBinding
 
 
-class ChoosePlace(var id: String, var type: String, var period: String ): Fragment(R.layout.fragment_choose_place) {
+class ChoosePlace(var id: String, var type: String, var period: String, var textTheatre: String): Fragment(R.layout.fragment_choose_place) {
     private lateinit var binding: FragmentChoosePlaceBinding
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -26,7 +24,7 @@ class ChoosePlace(var id: String, var type: String, var period: String ): Fragme
             binding.confirmButton.setBackgroundColor(Color.parseColor("#F44336"))
             val selectedPlace = binding.placeSpinner.selectedItem.toString()
             val ticketQuantity = binding.ticketQuantity.text.toString().toInt()
-            MA.realAppNavigateTo(TicketPurchase(id, type, period), "TicketPurchase")
+            MA.realAppNavigateTo(TicketPurchase(id, type, period, selectedPlace, ticketQuantity, textTheatre), "TicketPurchase")
 
         }
 
