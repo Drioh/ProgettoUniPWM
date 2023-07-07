@@ -57,12 +57,22 @@
             android:orientation="horizontal">
 
             <EditText
-                android:id="@+id/cardExpireDateField"
-                android:layout_width="357dp"
+                android:id="@+id/cardExpireMonthField"
+                android:layout_width="251dp"
                 android:layout_height="50dp"
                 android:layout_weight="1"
                 android:ems="10"
-                android:hint="@string/CardDate"
+                android:hint="@string/CardDateMonth"
+                android:inputType="date"
+                android:textSize="14sp" />
+
+            <EditText
+                android:id="@+id/cardExpireYearField"
+                android:layout_width="251dp"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:ems="10"
+                android:hint="@string/CardDateYear"
                 android:inputType="date"
                 android:textSize="14sp" />
 

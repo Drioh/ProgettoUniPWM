@@ -17,6 +17,7 @@ import com.google.gson.JsonObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.time.LocalDate
 
 class TicketPurchase (var id: String, var type: String, var period: String) : Fragment(R.layout.fragment_buy_tickets) {
     private lateinit var binding: FragmentBuyTicketsBinding
@@ -34,10 +35,11 @@ class TicketPurchase (var id: String, var type: String, var period: String) : Fr
             //inserire il biglietto nella posizione di id remoto
             var cardNumber = binding.cardField.toString()
             var numberCVC = binding.cvcField.toString()
-            var expireDate = binding.cardExpireDateField.toString()
+            var expireYear = binding.cardExpireYearField.toString()
+            var expireMonth = binding.cardExpireMonthField.toString()
             if ((cardNumber.length == 16) && (numberCVC.length == 3) && ) {       //inserire controllo per la data di scadenza
                 val utente: Int = MA.getUserId()
-                insertCartaCredito(utente, cardNumber, numberCVC, expireDate)
+                insertCartaCredito(utente, cardNumber, numberCVC, expireYear)
                 binding.confirmButton.setBackgroundColor(Color.parseColor("#F44336"))
                 insertBigliettoInRemoto(utente, id)
                 insertBigliettoInLocale(utente, id, dbManager, type, period)
