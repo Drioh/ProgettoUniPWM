@@ -31,7 +31,6 @@
     <string name="CardUN">Nome del possessore della carta</string>
     <string name="CardDateMonth">Mese di scadenza</string>
     <string name="CardDateYear">Anno di scadenza</string>
-    <string name="CardDate">Inserire data di scadenza della carta</string>
     <string name="CVC">CVC</string>
     <string name="CorrPay">Acquisto avvenuto con successo!\nTroverai il tuo biglietto nella sezione\n"Biglietti e Abbonamenti"</string>
     <string name="CorrSubPay">Acquisto avvenuto con successo!\nTroverai il tuo abbonamento nella sezione\n"Biglietti e Abbonamenti"</string>

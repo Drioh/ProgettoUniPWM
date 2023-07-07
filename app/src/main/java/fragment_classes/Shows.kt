@@ -1,6 +1,5 @@
 package fragment_classes
 
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,7 +8,6 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.progettouni.MainActivity
 import com.example.progettouni.R
-import com.example.progettouni.databinding.FragmentLoginBinding
 import com.example.progettouni.databinding.FragmentShowsBinding
 
 class Shows (val data: ArrayList<ShowModel>) : Fragment(R.layout.fragment_shows) {
@@ -38,7 +36,7 @@ class Shows (val data: ArrayList<ShowModel>) : Fragment(R.layout.fragment_shows)
 
         adapter.setOnClickListener(object: ShowAdapter.OnClickListener {
             override fun onClick(position: Int, model: ShowModel) {
-            MA.realAppNavigateTo(ShowInfo(model.id, model.textName, model.textDate),"ShowInfo")
+            MA.realAppNavigateTo(ShowInfo(model.id, model.textName, model.textDate, model.textTheatre),"ShowInfo")
             }
         })
         return binding.root
