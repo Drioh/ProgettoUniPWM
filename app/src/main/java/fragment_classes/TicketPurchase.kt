@@ -3,6 +3,7 @@ package fragment_classes
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
+import java.util.Calendar
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -35,16 +36,18 @@ class TicketPurchase (var id: String, var type: String, var period: String) : Fr
             //inserire il biglietto nella posizione di id remoto
             var cardNumber = binding.cardField.toString()
             var numberCVC = binding.cvcField.toString()
-            var expireYear = binding.cardExpireYearField.toString()
-            var expireMonth = binding.cardExpireMonthField.toString()
-            if ((cardNumber.length == 16) && (numberCVC.length == 3) && ) {       //inserire controllo per la data di scadenza
+            var expireYear = binding.cardExpireYearField.toString().toInt()
+            var expireMonth = binding.cardExpireMonthField.toString().toInt()
+            if(expireYear < 100){    //quindi se non inserisco il "20" prima dell'anno
+                expireYear += 2000
+            }
+            if ((cardNumber.length == 16) && (numberCVC.length == 3) && verifyExpire(expireYear, expireMonth)) {
                 val utente: Int = MA.getUserId()
-                insertCartaCredito(utente, cardNumber, numberCVC, expireYear)
+                insertCartaCredito(utente, cardNumber, numberCVC, expireYear, expireMonth)
                 binding.confirmButton.setBackgroundColor(Color.parseColor("#F44336"))
                 insertBigliettoInRemoto(utente, id)
                 insertBigliettoInLocale(utente, id, dbManager, type, period)
                 MA.realAppNavigateTo(PaymentConfirmed("Biglietto"), "ConfirmedPayment")
-
             }else{
                 MA.showToast("Carta non valida")
             }
@@ -58,9 +61,37 @@ class TicketPurchase (var id: String, var type: String, var period: String) : Fr
         return binding.root
     }
 
-    private fun insertCartaCredito(utente: Int, cardNumber: String, numberCVC: String, expireDate: String) {
+    private fun verifyExpire(expireYear: Int, expireMonth: Int): Boolean {
+        val current_year = Calendar.getInstance().get(Calendar.YEAR)
+        val current_month = Calendar.getInstance().get(Calendar.MONTH)
+        if(expireMonth > 12){
+            return false
+        }
+        if(expireYear-current_year > 0){
+            return true
+        }
+        else if((expireYear-current_year == 0) && (expireMonth-current_month >= 0)){
+            return true
+        }
+    return false
+    }
 
+    private fun insertCartaCredito(utente: Int, cardNumber: String, numberCVC: String, expireYear: Int, expireMonth: Int) {
+        var date = LocalDate.parse("${expireYear}-${expireMonth}-01")
+        val query = "insert into Carte_credito (numero, ref_utente, data_scadenza_carta, cvc ) values ('${cardNumber}', '${utente}', '${date}', '${numberCVC}'); "
+        ApiService.retrofit.insert(query).enqueue(
+            object: Callback<JsonObject> {
+                override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
+                    println(response.code())
+                    Log.i("ApiService", "Inserimento avvenuto correttamente!")
+                }
+                override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+                    Log.i("ApiService", "Inserimento fallito")
+                    Log.e("ApiService", t.message.toString())
 
+                }
+            }
+        )
     }
 
     private fun insertBigliettoInLocale(
@@ -95,8 +126,8 @@ class TicketPurchase (var id: String, var type: String, var period: String) : Fr
         ApiService.retrofit.insert(query).enqueue(
             object: Callback<JsonObject> {
                 override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
-                    //println(response.code())
-                    //Log.i("ApiService", "Registrazione avvenuta correttamente!"
+                    println(response.code())
+                    Log.i("ApiService", "Inserimento avvenuto correttamente!")
                 }
                 override fun onFailure(call: Call<JsonObject>, t: Throwable) {
                     Log.i("ApiService", "Pagamento fallito")
