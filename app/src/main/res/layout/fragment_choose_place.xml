@@ -7,60 +7,38 @@
 
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="418dp"
-        android:layout_height="279dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
         android:orientation="vertical"
         android:padding="16dp"
-        android:visibility="visible"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:visibility="visible">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp">
-
-            <TextView
-                android:id="@+id/textView7"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="262dp"
-                android:text="SCELTAPOSTI"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            android:text="SCELTAPOSTI" />
 
 
         <Spinner
             android:id="@+id/placeSpinner"
-            android:layout_width="348dp"
+            android:layout_width="240sp"
             android:layout_height="48dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="20sp"
             android:entries="@array/place_options">
 
         </Spinner>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:orientation="horizontal">
-            <EditText
-                android:id="@+id/ticketQuantity"
-                android:layout_width="236dp"
-                android:layout_height="50dp"
-                android:layout_weight="1"
-                android:ems="10"
-                android:hint="@string/Num_posti"
-                android:inputType="number"
-                android:textSize="14sp"
-                android:importantForAutofill="noExcludeDescendants"/>
-
-        </LinearLayout>
+        <EditText
+            android:id="@+id/ticketQuantity"
+            android:layout_width="240sp"
+            android:layout_height="50dp"
+            android:layout_marginTop="20sp"
+            android:hint="@string/Num_posti"
+            android:importantForAutofill="noExcludeDescendants"
+            android:inputType="number"
+            android:textSize="14sp" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/linearLayout3"
