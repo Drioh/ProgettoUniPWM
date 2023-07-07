@@ -32,11 +32,13 @@ class TicketPurchase (var id: String, var type: String, var period: String) : Fr
         binding.confirmButton.setOnClickListener{
             dbManager = DBManager(requireContext())
             //inserire il biglietto nella posizione di id remoto
-            var isCardValid = binding.cardField.text.length==16
-            var isCVCValid = binding.cvcField.text.length==3
-            if (isCardValid && isCVCValid) {
-                binding.confirmButton.setBackgroundColor(Color.parseColor("#F44336"))
+            var cardNumber = binding.cardField.toString()
+            var numberCVC = binding.cvcField.toString()
+            var expireDate = binding.cardExpireDateField.toString()
+            if ((cardNumber.length == 16) && (numberCVC.length == 3) && ) {       //inserire controllo per la data di scadenza
                 val utente: Int = MA.getUserId()
+                insertCartaCredito(utente, cardNumber, numberCVC, expireDate)
+                binding.confirmButton.setBackgroundColor(Color.parseColor("#F44336"))
                 insertBigliettoInRemoto(utente, id)
                 insertBigliettoInLocale(utente, id, dbManager, type, period)
                 MA.realAppNavigateTo(PaymentConfirmed("Biglietto"), "ConfirmedPayment")
@@ -52,6 +54,11 @@ class TicketPurchase (var id: String, var type: String, var period: String) : Fr
 
 
         return binding.root
+    }
+
+    private fun insertCartaCredito(utente: Int, cardNumber: String, numberCVC: String, expireDate: String) {
+
+
     }
 
     private fun insertBigliettoInLocale(

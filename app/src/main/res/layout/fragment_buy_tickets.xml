@@ -58,7 +58,7 @@
 
             <EditText
                 android:id="@+id/cardExpireDateField"
-                android:layout_width="236dp"
+                android:layout_width="357dp"
                 android:layout_height="50dp"
                 android:layout_weight="1"
                 android:ems="10"
