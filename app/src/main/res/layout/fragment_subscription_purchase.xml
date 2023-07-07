@@ -56,12 +56,12 @@
                 android:layout_height="wrap_content"
                 android:backgroundTint="#000000"
                 android:text="@string/M6"
-                app:layout_constraintEnd_toStartOf="@+id/oneYearMonth"
+                app:layout_constraintEnd_toStartOf="@+id/one_year_button"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/threeMonthButton" />
 
             <Button
-                android:id="@+id/oneYearMonth"
+                android:id="@+id/one_year_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:backgroundTint="#000000"
