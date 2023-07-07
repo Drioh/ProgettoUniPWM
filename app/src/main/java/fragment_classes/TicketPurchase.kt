@@ -48,6 +48,8 @@ class TicketPurchase(
 
             expireYear = adjustYear(expireYear)
             if ((cardNumber.length == 16) && (numberCVC.length == 3) && verifyExpire(expireYear, expireMonth)) {
+                //si dovrebbe anche fare un controllo per vedere se il nome del proprietario della carta corrisponde al numero però non
+                //potendoci collegare ai server delle banche omettiamo il passaggio
                 val utente: Int = MA.getUserId()
                 if(expireMonth.length == 1) {    //quindi se non inserisco il "20" prima dell'anno
                     expireMonth = "0${expireMonth}"

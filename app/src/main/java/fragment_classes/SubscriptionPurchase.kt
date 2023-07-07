@@ -60,7 +60,8 @@ class SubscriptionPurchase(var theatre: String) : Fragment(R.layout.fragment_sub
             //scelgo di non accorpare gli if perché voglio prima verificare il selectedButton e in caso passare al suo else e poi andare con l'altro
             if(selectedbutton!=null) {
                 if((cardNumber.length == 16) && (numberCVC.length == 3) && verifyExpire(expireYear, expireMonth)){
-
+                    //si dovrebbe anche fare un controllo per vedere se il nome del proprietario della carta corrisponde al numero però non
+                    //potendoci collegare ai server delle banche omettiamo il passaggio
                     var currentDate = LocalDate.now()
                     var subLength = Period.of(0, period, 0)   //inserisco 1, 3, 6 o 12 mesi al giorno corrente
                     var lastMembershipDate = currentDate.plus(subLength)
@@ -100,7 +101,6 @@ class SubscriptionPurchase(var theatre: String) : Fragment(R.layout.fragment_sub
                 override fun onFailure(call: Call<JsonObject>, t: Throwable) {
                     Log.i("ApiService", "Pagamento fallito")
                     Log.e("ApiService", t.message.toString())
-
                 }
             }
         )
