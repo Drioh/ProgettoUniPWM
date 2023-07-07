@@ -31,8 +31,8 @@ class SubscriptionPurchase(teatro: String) : Fragment(R.layout.fragment_subscrip
         binding.sixMonthButton.setOnClickListener{
             selectButton(binding.sixMonthButton)
         }
-        binding.oneYearMonth.setOnClickListener{
-            selectButton(binding.oneYearMonth)
+        binding.oneYearButton.setOnClickListener{
+            selectButton(binding.oneYearButton)
         }
         binding.confirmButton.setOnClickListener(){
             if(selectedbutton!=null) {
