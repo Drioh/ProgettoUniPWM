@@ -34,8 +34,8 @@ class TicketPurchase (var id: String, var type: String, var period: String) : Fr
         binding.confirmButton.setOnClickListener{
             dbManager = DBManager(requireContext())
             //inserire il biglietto nella posizione di id remoto
-            var cardNumber = binding.cardField.toString()
-            var numberCVC = binding.cvcField.toString()
+            var cardNumber = binding.cardField.text.toString()
+            var numberCVC = binding.cvcField.text.toString()
             var expireYear = binding.cardExpireYearField.text.toString().toInt()
             var expireMonth = binding.cardExpireMonthField.text.toString().toInt()
             if(expireYear < 100){    //quindi se non inserisco il "20" prima dell'anno
