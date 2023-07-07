@@ -40,7 +40,12 @@ class TicketPurchase(
             var numberCVC = binding.cvcField.text.toString()
             var expireYear = binding.cardExpireYearField.text.toString()
             var expireMonth = binding.cardExpireMonthField.text.toString()
-            var place: Char = choosePlace(selectedPlace)
+
+            var place: Char = choosePlace(textTheatre, selectedPlace)
+            for (x: Int in ticketQuantity){
+              //errore, non mi fa trattare quantity come un numero normale
+            }
+
             expireYear = adjustYear(expireYear)
             if ((cardNumber.length == 16) && (numberCVC.length == 3) && verifyExpire(expireYear, expireMonth)) {
                 val utente: Int = MA.getUserId()
@@ -65,11 +70,30 @@ class TicketPurchase(
         return binding.root
     }
 
-    private fun choosePlace(selectedPlace: String): Char {
-        var place: Char
-        when(selectedPlace){
-            "Piccionaia" ->
+    private fun choosePlace(textTheatre: String, selectedPlace: String): Char {
+        var place: Char ='A'
+        if(textTheatre == "Teatro Massimo"){
+            when(selectedPlace){
+                "Platea" -> place = 'A'
+                "Loggione" -> place = 'B'
+                "Piccionaia" -> place = 'C'
+            }
         }
+        else if(textTheatre == "Politeama"){
+            when(selectedPlace){
+                "Platea" -> place = 'D'
+                "Loggione" -> place = 'E'
+                "Piccionaia" -> place = 'F'
+            }
+        }
+        else if(textTheatre == "Teatro Biondo"){
+            when(selectedPlace){
+                "Platea" -> place = 'G'
+                "Loggione" -> place = 'H'
+                "Piccionaia" -> place = 'I'
+            }
+        }
+        return place
     }
 
     private fun adjustYear(expireYear: String): String {
