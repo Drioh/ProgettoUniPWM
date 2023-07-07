@@ -13,10 +13,16 @@
         tools:layout_editor_absoluteY="16dp">
 
         <LinearLayout
-            android:layout_width="350sp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/imageView3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:srcCompat="@tools:sample/avatars" />
 
             <TextView
                 android:id="@+id/Show"
@@ -129,6 +135,41 @@
             </LinearLayout>
 
             <View
+                android:id="@+id/separator"
+                android:layout_width="350sp"
+                android:layout_height="3sp"
+                android:layout_gravity="center_horizontal"
+                android:background="@android:color/black" />
+
+            <LinearLayout
+                android:id="@+id/DateLinearLayout"
+                android:layout_width="350sp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20sp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/DateHeading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Date"
+                    android:textAlignment="viewStart"
+                    android:textColor="#000000"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/DateText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/Placeholder"
+                    android:textAlignment="textEnd"
+                    android:textColor="#000000"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+            <View
                 android:id="@+id/separator3"
                 android:layout_width="350sp"
                 android:layout_height="3sp"
@@ -204,8 +245,9 @@
 
             <Button
                 android:id="@+id/buyTicketButton"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
                 android:backgroundTint="@color/black"
                 android:text="@string/BuyTicket"
                 app:cornerRadius="45dp" />

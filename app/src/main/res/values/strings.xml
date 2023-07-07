@@ -102,6 +102,7 @@ al debutto del figlio nella Cavalleria rusticana, di Pietro Mascagni.
     <string name="Primo_strumento">Primo Strumento</string>
     <string name="Compagnia">Compagnia</string>
     <string name="Orchestra">Orchestra</string>
+    <string name="Date">Data</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>

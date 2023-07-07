@@ -19,6 +19,15 @@ class ShowInfo(var id: String, var name: String, var date: String): Fragment(R.l
     ): View? {
         binding = FragmentShowInfoBinding.inflate(inflater)
         var MA = (activity as MainActivity?)!! //reference alla Main Activity
+
+/*      INIZIALIZZAZIONE DATI
+        binding.directorText.setText()
+        binding.FirstText.setText()
+        binding.CompanyText.setText()
+        binding.ShowDesc.setText()
+        binding.DateText.setText()
+        binding.theatreButton.setText()
+*/
         binding.buyTicketButton.setOnClickListener{
             binding.buyTicketButton.setBackgroundColor(Color.parseColor("#F44336"))
             MA.realAppNavigateTo(ChoosePlace(id, name, date), "ChoosePlace") //da mettere qui o dopo il navigate per ChoosePlace
