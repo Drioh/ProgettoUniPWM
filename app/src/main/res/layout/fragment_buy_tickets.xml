@@ -39,7 +39,8 @@
             android:layout_marginTop="45dp"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="@string/CardN" />
+            android:text="@string/CardN"
+            android:importantForAutofill="noExcludeDescendants"/>
 
         <EditText
             android:id="@+id/cardOwnerField"
@@ -48,7 +49,8 @@
             android:layout_marginTop="20dp"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="@string/CardUN" />
+            android:text="@string/CardUN"
+            android:importantForAutofill="noExcludeDescendants"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -74,7 +76,8 @@
                 android:ems="10"
                 android:hint="@string/CardDateYear"
                 android:inputType="date"
-                android:textSize="14sp" />
+                android:textSize="14sp"
+                android:importantForAutofill="noExcludeDescendants"/>
 
             <EditText
                 android:id="@+id/cvcField"
@@ -83,7 +86,8 @@
                 android:layout_weight="1"
                 android:ems="10"
                 android:hint="@string/CVC"
-                android:inputType="number" />
+                android:inputType="number"
+                android:importantForAutofill="noExcludeDescendants"/>
         </LinearLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout

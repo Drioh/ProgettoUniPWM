@@ -33,4 +33,8 @@ class ChoosePlace(var id: String, var type: String, var period: String ): Fragme
 
         return binding.root
     }
+
+
+
+
 }

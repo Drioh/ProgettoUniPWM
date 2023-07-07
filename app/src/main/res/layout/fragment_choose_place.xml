@@ -55,7 +55,7 @@
                 android:layout_height="50dp"
                 android:layout_weight="1"
                 android:ems="10"
-                android:hint="Inserisci un numero"
+                android:hint="@string/Num_posti"
                 android:inputType="number"
                 android:textSize="14sp"
                 android:importantForAutofill="noExcludeDescendants"/>
