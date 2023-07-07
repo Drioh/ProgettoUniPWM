@@ -36,9 +36,11 @@
                 android:layout_height="wrap_content"
                 android:backgroundTint="#000000"
                 android:text="@string/M1"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/threeMonthButton"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <Button
                 android:id="@+id/threeMonthButton"
@@ -46,9 +48,11 @@
                 android:layout_height="wrap_content"
                 android:backgroundTint="#000000"
                 android:text="@string/M3"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/sixMonthButton"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/oneMonthButton" />
+                app:layout_constraintStart_toEndOf="@+id/oneMonthButton"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <Button
                 android:id="@+id/sixMonthButton"
@@ -56,9 +60,11 @@
                 android:layout_height="wrap_content"
                 android:backgroundTint="#000000"
                 android:text="@string/M6"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/one_year_button"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/threeMonthButton" />
+                app:layout_constraintStart_toEndOf="@+id/threeMonthButton"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <Button
                 android:id="@+id/one_year_button"
@@ -66,9 +72,11 @@
                 android:layout_height="wrap_content"
                 android:backgroundTint="#000000"
                 android:text="@string/M12"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/sixMonthButton" />
+                app:layout_constraintStart_toEndOf="@+id/sixMonthButton"
+                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -97,14 +105,26 @@
             android:orientation="horizontal">
 
             <EditText
-                android:id="@+id/cardExpireDateField"
-                android:layout_width="236dp"
+                android:id="@+id/cardExpireMonthField"
+                android:importantForAutofill="noExcludeDescendants"
+                android:layout_width="251dp"
                 android:layout_height="50dp"
                 android:layout_weight="1"
                 android:ems="10"
-                android:hint="@string/CardDate"
-                android:inputType="date"
+                android:hint="@string/CardDateMonth"
+                android:inputType="number"
                 android:textSize="14sp" />
+
+            <EditText
+                android:id="@+id/cardExpireYearField"
+                android:layout_width="251dp"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:ems="10"
+                android:hint="@string/CardDateYear"
+                android:inputType="number"
+                android:textSize="14sp"
+                android:importantForAutofill="noExcludeDescendants"/>
 
             <EditText
                 android:id="@+id/cvcField"
@@ -113,7 +133,8 @@
                 android:layout_weight="1"
                 android:ems="10"
                 android:hint="@string/CVC"
-                android:inputType="number" />
+                android:inputType="number"
+                android:importantForAutofill="noExcludeDescendants"/>
         </LinearLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -143,8 +164,10 @@
                 android:backgroundTint="#000000"
                 android:text="@string/confirm"
                 app:cornerRadius="45dp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/cancelButton" />
+                app:layout_constraintStart_toEndOf="@+id/cancelButton"
+                app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </LinearLayout>

@@ -10,8 +10,10 @@ import androidx.fragment.app.Fragment
 import com.example.progettouni.MainActivity
 import com.example.progettouni.R
 import com.example.progettouni.databinding.FragmentSubscriptionPurchaseBinding
+import java.time.LocalDate
+import java.time.Period
 
-class SubscriptionPurchase(teatro: String) : Fragment(R.layout.fragment_subscription_purchase) {
+class SubscriptionPurchase(var theatre: String) : Fragment(R.layout.fragment_subscription_purchase) {
     private lateinit var binding: FragmentSubscriptionPurchaseBinding
     private var selectedbutton: Button? = null
     override fun onCreateView(
@@ -21,21 +23,29 @@ class SubscriptionPurchase(teatro: String) : Fragment(R.layout.fragment_subscrip
     ): View? {
         binding = FragmentSubscriptionPurchaseBinding.inflate(inflater)
         var MA = (activity as MainActivity?)!! //reference alla Main Activity
+        var period: Int = 0
 
         binding.oneMonthButton.setOnClickListener{
             selectButton(binding.oneMonthButton)
+            period = 1
         }
         binding.threeMonthButton.setOnClickListener{
             selectButton(binding.threeMonthButton)
+            period = 3
         }
         binding.sixMonthButton.setOnClickListener{
             selectButton(binding.sixMonthButton)
+            period = 6
         }
         binding.oneYearButton.setOnClickListener{
             selectButton(binding.oneYearButton)
+            period = 12
         }
         binding.confirmButton.setOnClickListener(){
             if(selectedbutton!=null) {
+                var currentDate = LocalDate.now()
+                var subLength = Period.of(0, period, 0)
+                var expireDate = currentDate.plus(subLength)
                 MA.realAppNavigateTo(PaymentConfirmed("Abbonamento"), "ConfirmedPayment")
             }else{
                 MA.showToast("Selezionare prima un periodo di validità")
