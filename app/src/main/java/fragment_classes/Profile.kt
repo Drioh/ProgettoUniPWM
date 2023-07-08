@@ -88,8 +88,13 @@ class Profile : Fragment(R.layout.fragment_register) {
         }
         binding.confirmButton.setOnClickListener(){
             binding.confirmButton.setBackgroundColor(Color.parseColor("#F44336"))
-            TODO("impostare Nome e Cognome se diversi da quelli salvati in precedenza")
-            MA.back()
+            changeNameAndSurname(id,binding.nameField.text.toString(),binding.surnameField.text.toString())
+            //MA.back()
+
+            val editor = sharedPreferences.edit()
+            editor.putString("userName", binding.nameField.text.toString())
+            editor.putString("surname", binding.surnameField.text.toString())
+            editor.apply()
         }
         binding.cancelButton.setOnClickListener(){
             binding.cancelButton.setBackgroundColor(Color.parseColor("#F44336"))
@@ -232,6 +237,28 @@ class Profile : Fragment(R.layout.fragment_register) {
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream)
         val byteArray: ByteArray = byteArrayOutputStream.toByteArray()
         return Base64.encodeToString(byteArray, Base64.DEFAULT)
+    }
+    fun changeNameAndSurname(userId: Int, name: String, surname: String) {
+        val query = "UPDATE Utente SET nome_utente = '${name}', cognome = '${surname}' WHERE id_utente = ${userId};"
+
+        ApiService.retrofit.update(query).enqueue(
+            object : Callback<JsonObject> {
+                override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
+                    if (response.isSuccessful) {
+                        Log.i("ApiService", "Success")
+
+                    } else {
+                        println(response.code())
+                        Log.e("ApiService", "Failed")
+                        Log.e("ApiService", response.message().toString())
+                    }
+                }
+
+                override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+                    Log.e("ApiService", t.message.toString())
+                }
+            }
+        )
     }
 
 
