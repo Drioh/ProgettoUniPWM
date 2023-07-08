@@ -21,13 +21,14 @@ import retrofit2.Callback
 import retrofit2.Response
 class Register : Fragment(R.layout.fragment_register) {
     private lateinit var binding: FragmentRegisterBinding
+    var MA = (activity as MainActivity?)!!//reference alla Main Activity
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentRegisterBinding.inflate(inflater)
-        var MA = (activity as MainActivity?)!! //reference alla Main Activity
+
 
 
         binding.confirmButton.setOnClickListener {
@@ -65,12 +66,14 @@ class Register : Fragment(R.layout.fragment_register) {
                 override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
                     println(response.code())
                     Log.i("ApiService", "Registrazione avvenuta correttamente!")
+                    MA.showToast("Registrazione avvenuta correttamente!")
+                    MA.navigateTo(VerificationCode(otp),"VerShow")
 
                 }
                 override fun onFailure(call: Call<JsonObject>, t: Throwable) {
                     Log.i("ApiService", "Registration fallita")
                     Log.e("ApiService", t.message.toString())
-
+                    MA.showToast("Registrazione fallita")
                 }
             }
         )

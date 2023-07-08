@@ -104,6 +104,11 @@ al debutto del figlio nella Cavalleria rusticana, di Pietro Mascagni.
     <string name="Compagnia">Compagnia</string>
     <string name="Orchestra">Orchestra</string>
     <string name="Date">Data</string>
+    <string name="CodePresentation">Questo è il tuo codice di verifica dell\'account!\n NON DIMENTICARLO!</string>
+    <string name="VerInfo">Per attivare il proprio account andare sulla pagina del proprio profilo, cliccare su "verifica account" e immettere il codice presentato</string>
+    <string name="Understood">Ho capito</string>
+    <string name="Verify">Verifica account</string>
+    <string name="VerifyQuestion">Inserisci il tuo codice di verifica account</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>

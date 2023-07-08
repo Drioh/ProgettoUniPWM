@@ -108,6 +108,18 @@
                 app:layout_constraintStart_toEndOf="@+id/cancelButton" />
 
             <Button
+                android:id="@+id/verificationButton"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:backgroundTint="#000000"
+                android:onClick="verify"
+                android:text="@string/Verify"
+                app:cornerRadius="45dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/cancelButton" />
+
+            <Button
                 android:id="@+id/logoutButton"
                 android:layout_width="313dp"
                 android:layout_height="wrap_content"

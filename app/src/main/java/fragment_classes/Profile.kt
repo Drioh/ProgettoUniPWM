@@ -65,7 +65,6 @@ class Profile : Fragment(R.layout.fragment_register) {
         binding.logoutButton.setOnClickListener(){
             binding.logoutButton.setBackgroundColor(Color.parseColor("#F44336"))
             // Svuota le SharedPreferences
-            sharedPreferences
             val editor = sharedPreferences.edit()
             editor.clear()
             editor.apply()
