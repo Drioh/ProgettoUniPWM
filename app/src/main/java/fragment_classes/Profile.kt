@@ -56,7 +56,30 @@ class Profile : Fragment(R.layout.fragment_register) {
         }
         binding.verificationButton.setOnClickListener{
             binding.verificationButton.setBackgroundColor(Color.parseColor("#F44336"))
-            MA.realAppNavigateTo(Verify(), "Verify")
+            val id = MA.getUserId()
+            val query = "SELECT * FROM Utente WHERE id_utente = '${id}';"
+            ApiService.retrofit.select(query).enqueue(object : Callback<JsonObject> {
+                override fun onResponse(call: Call<JsonObject>?, response: Response<JsonObject>) {
+                    if (response.isSuccessful) {
+                        val jsonArray = response.body()?.getAsJsonArray("queryset")
+                        if (jsonArray?.size() == 1) {
+                            if ((jsonArray[0] as JsonObject).get("verificato").asInt==0) {
+                                MA.realAppNavigateTo(Verify(), "Verify")
+                            }
+                            else{
+                                MA.showToast("Utente già registrato")
+                            }
+
+                        } else {
+                            Log.i("ApiService","n/a")
+                        }
+                    }
+                }
+                override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+                    Log.e("Errore di rete",t.message.toString())
+                }
+            })
+
         }
         binding.confirmButton.setOnClickListener(){
             binding.confirmButton.setBackgroundColor(Color.parseColor("#F44336"))

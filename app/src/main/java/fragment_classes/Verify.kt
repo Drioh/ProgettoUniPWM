@@ -38,15 +38,18 @@ class Verify: Fragment(R.layout.fragment_verify) {
                     if (response.isSuccessful) {
                         val jsonArray = response.body()?.getAsJsonArray("queryset")
                         if (jsonArray?.size() == 1) {
-                            verifyUser(id)
-                            MA.back()
+                            if ((jsonArray[0] as JsonObject).get("verificato").asInt==0){
+                                verifyUser(id)
+                                MA.back()}
+                            else{
+                                MA.showToast("Utente già registrato")
+                            }
 
                         } else {
                             Log.i("ApiService","n/a")
                         }
                     }
                 }
-
                 override fun onFailure(call: Call<JsonObject>, t: Throwable) {
                     Log.e("Errore di rete",t.message.toString())
                 }
