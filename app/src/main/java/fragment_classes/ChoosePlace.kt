@@ -20,6 +20,7 @@ class ChoosePlace(var id: String, var type: String, var period: String, var text
     ): View? {
         binding = FragmentChoosePlaceBinding.inflate(inflater)
         var MA = (activity as MainActivity?)!! //reference alla Main Activity
+        MA.changeTitle("Scegli i posti")
         binding.confirmButton.setOnClickListener{
             binding.confirmButton.setBackgroundColor(Color.parseColor("#F44336"))
             val selectedPlace = binding.placeSpinner.selectedItem.toString()

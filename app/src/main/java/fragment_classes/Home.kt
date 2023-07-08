@@ -19,6 +19,7 @@ class Home: Fragment(R.layout.fragment_home) {
     ): View? {
         binding = FragmentHomeBinding.inflate(inflater)
         var MA = (activity as MainActivity?)!! //reference alla Main Activity
+        MA.changeTitle("Home")
 
         return binding.root
     }

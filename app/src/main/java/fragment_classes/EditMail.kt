@@ -29,6 +29,7 @@ class EditMail: Fragment(R.layout.fragment_retrieve_password){
     ): View? {
         binding = FragmentEditMailBinding.inflate(inflater)
         var MA = (activity as MainActivity?)!! //reference alla Main Activity
+        MA.changeTitle("Modifica")
 
         binding.confirmButton.setOnClickListener(){
             binding.confirmButton.setBackgroundColor(Color.parseColor("#F44336"))

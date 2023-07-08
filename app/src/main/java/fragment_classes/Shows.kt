@@ -23,6 +23,7 @@ class Shows (val data: ArrayList<ShowModel>) : Fragment(R.layout.fragment_shows)
     ): View? {
         binding = FragmentShowsBinding.inflate(inflater)
         var MA = (activity as MainActivity?)!! //reference alla Main Activity
+        MA.changeTitle("Spettacoli")
         binding.showsRecycler.layoutManager = LinearLayoutManager(this.context)
 /*
         for (i in 0..data.size-1) {     //dovrei fare in modo di fare un while per scorrermi tutte le tuple del dbms

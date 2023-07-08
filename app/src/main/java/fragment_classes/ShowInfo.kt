@@ -19,6 +19,7 @@ class ShowInfo(var id: String, var name: String, var date: String, var textTheat
     ): View? {
         binding = FragmentShowInfoBinding.inflate(inflater)
         var MA = (activity as MainActivity?)!! //reference alla Main Activity
+        MA.changeTitle("Informazioni Spettacolo")
 
 /*      INIZIALIZZAZIONE DATI
         binding.directorText.setText()

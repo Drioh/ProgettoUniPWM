@@ -39,6 +39,7 @@ class Ticket(private val isAbbonamento: Boolean, var id: String, val teatro: Str
 
         binding = FragmentTicketBinding.inflate(inflater)
         var MA = (activity as MainActivity?)!! //reference alla Main Activity
+        MA.changeTitle("Il mio acquisto")
         image = binding.imageView
         if(isAbbonamento){
             binding.showInfoButton.setText(R.string.infoMembership)
