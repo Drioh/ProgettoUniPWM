@@ -25,7 +25,6 @@ class ChoosePlace(var id: String, var type: String, var period: String, var text
             val selectedPlace = binding.placeSpinner.selectedItem.toString()
             val ticketQuantity = binding.ticketQuantity.text.toString().toInt()
             MA.realAppNavigateTo(TicketPurchase(id, type, period, selectedPlace, ticketQuantity, textTheatre), "TicketPurchase")
-
         }
 
 

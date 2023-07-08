@@ -56,9 +56,12 @@ class MainActivity : AppCompatActivity() {
                 .commit()
         }
         syncDB()
-        realBinding.fragmentContainerView2.getFragment<TopTaskbar>().binding.TopTaskbarText.text="pippo"
-
     }
+
+    fun changeTitle(s: String) {
+        realBinding.fragmentContainerView2.getFragment<TopTaskbar>().binding.TopTaskbarText.text = s
+    }
+
     fun getUserId(): Int {
         return userId
     }

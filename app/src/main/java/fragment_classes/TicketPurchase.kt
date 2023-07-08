@@ -28,16 +28,14 @@ class TicketPurchase(
     var textTheatre: String
 ) : Fragment(R.layout.fragment_buy_tickets) {
     private lateinit var binding: FragmentBuyTicketsBinding
-    private lateinit var bindingTaskbar: FragmentTopTaskbarBinding
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentBuyTicketsBinding.inflate(inflater)
-        bindingTaskbar = FragmentTopTaskbarBinding.inflate(inflater)
         var MA = (activity as MainActivity?)!! //reference alla Main Activity
-        bindingTaskbar.TopTaskbarText.text = "Vendita Biglietti"
+        MA.changeTitle("Inserisci Dati")
 
         binding.confirmButton.setOnClickListener{
             var cardNumber = binding.cardField.text.toString()
