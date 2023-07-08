@@ -5,6 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
@@ -18,18 +22,18 @@
         <EditText
             android:id="@+id/cardField"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="45dp"
             android:ems="10"
             android:hint="@string/InsMail"
+            android:importantForAutofill="noExcludeDescendants"
             android:inputType="textPersonName"
-            android:textColorHint="#000000"
-            android:importantForAutofill="noExcludeDescendants"/>
+            android:textColorHint="#000000" />
 
         <EditText
             android:id="@+id/cardOwnerField"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:ems="10"
             android:hint="@string/InsMailNew"
@@ -71,4 +75,5 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </LinearLayout>
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
