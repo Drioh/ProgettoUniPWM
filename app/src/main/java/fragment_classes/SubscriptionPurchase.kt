@@ -18,6 +18,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.time.LocalDate
 import java.time.Period
+import java.time.format.DateTimeFormatter
 import java.util.Calendar
 
 class SubscriptionPurchase(var theatre: String) : Fragment(R.layout.fragment_subscription_purchase) {
@@ -57,7 +58,6 @@ class SubscriptionPurchase(var theatre: String) : Fragment(R.layout.fragment_sub
             var expireMonth = binding.cardExpireMonthField.text.toString()
 
             expireYear = adjustYear(expireYear)
-            var ref_theatre: Int = getRefTheatre(theatre)
 
             //scelgo di non accorpare gli if perché voglio prima verificare il selectedButton e in caso passare al suo else e poi andare con l'altro
             if(selectedbutton!=null) {
@@ -71,7 +71,7 @@ class SubscriptionPurchase(var theatre: String) : Fragment(R.layout.fragment_sub
                         expireMonth = "0${expireMonth}"
                     }
                     insertCartaCredito(utente, cardNumber, numberCVC, expireYear, expireMonth)
-                    insertAbbonamentoInRemoto(ref_theatre, utente, period)
+                    insertAbbonamentoInRemoto(theatre, utente, period)
                     MA.syncDB()
                     MA.realAppNavigateTo(PaymentConfirmed("Abbonamento"), "ConfirmedPayment")
                 }
@@ -89,16 +89,7 @@ class SubscriptionPurchase(var theatre: String) : Fragment(R.layout.fragment_sub
         return binding.root
     }
 
-    private fun getRefTheatre(theatre: String): Int {
-        when(theatre){
-            "Teatro Massimo" -> return 1
-            "Teatro Politeama" -> return 2
-            "Teatro Biondo" -> return 3
-        }
-        return 0
-    }
-
-    private fun insertAbbonamentoInRemoto(theatre: Int, utente: Int, period: Int) {
+    private fun insertAbbonamentoInRemoto(theatre: String, utente: Int, period: Int) {
         var currentDate = LocalDate.now()
         var subLength = Period.of(0, period, 0)   //inserisco 1, 3, 6 o 12 mesi al giorno corrente
         var lastMembershipDate = currentDate.plus(subLength)
