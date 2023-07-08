@@ -57,15 +57,13 @@ class SubscriptionPurchase(var theatre: String) : Fragment(R.layout.fragment_sub
             var expireMonth = binding.cardExpireMonthField.text.toString()
 
             expireYear = adjustYear(expireYear)
+            var ref_theatre: Int = getRefTheatre(theatre)
 
             //scelgo di non accorpare gli if perché voglio prima verificare il selectedButton e in caso passare al suo else e poi andare con l'altro
             if(selectedbutton!=null) {
                 if((cardNumber.length == 16) && (numberCVC.length == 3) && verifyExpire(expireYear, expireMonth)){
                     //si dovrebbe anche fare un controllo per vedere se il nome del proprietario della carta corrisponde al numero però non
                     //potendoci collegare ai server delle banche omettiamo il passaggio
-                    var currentDate = LocalDate.now()
-                    var subLength = Period.of(0, period, 0)   //inserisco 1, 3, 6 o 12 mesi al giorno corrente
-                    var lastMembershipDate = currentDate.plus(subLength)
 
                     var utente = MA.getUserId()
 
@@ -73,7 +71,7 @@ class SubscriptionPurchase(var theatre: String) : Fragment(R.layout.fragment_sub
                         expireMonth = "0${expireMonth}"
                     }
                     insertCartaCredito(utente, cardNumber, numberCVC, expireYear, expireMonth)
-                    insertAbbonamentoInRemoto(theatre, utente, period, lastMembershipDate)
+                    insertAbbonamentoInRemoto(ref_theatre, utente, period)
                     MA.syncDB()
                     MA.realAppNavigateTo(PaymentConfirmed("Abbonamento"), "ConfirmedPayment")
                 }
@@ -91,7 +89,19 @@ class SubscriptionPurchase(var theatre: String) : Fragment(R.layout.fragment_sub
         return binding.root
     }
 
-    private fun insertAbbonamentoInRemoto(theatre: String, utente: Int, period: Int, lastMembershipDate: LocalDate?) {
+    private fun getRefTheatre(theatre: String): Int {
+        when(theatre){
+            "Teatro Massimo" -> return 1
+            "Teatro Politeama" -> return 2
+            "Teatro Biondo" -> return 3
+        }
+        return 0
+    }
+
+    private fun insertAbbonamentoInRemoto(theatre: Int, utente: Int, period: Int) {
+        var currentDate = LocalDate.now()
+        var subLength = Period.of(0, period, 0)   //inserisco 1, 3, 6 o 12 mesi al giorno corrente
+        var lastMembershipDate = currentDate.plus(subLength)
         val query = "insert into Abbonamento (ref_teatro, ref_utente, durata_mesi, data_scadenza ) values ('${theatre}', '${utente}, '${period}, '${lastMembershipDate}'); "
         ApiService.retrofit.insert(query).enqueue(
             object: Callback<JsonObject> {

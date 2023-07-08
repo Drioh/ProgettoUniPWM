@@ -74,7 +74,7 @@ class TicketPurchase(
         return binding.root
     }
 
-    private fun insertPosto(x: Int, place: Char, idShow: String) {
+    private fun insertPosto(x: Int, place: Char, id_show: String) {
         val query = "insert into Occupazione_posti (ref_posto_let, ref_rappresentazione_posti, ref_posto_num) values ('${place}', '${id_show}', '${x}'); "
         ApiService.retrofit.insert(query).enqueue(
             object: Callback<JsonObject> {
@@ -161,7 +161,7 @@ class TicketPurchase(
     }
 
     private fun insertBigliettoInRemoto(utente: Int, id_show: String) {
-        val query = "insert into Biglietto_singolo (ref_utente, ref_rappresentazione_biglietto ) values ('${utente}', '${this.id_show}'); "
+        val query = "insert into Biglietto_singolo (ref_utente, ref_rappresentazione_biglietto ) values ('${utente}', '${id_show}'); "
         ApiService.retrofit.insert(query).enqueue(
             object: Callback<JsonObject> {
                 override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {

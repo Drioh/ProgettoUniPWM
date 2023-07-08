@@ -42,8 +42,7 @@
     <string name="Home">Torna alla pagina Home</string>
     <string name="ShowTicket">Scegli uno spettacolo</string>
     <string name="BuyTicket">Acquista il biglietto</string>
-    <string name="myTicket">Il mio biglietto</string>
-    <string name="myMembership">Il mio abbonamento</string>
+    <string name="myQRCode">Codice QR</string>
     <string name="infoTicket">Visualizza info biglietto</string>
     <string name="infoMembership">Visualizza info abbonamento</string>
     <string name="PurchaseSubscription">Acquista abbonamento</string>

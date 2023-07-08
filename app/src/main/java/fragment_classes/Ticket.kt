@@ -43,7 +43,7 @@ class Ticket(private val isAbbonamento: Boolean, var id: String, val teatro: Str
         image = binding.imageView
         if(isAbbonamento){
             binding.showInfoButton.setText(R.string.infoMembership)
-            binding.textView.setText(R.string.myMembership)
+            MA.changeTitle("Il mio abbonamento")
             // modifica della stringa dell'id per aggiungere varietà in modo tale da garantire l'unicità del codice QR
             id = id+"ABBONAMENTO"
             binding.showInfoButton.setOnClickListener(){
@@ -54,7 +54,7 @@ class Ticket(private val isAbbonamento: Boolean, var id: String, val teatro: Str
         else{
             if(!isAbbonamento){
                 /*binding.showInfoButton.setText(R.string.infoTicket)
-                binding.textView.setText(R.string.myTicket)
+                MA.changeTitle("Il mio biglietto")
                 // modifica della stringa dell'id per aggiungere varietà in modo tale da garantire l'unicità del codice QR
                 binding.showInfoButton.setOnClickListener(){
                     val query = "select * from Spettacolo, Rappresentazione where id_spettacolo=ref_spettacolo and id_spettacolo=${id};"

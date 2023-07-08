@@ -21,7 +21,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="52dp"
-        android:text="@string/myTicket"
+        android:text="@string/myQRCode"
         android:textAlignment="center"
         android:textColor="#000000"
         android:textSize="34sp"
