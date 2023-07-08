@@ -7,6 +7,7 @@ import java.util.Calendar
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import api.ApiService
 import com.example.progettouni.MainActivity
@@ -55,10 +56,7 @@ class TicketPurchase(
                 }
                 insertCartaCredito(utente, cardNumber, numberCVC, expireYear, expireMonth)
                 binding.confirmButton.setBackgroundColor(Color.parseColor("#F44336"))
-                for (x: Int in 1..ticketQuantity){
-                    insertPosto(x, place, id_show)
-                    insertBigliettoInRemoto(utente, id_show)
-                }
+                checkAvailableSeats(place,ticketQuantity,utente)
                 MA.syncDB()
                 MA.realAppNavigateTo(PaymentConfirmed("Biglietto"), "ConfirmedPayment")
             }else{
@@ -74,7 +72,7 @@ class TicketPurchase(
         return binding.root
     }
 
-    private fun insertPosto(x: Int, place: Char, id_show: String) {
+    private fun insertPosto(x: Int, place: Char, idShow: String) {
         val query = "insert into Occupazione_posti (ref_posto_let, ref_rappresentazione_posti, ref_posto_num) values ('${place}', '${id_show}', '${x}'); "
         ApiService.retrofit.insert(query).enqueue(
             object: Callback<JsonObject> {
@@ -100,7 +98,7 @@ class TicketPurchase(
                 "Piccionaia" -> place = 'C'
             }
         }
-        else if(textTheatre == "Teatro Politeama"){
+        else if(textTheatre == "Politeama"){
             when(selectedPlace){
                 "Platea" -> place = 'D'
                 "Loggione" -> place = 'E'
@@ -176,4 +174,73 @@ class TicketPurchase(
             }
         )
     }
+    private fun checkAvailableSeats(place: Char, num: Int, utente: Int) {
+        val queryOccupiedSeats = "SELECT ref_posto_num " +
+                "FROM Occupazione_posti " +
+                "WHERE ref_posto_let = '$place' " +
+                "AND ref_rappresentazione_posti = '$id_show' " +
+                "ORDER BY ref_posto_num"
+
+        ApiService.retrofit.select(queryOccupiedSeats).enqueue(
+            object : Callback<JsonObject> {
+                override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
+                    if (response.isSuccessful) {
+                        val querySet = response.body()?.getAsJsonArray("queryset")
+                        val occupiedSeats = querySet?.map { it.asJsonObject["ref_posto_num"].asInt }?.toMutableList()
+
+                        val availableSeats = mutableListOf<Int>()
+
+                        for (i in 1..40) {
+                            if (!occupiedSeats?.contains(i)!!)
+                                availableSeats.add(i)
+                        }
+
+                        if (availableSeats.size >= num) {
+                            var startingSeat: Int? = null
+                            var endingSeat: Int? = null
+
+                            for (i in 0 until availableSeats.size - num + 1) {
+                                if (availableSeats[i + num - 1] - availableSeats[i] == num - 1) {
+                                    startingSeat = availableSeats[i]
+                                    endingSeat = availableSeats[i + num - 1]
+                                    break
+                                }
+                            }
+
+                            if (startingSeat != null && endingSeat != null) {
+                                // Contiguous seats are available
+                                // Proceed with the ticket purchase
+                                for (x in startingSeat..endingSeat) {
+                                    insertPosto(x, place, id_show)
+                                    insertBigliettoInRemoto(utente, id_show)
+                                }
+                            } else {
+                                // No contiguous seats available
+                                showToast("Non ci sono posti contigui disponibili per il posto selezionato.")
+                            }
+                        } else if (availableSeats.size == 1 && num == 1) {
+                            // Single ticket available
+                            // Proceed with the ticket purchase
+                            val startingSeat = availableSeats.first()
+                            insertPosto(startingSeat, place, id_show)
+                            insertBigliettoInRemoto(utente, id_show)
+                        } else {
+                            // Not enough available seats
+                            showToast("Non ci sono posti disponibili per il posto selezionato.")
+                        }
+                    } else {
+                        Log.i("ApiService", "Errore nella query dei posti occupati")
+                    }
+                }
+
+                override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+                    Log.e("ApiService", t.message.toString())
+                }
+            }
+        )
+    }
+    private fun showToast(message: String) {
+        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+    }
+
 }
