@@ -35,7 +35,8 @@
                 android:layout_marginTop="30dp"
                 android:ems="10"
                 android:inputType="textPersonName"
-                android:text="@string/name" />
+                android:text="@string/name"
+                android:importantForAutofill="noExcludeDescendants"/>
 
             <EditText
                 android:id="@+id/surnameField"
@@ -44,7 +45,8 @@
                 android:layout_marginTop="30dp"
                 android:ems="10"
                 android:inputType="textPersonName"
-                android:text="@string/surname" />
+                android:text="@string/surname"
+                android:importantForAutofill="noExcludeDescendants"/>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/linearLayout3"

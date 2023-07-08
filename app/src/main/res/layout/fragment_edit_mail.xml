@@ -23,7 +23,8 @@
             android:ems="10"
             android:hint="@string/InsMail"
             android:inputType="textPersonName"
-            android:textColorHint="#000000" />
+            android:textColorHint="#000000"
+            android:importantForAutofill="noExcludeDescendants"/>
 
         <EditText
             android:id="@+id/cardOwnerField"
@@ -33,7 +34,8 @@
             android:ems="10"
             android:hint="@string/InsMailNew"
             android:inputType="textPersonName"
-            android:textColorHint="#000000" />
+            android:textColorHint="#000000"
+            android:importantForAutofill="noExcludeDescendants"/>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/linearLayout3"
