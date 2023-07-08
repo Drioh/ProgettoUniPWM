@@ -19,21 +19,21 @@
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentContainerView2"
-        android:name="fragment_classes.TopTaskbar"
+        android:name="fragment_classes.Void"
         android:layout_width="match_parent"
         android:layout_height="90dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:layout="@layout/fragment_top_taskbar" />
+        tools:layout="@layout/fragment_void" />
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentContainerView3"
-        android:name="fragment_classes.BottomTaskbar"
+        android:name="fragment_classes.Void"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout="@layout/fragment_bottom_taskbar" />
+        tools:layout="@layout/fragment_void" />
 </androidx.constraintlayout.widget.ConstraintLayout>

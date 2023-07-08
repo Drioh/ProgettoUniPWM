@@ -29,6 +29,7 @@ class TopTaskbar : Fragment(R.layout.fragment_top_taskbar) {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentTopTaskbarBinding.inflate(inflater)
+        println("creata nuova toptaskbar")
         var MA = (activity as MainActivity?)!! //reference alla Main Activity
 
         val sharedPreferences = MA.getSharedPreferences()

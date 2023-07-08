@@ -35,6 +35,7 @@ class Profile : Fragment(R.layout.fragment_register) {
     ): View? {
         binding = FragmentProfileBinding.inflate(inflater)
         var MA = (activity as MainActivity?)!! //reference alla Main Activity
+        MA.changeTitle("Profilo")
         val sharedPreferences = MA.getSharedPreferences()
 
         val propic = sharedPreferences.getString("propic", "")
@@ -52,6 +53,10 @@ class Profile : Fragment(R.layout.fragment_register) {
             binding.passwordButton.setBackgroundColor(Color.parseColor("#F44336"))
             MA.realAppNavigateTo(EditPassword(), "EditPassword")
 
+        }
+        binding.verificationButton.setOnClickListener{
+            binding.verificationButton.setBackgroundColor(Color.parseColor("#F44336"))
+            MA.realAppNavigateTo(Verify(), "Verify")
         }
         binding.confirmButton.setOnClickListener(){
             binding.confirmButton.setBackgroundColor(Color.parseColor("#F44336"))

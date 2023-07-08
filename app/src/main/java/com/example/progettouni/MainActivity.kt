@@ -54,11 +54,19 @@ class MainActivity : AppCompatActivity() {
                 .add(R.id.fragmentContainerView4, Home())
                 .addToBackStack("Home")
                 .commit()
+            supportFragmentManager.beginTransaction()
+                .add(R.id.fragmentContainerView2, TopTaskbar())
+                .commit()
+            supportFragmentManager.beginTransaction()
+                .add(R.id.fragmentContainerView3, BottomTaskbar())
+                .commit()
+
         }
         syncDB()
-    }
 
-    fun changeTitle(s: String) {
+
+    }
+    fun changeTitle (s:String){
         realBinding.fragmentContainerView2.getFragment<TopTaskbar>().binding.TopTaskbarText.text = s
     }
 
@@ -149,6 +157,13 @@ class MainActivity : AppCompatActivity() {
                                 .add(R.id.fragmentContainerView4, Home())
                                 .addToBackStack("Home")
                                 .commit()
+                            supportFragmentManager.beginTransaction()
+                                .add(R.id.fragmentContainerView2, TopTaskbar())
+                                .commit()
+                            supportFragmentManager.beginTransaction()
+                                .add(R.id.fragmentContainerView3, BottomTaskbar())
+                                .commit()
+
                             syncDB()
                         } else {
                             showToast("Credenziali Errate")
