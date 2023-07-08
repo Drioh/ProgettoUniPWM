@@ -7,6 +7,7 @@ import java.util.Calendar
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CheckBox
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import api.ApiService
@@ -43,6 +44,7 @@ class TicketPurchase(
             var numberCVC = binding.cvcField.text.toString()
             var expireYear = binding.cardExpireYearField.text.toString()
             var expireMonth = binding.cardExpireMonthField.text.toString()
+            var isChecked = binding.saveCardBox.isChecked
 
             var place: Char = choosePlace(textTheatre, selectedPlace)
 
@@ -54,7 +56,9 @@ class TicketPurchase(
                 if(expireMonth.length == 1) {    //quindi se non inserisco il "20" prima dell'anno
                     expireMonth = "0${expireMonth}"
                 }
-                insertCartaCredito(utente, cardNumber, numberCVC, expireYear, expireMonth)
+                if(isChecked){
+                    insertCartaCredito(utente, cardNumber, numberCVC, expireYear, expireMonth)
+                }
                 checkAvailableSeats(place,ticketQuantity,utente)
                 binding.confirmButton.setBackgroundColor(Color.parseColor("#F44336"))
                 MA.syncDB()

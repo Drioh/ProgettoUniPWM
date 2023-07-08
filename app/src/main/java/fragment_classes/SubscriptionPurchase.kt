@@ -12,14 +12,12 @@ import api.ApiService
 import com.example.progettouni.MainActivity
 import com.example.progettouni.R
 import com.example.progettouni.databinding.FragmentSubscriptionPurchaseBinding
-import com.google.android.gms.maps.model.LatLng
 import com.google.gson.JsonObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.time.LocalDate
 import java.time.Period
-import java.time.format.DateTimeFormatter
 import java.util.Calendar
 
 class SubscriptionPurchase(var theatre: String) : Fragment(R.layout.fragment_subscription_purchase) {
@@ -57,8 +55,10 @@ class SubscriptionPurchase(var theatre: String) : Fragment(R.layout.fragment_sub
             var numberCVC = binding.cvcField.text.toString()
             var expireYear = binding.cardExpireYearField.text.toString()
             var expireMonth = binding.cardExpireMonthField.text.toString()
+            var isChecked = binding.saveCardBox.isChecked
 
             expireYear = adjustYear(expireYear)
+            var ref_theatre = getRefTheatre(theatre)
 
             //scelgo di non accorpare gli if perché voglio prima verificare il selectedButton e in caso passare al suo else e poi andare con l'altro
             if(selectedbutton!=null) {
@@ -71,8 +71,10 @@ class SubscriptionPurchase(var theatre: String) : Fragment(R.layout.fragment_sub
                     if(expireMonth.length == 1) {    //quindi se non inserisco il "20" prima dell'anno
                         expireMonth = "0${expireMonth}"
                     }
-                    insertAbbonamentoInRemoto(theatre, utente, period)
-                    insertCartaCredito(utente, cardNumber, numberCVC, expireYear, expireMonth)
+                    insertAbbonamentoInRemoto(ref_theatre, utente, period)
+                    if(isChecked){
+                        insertCartaCredito(utente, cardNumber, numberCVC, expireYear, expireMonth)
+                    }
                     MA.syncDB()
                     MA.realAppNavigateTo(PaymentConfirmed("Abbonamento"), "ConfirmedPayment")
                 }
@@ -90,7 +92,7 @@ class SubscriptionPurchase(var theatre: String) : Fragment(R.layout.fragment_sub
         return binding.root
     }
 
-    private fun insertAbbonamentoInRemoto(theatre: String, utente: Int, period: Int) {
+    private fun getRefTheatre(theatre: String): Int {
         var teatro: Int = 0
         when (theatre) {
             "Massimo" -> {
@@ -107,11 +109,15 @@ class SubscriptionPurchase(var theatre: String) : Fragment(R.layout.fragment_sub
 
             }
         }
+        return teatro
+    }
+
+    private fun insertAbbonamentoInRemoto(theatre: Int, utente: Int, period: Int) {
         var currentDate = LocalDate.now()
         var subLength = Period.of(0, period, 0)   //inserisco 1, 3, 6 o 12 mesi al giorno corrente
         var lastMembershipDate = currentDate.plus(subLength)
         println(lastMembershipDate)
-        val query = "insert into Abbonamento (ref_teatro, ref_utente, durata_mesi, data_scadenza ) values ('${teatro}', '${utente}', '${period}', '${lastMembershipDate}'); "
+        val query = "insert into Abbonamento (ref_teatro, ref_utente, durata_mesi, data_scadenza ) values ('${theatre}', '${utente}', '${period}', '${lastMembershipDate}'); "
         ApiService.retrofit.insert(query).enqueue(
             object: Callback<JsonObject> {
                 override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
