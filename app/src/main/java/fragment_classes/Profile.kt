@@ -88,7 +88,7 @@ class Profile : Fragment(R.layout.fragment_register) {
         }
         binding.confirmButton.setOnClickListener(){
             binding.confirmButton.setBackgroundColor(Color.parseColor("#F44336"))
-            changeNameAndSurname(id,binding.nameField.text.toString(),binding.surnameField.text.toString())
+            changeNameAndSurname(MA.getUserId(),binding.nameField.text.toString(),binding.surnameField.text.toString())
             //MA.back()
 
             val editor = sharedPreferences.edit()
