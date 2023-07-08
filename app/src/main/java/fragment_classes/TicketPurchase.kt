@@ -12,6 +12,7 @@ import api.ApiService
 import com.example.progettouni.MainActivity
 import com.example.progettouni.R
 import com.example.progettouni.databinding.FragmentBuyTicketsBinding
+import com.example.progettouni.databinding.FragmentTopTaskbarBinding
 import com.google.gson.JsonObject
 import retrofit2.Call
 import retrofit2.Callback
@@ -27,13 +28,16 @@ class TicketPurchase(
     var textTheatre: String
 ) : Fragment(R.layout.fragment_buy_tickets) {
     private lateinit var binding: FragmentBuyTicketsBinding
+    private lateinit var bindingTaskbar: FragmentTopTaskbarBinding
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentBuyTicketsBinding.inflate(inflater)
+        bindingTaskbar = FragmentTopTaskbarBinding.inflate(inflater)
         var MA = (activity as MainActivity?)!! //reference alla Main Activity
+        bindingTaskbar.TopTaskbarText.text = "Vendita Biglietti"
 
         binding.confirmButton.setOnClickListener{
             var cardNumber = binding.cardField.text.toString()
@@ -42,9 +46,9 @@ class TicketPurchase(
             var expireMonth = binding.cardExpireMonthField.text.toString()
 
             var place: Char = choosePlace(textTheatre, selectedPlace)
-            for (x: Int in ticketQuantity){
+            //for (x: Int in ticketQuantity){
               //errore, non mi fa trattare quantity come un numero normale
-            }
+            //}
 
             expireYear = adjustYear(expireYear)
             if ((cardNumber.length == 16) && (numberCVC.length == 3) && verifyExpire(expireYear, expireMonth)) {

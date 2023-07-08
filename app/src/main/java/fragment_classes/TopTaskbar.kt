@@ -45,7 +45,7 @@ class TopTaskbar : Fragment(R.layout.fragment_top_taskbar) {
 
             MA.realAppNavigateTo(Profile(), "Profile")
         }
-        binding.TopTaskbarText.setText("Home")
+        binding.TopTaskbarText.text = "Home"
 
         return binding.root
     }
