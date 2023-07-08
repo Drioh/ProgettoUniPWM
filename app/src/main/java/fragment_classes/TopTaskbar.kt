@@ -22,7 +22,7 @@ import java.io.ByteArrayOutputStream
 import java.io.File
 
 class TopTaskbar : Fragment(R.layout.fragment_top_taskbar) {
-    private lateinit var binding: FragmentTopTaskbarBinding
+    lateinit var binding: FragmentTopTaskbarBinding
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
