@@ -44,9 +44,6 @@ class TicketPurchase(
             var expireMonth = binding.cardExpireMonthField.text.toString()
 
             var place: Char = choosePlace(textTheatre, selectedPlace)
-            for (x: Int in 1..ticketQuantity){
-              insertPosto(x, place, id_show)
-            }
 
             expireYear = adjustYear(expireYear)
             if ((cardNumber.length == 16) && (numberCVC.length == 3) && verifyExpire(expireYear, expireMonth)) {
@@ -58,7 +55,10 @@ class TicketPurchase(
                 }
                 insertCartaCredito(utente, cardNumber, numberCVC, expireYear, expireMonth)
                 binding.confirmButton.setBackgroundColor(Color.parseColor("#F44336"))
-                insertBigliettoInRemoto(utente, id_show)
+                for (x: Int in 1..ticketQuantity){
+                    insertPosto(x, place, id_show)
+                    insertBigliettoInRemoto(utente, id_show)
+                }
                 MA.syncDB()
                 MA.realAppNavigateTo(PaymentConfirmed("Biglietto"), "ConfirmedPayment")
             }else{
