@@ -46,9 +46,9 @@ class TicketPurchase(
             var expireMonth = binding.cardExpireMonthField.text.toString()
 
             var place: Char = choosePlace(textTheatre, selectedPlace)
-            //for (x: Int in ticketQuantity){
-              //errore, non mi fa trattare quantity come un numero normale
-            //}
+            for (x: Int in 1..ticketQuantity){
+              insertPosto(x, place, id_show)
+            }
 
             expireYear = adjustYear(expireYear)
             if ((cardNumber.length == 16) && (numberCVC.length == 3) && verifyExpire(expireYear, expireMonth)) {
@@ -74,6 +74,23 @@ class TicketPurchase(
 
 
         return binding.root
+    }
+
+    private fun insertPosto(x: Int, place: Char, idShow: String) {
+        val query = "insert into Occupazione_posti (ref_posto_let, ref_rappresentazione_posti, ref_posto_num) values ('${place}', '${id_show}', '${x}'); "
+        ApiService.retrofit.insert(query).enqueue(
+            object: Callback<JsonObject> {
+                override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
+                    println(response.code())
+                    Log.i("ApiService", "Inserimento avvenuto correttamente!")
+                }
+                override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+                    Log.i("ApiService", "Pagamento fallito")
+                    Log.e("ApiService", t.message.toString())
+
+                }
+            }
+        )
     }
 
     private fun choosePlace(textTheatre: String, selectedPlace: String): Char {
