@@ -32,7 +32,7 @@ class ShowAdapter(private val myList: List<ShowModel>) : RecyclerView.Adapter<Sh
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         //Vengono assegnati i valori a ogni singola card nel momento in cui viene creata dall'adapter
         val singleShowModel = myList[position]
-        holder.imageView.setImageResource(singleShowModel.image)
+        holder.imageView.setImageBitmap(singleShowModel.image)
         holder.textName.text = singleShowModel.textName
         holder.textDate.text = singleShowModel.textDate
         holder.textTheatre.text = singleShowModel.textTheatre

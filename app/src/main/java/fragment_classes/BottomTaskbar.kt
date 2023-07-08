@@ -1,7 +1,10 @@
 package fragment_classes
 
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +17,7 @@ import com.example.progettouni.databinding.FragmentLoginBinding
 import com.example.progettouni.databinding.RealAppBinding
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -41,7 +45,7 @@ class BottomTaskbar : Fragment(R.layout.fragment_bottom_taskbar) {
         Viene interrogato il databse remoto e viene popolata la recycle view che si occupa degli spettacoli per i quali l'utente può acquistare dei biglietti
          */
         binding.SearchButton.setOnClickListener(){
-            val query = "select  nome_spettacolo, data, nome_teatro, id_spettacolo " +
+            val query = "select  nome_spettacolo, data, nome_teatro, id_spettacolo, foto_spettacolo " +
                     "from Rappresentazione , Spettacolo , Teatro " +
                     "where id_spettacolo=ref_spettacolo and id_teatro = ref_teatro;"
             ApiService.retrofit.select(query).enqueue(
@@ -57,9 +61,10 @@ class BottomTaskbar : Fragment(R.layout.fragment_bottom_taskbar) {
                                 val date = showsJsonObject[i].asJsonObject.get("data").toString().substring(1,showsJsonObject[i].asJsonObject.get("data").toString().length-1)
                                 val teatro = showsJsonObject[i].asJsonObject.get("nome_teatro").toString().substring(1,showsJsonObject[i].asJsonObject.get("nome_teatro").toString().length-1)
                                 val identificativo = showsJsonObject[i].asJsonObject.get("id_spettacolo").toString()
+                                val imageURL = showsJsonObject[i].asJsonObject.get("foto_spettacolo").toString()
                                 data.add(
                                     ShowModel(
-                                        0,
+                                        getImageSpettacolo(imageURL),
                                         spettacolo,
                                         date,
                                         identificativo,
@@ -86,5 +91,26 @@ class BottomTaskbar : Fragment(R.layout.fragment_bottom_taskbar) {
             MA.realAppNavigateTo(SubscriptionChoice(),"SubscriptionChoice")
         }
         return binding.root
+    }
+    private fun getImageSpettacolo(url: String): Bitmap?{
+        var image: Bitmap? = null
+        ApiService.retrofit.image(url).enqueue(
+            object : Callback<ResponseBody> {
+                override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                    if(response.isSuccessful) {
+                        if (response.body()!=null) {
+                            image = BitmapFactory.decodeStream(response.body()?.byteStream())
+                        }
+                    }
+                }
+
+                override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+
+                    Log.e("ApiService", t.message.toString())
+                }
+
+            }
+        )
+        return image
     }
 }

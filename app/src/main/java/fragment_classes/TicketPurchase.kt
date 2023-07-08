@@ -100,7 +100,7 @@ class TicketPurchase(
                 "Piccionaia" -> place = 'C'
             }
         }
-        else if(textTheatre == "Politeama"){
+        else if(textTheatre == "Teatro Politeama"){
             when(selectedPlace){
                 "Platea" -> place = 'D'
                 "Loggione" -> place = 'E'
