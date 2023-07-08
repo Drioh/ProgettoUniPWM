@@ -28,6 +28,7 @@ class ShowInfo(var id: String, var name: String, var date: String, var textTheat
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        println("Teatro: ${textTheatre}")
         binding = FragmentShowInfoBinding.inflate(inflater)
         var MA = (activity as MainActivity?)!! //reference alla Main Activity
         MA.changeTitle("Informazioni Spettacolo")
@@ -40,6 +41,17 @@ class ShowInfo(var id: String, var name: String, var date: String, var textTheat
                     println(response.code())
                     if (response.isSuccessful) {
                         val show = (response.body()?.get("queryset") as JsonArray)[0] as JsonObject
+
+                        if (show.get("tipologia").asString == "Teatro"){
+                            binding.directorHeading.text = "Regista"
+                            binding.FirstHeading.text = "Protagonista"
+                            binding.CompanyHeading.text = "Compagnia"
+                        }else if (show.get("tipologia").asString == "Concerto"){
+                            binding.directorHeading.text = "Direttore"
+                            binding.FirstHeading.text = "Primo Strumento"
+                            binding.CompanyHeading.text = "Orchestra"
+                        }
+
                         binding.Show.text=show.get("nome_spettacolo").asString
                         binding.directorText.text=show.get("regista_direttore").asString
                         binding.FirstText.text=show.get("protagonista_primo_strumento").asString
@@ -47,8 +59,6 @@ class ShowInfo(var id: String, var name: String, var date: String, var textTheat
                         binding.ShowDesc.text=show.get("Info").asString
                         binding.DateText.text=show.get("data").asString
                         binding.theatreButton.text=show.get("nome_teatro").asString
-
-
 
                         var image: Bitmap? = null
                         ApiService.retrofit.image(show.get("foto_spettacolo").asString).enqueue(
@@ -71,8 +81,6 @@ class ShowInfo(var id: String, var name: String, var date: String, var textTheat
                             }
                         )
 
-
-
                     }else
                     {
                         println("esito negativo")
@@ -83,6 +91,9 @@ class ShowInfo(var id: String, var name: String, var date: String, var textTheat
                 }
             }
         )
+        binding.theatreButton.setOnClickListener{
+            MA.realAppNavigateTo(TheatreInfo(textTheatre.substring(7),false),"Theatre Info")
+        }
         binding.buyTicketButton.setOnClickListener{
             binding.buyTicketButton.setBackgroundColor(Color.parseColor("#F44336"))
             MA.realAppNavigateTo(ChoosePlace(id, name, date, textTheatre), "ChoosePlace") //da mettere qui o dopo il navigate per ChoosePlace
@@ -92,27 +103,5 @@ class ShowInfo(var id: String, var name: String, var date: String, var textTheat
 
         return binding.root
     }
-    private fun getImageSpettacolo(url: String, IV: ImageView): Bitmap?{
-        var image: Bitmap? = null
-        ApiService.retrofit.image(url).enqueue(
-            object : Callback<ResponseBody> {
-                override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
-                    if(response.isSuccessful) {
-                        if (response.body()!=null) {
-                            image = BitmapFactory.decodeStream(response.body()?.byteStream())
-                            IV.setImageBitmap(image)
 
-                        }
-                    }
-                }
-
-                override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-
-                    Log.e("ApiService", t.message.toString())
-                }
-
-            }
-        )
-        return image
-    }
 }
