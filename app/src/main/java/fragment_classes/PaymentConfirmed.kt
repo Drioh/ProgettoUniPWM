@@ -20,6 +20,7 @@ class PaymentConfirmed (val type: String) : Fragment(R.layout.fragment_confirmed
     ): View? {
         binding = FragmentConfirmedPaymentBinding.inflate(inflater)
         var MA = (activity as MainActivity?)!! //reference alla Main Activity
+        MA.changeTitle("Pagamento Confermato")
 when(type){
     "Biglietto"->{
         binding.textView6.setText(R.string.CorrPay)

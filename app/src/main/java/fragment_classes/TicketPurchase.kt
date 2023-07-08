@@ -35,7 +35,7 @@ class TicketPurchase(
     ): View? {
         binding = FragmentBuyTicketsBinding.inflate(inflater)
         var MA = (activity as MainActivity?)!! //reference alla Main Activity
-        MA.changeTitle("Inserisci Dati")
+        MA.changeTitle("Compra Biglietto")
 
         binding.confirmButton.setOnClickListener{
             var cardNumber = binding.cardField.text.toString()

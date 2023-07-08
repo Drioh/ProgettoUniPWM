@@ -33,6 +33,7 @@ class PosessedTickets : Fragment(R.layout.fragment_posessed_tickets) {
     ): LinearLayout {
         binding = FragmentPosessedTicketsBinding.inflate(inflater)
         var MA = (activity as MainActivity?)!! //reference alla Main Activity
+        MA.changeTitle("I miei acquisti")
         binding.ticketRecycler.layoutManager = LinearLayoutManager(context)
         dbManager = DBManager(requireContext())
         dbManager.open()

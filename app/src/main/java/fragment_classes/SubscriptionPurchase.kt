@@ -30,6 +30,7 @@ class SubscriptionPurchase(var theatre: String) : Fragment(R.layout.fragment_sub
     ): View? {
         binding = FragmentSubscriptionPurchaseBinding.inflate(inflater)
         var MA = (activity as MainActivity?)!! //reference alla Main Activity
+        MA.changeTitle("Compra Abbonamento")
         var period: Int = 0
 
         binding.oneMonthButton.setOnClickListener{

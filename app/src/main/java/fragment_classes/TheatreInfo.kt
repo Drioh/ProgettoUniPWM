@@ -57,6 +57,7 @@ class TheatreInfo (val idTeatro: String, val purchase: Boolean): Fragment(R.layo
     ): View? {
         binding = FragmentTheatreInfoBinding.inflate(inflater)
         var MA = (activity as MainActivity?)!! // reference alla MainActivity
+        MA.changeTitle("Informazioni")
         binding.info.visibility = View.INVISIBLE
         println("------------------------------------------------------")
         println(idTeatro)
