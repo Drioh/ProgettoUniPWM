@@ -45,6 +45,9 @@ class BottomTaskbar : Fragment(R.layout.fragment_bottom_taskbar) {
         Viene interrogato il databse remoto e viene popolata la recycle view che si occupa degli spettacoli per i quali l'utente può acquistare dei biglietti
          */
         binding.SearchButton.setOnClickListener(){
+            if(MA.getIsOffline()){
+                MA.showToast("Caro utente, sei offline! Connettiti alla rete per potere usufruire di questa funzionalità")
+            } else{
             val query = "select  nome_spettacolo, data, nome_teatro, id_spettacolo, foto_spettacolo " +
                     "from Rappresentazione , Spettacolo , Teatro " +
                     "where id_spettacolo=ref_spettacolo and id_teatro = ref_teatro;"
@@ -82,13 +85,16 @@ class BottomTaskbar : Fragment(R.layout.fragment_bottom_taskbar) {
                         MA.showToast("Errore di rete")
                     }
                 }
-            )
+            ) }
         }
         binding.TicketButton.setOnClickListener(){
             MA.realAppNavigateTo(PosessedTickets(),"PosessedTickets")
         }
         binding.SubButton.setOnClickListener(){
-            MA.realAppNavigateTo(SubscriptionChoice(),"SubscriptionChoice")
+            if(MA.getIsOffline()){
+                MA.showToast("Caro utente, sei offline! Connettiti alla rete per potere usufruire di questa funzionalità")
+            }else{
+            MA.realAppNavigateTo(SubscriptionChoice(),"SubscriptionChoice") }
         }
         return binding.root
     }

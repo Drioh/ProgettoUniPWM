@@ -49,7 +49,23 @@ class Profile : Fragment(R.layout.fragment_register) {
             binding.propicImage.setImageBitmap(decodedImage)
         }
         getUrlbyID(MA.getUserId())
+        //offline mode per profilo
+        if(MA.getIsOffline()){
+            binding.nameField.isEnabled = false
+            binding.nameField.isFocusable = false
+            binding.nameField.isClickable = false
 
+            binding.surnameField.isEnabled = false
+            binding.surnameField.isFocusable = false
+            binding.surnameField.isClickable = false
+
+            binding.mailButton.visibility = View.GONE
+            binding.passwordButton.visibility = View.GONE
+            binding.verificationButton.visibility = View.GONE
+            binding.confirmButton.visibility = View.GONE
+            binding.cancelButton.visibility = View.GONE
+            binding.logoutButton.visibility = View.GONE
+        }
         binding.mailButton.setOnClickListener(){
             binding.mailButton.setBackgroundColor(Color.parseColor("#F44336"))
             MA.realAppNavigateTo(EditMail(), "EditMail")

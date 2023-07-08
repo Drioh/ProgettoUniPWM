@@ -3,7 +3,10 @@ package com.example.progettouni
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -26,7 +29,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var db: DBManager
     private var userId: Int = 0 // Variabile per l'ID dell'utente
     private lateinit var sharedPreferences: SharedPreferences
-
+    private var isOffline: Boolean = false
 
     @SuppressLint("Range")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -65,12 +68,17 @@ class MainActivity : AppCompatActivity() {
         }
         syncDB()
 
-
+        selectTeatro()
+        if(isOffline){
+            showToast("OFFLINE MODE ON")
+        }
     }
     fun changeTitle (s:String){
         realBinding.fragmentContainerView2.getFragment<TopTaskbar>().binding.TopTaskbarText.text = s
     }
-
+    fun getIsOffline(): Boolean {
+        return isOffline
+    }
     fun getUserId(): Int {
         return userId
     }
@@ -373,5 +381,32 @@ class MainActivity : AppCompatActivity() {
         val  email = sharedPreferences.getString("email", "") ?: ""
         val  pw = sharedPreferences.getString("password", "") ?: ""
     }
+    fun selectTeatro() {
+        val query = "SELECT * FROM Teatro;"
+
+        val call = ApiService.retrofit.select(query)
+        try {
+            val response = call.execute()
+            if (response.isSuccessful) {
+                Log.i("ApiService", "Success")
+            } else {
+                isOffline = true
+            }
+        } catch (e: Exception) {
+            Log.e("Errore di rete", e.message.toString())
+            isOffline = true
+        }
+    }
+
+    // Funzione per controllare lo stato della connessione di rete
+    fun checkNetworkStatus(context: Context): Boolean {
+        val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val network = connectivityManager.activeNetwork
+        val capabilities = connectivityManager.getNetworkCapabilities(network)
+        val isConnected = capabilities?.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) == true
+
+        return capabilities?.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) == true
+    }
+
 
 }

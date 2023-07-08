@@ -26,17 +26,25 @@ class Login : Fragment(R.layout.fragment_login) {
         binding = FragmentLoginBinding.inflate(inflater)
         var MA = (activity as MainActivity?)!! //reference alla Main Activity
 
+        if(MA.getIsOffline()){
+            binding.registerButton.visibility = View.GONE
+            binding.retrievePasswordButton.visibility = View.GONE
+        }
         binding.cancelButton.setOnClickListener {
             binding.cancelButton.setBackgroundColor(Color.parseColor("#F44336"))
             MA.back()
         }
         binding.confirmButton.setOnClickListener {
-            binding.confirmButton.setBackgroundColor(Color.parseColor("#F44336"))
-            //MA.loginCheck(binding.mailField.text.toString(),binding.pwField.text.toString() )
-            // Controllo se ci sono credenziali salvate nelle SharedPreferences
+            if(MA.getIsOffline()){
+                MA.showToast("Caro utente, sei offline! Connettiti alla rete per potere effettuare il Login")
+            }
+            else {
+                binding.confirmButton.setBackgroundColor(Color.parseColor("#F44336"))
+                //MA.loginCheck(binding.mailField.text.toString(),binding.pwField.text.toString() )
+                // Controllo se ci sono credenziali salvate nelle SharedPreferences
 
-            MA.loginCheck(binding.mailField.text.toString() ,binding.pwField.text.toString())
-
+                MA.loginCheck(binding.mailField.text.toString(), binding.pwField.text.toString())
+            }
         }
         binding.registerButton.setOnClickListener {
             binding.registerButton.setBackgroundColor(Color.parseColor("#F44336"))
