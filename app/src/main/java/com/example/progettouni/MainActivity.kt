@@ -384,18 +384,20 @@ class MainActivity : AppCompatActivity() {
     fun selectTeatro() {
         val query = "SELECT * FROM Teatro;"
 
-        val call = ApiService.retrofit.select(query)
-        try {
-            val response = call.execute()
-            if (response.isSuccessful) {
-                Log.i("ApiService", "Success")
-            } else {
+        ApiService.retrofit.select(query).enqueue(object : Callback<JsonObject> {
+            override fun onResponse(call: Call<JsonObject>?, response: Response<JsonObject>) {
+                if (response.isSuccessful) {
+                    Log.i("ApiService", "Success")
+                } else {
+                    isOffline = true
+                }
+            }
+
+            override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+                Log.e("Errore di rete", t.message.toString())
                 isOffline = true
             }
-        } catch (e: Exception) {
-            Log.e("Errore di rete", e.message.toString())
-            isOffline = true
-        }
+        })
     }
 
     // Funzione per controllare lo stato della connessione di rete
