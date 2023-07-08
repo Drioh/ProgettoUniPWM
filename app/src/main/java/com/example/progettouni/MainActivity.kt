@@ -143,12 +143,17 @@ class MainActivity : AppCompatActivity() {
                 override fun onResponse(call: Call<JsonObject>?, response: Response<JsonObject>) {
                     if (response.isSuccessful) {
                         if ((response.body()?.get("queryset") as JsonArray).size() == 1) {
+
                             val userJsonObject = (response.body()?.get("queryset") as JsonArray)[0] as JsonObject
+
                             setUserId(userJsonObject.get("id_utente").asInt) // Assegna l'ID dell'utente alla variabile userId
+
                             val userName = userJsonObject.get("nome_utente").asString
+                            val surname = userJsonObject.get("cognome").asString
                             val pw = userJsonObject.get("password").asString
                             val  email = userJsonObject.get("mail").asString
-                            this@MainActivity.saveUserData(userId, userName, email, pw)
+                            this@MainActivity.saveUserData(userId, userName, surname, email, pw)
+
                             realBinding = RealAppBinding.inflate(layoutInflater)
                             supportFragmentManager.popBackStack()
                             supportFragmentManager.beginTransaction()
@@ -350,11 +355,12 @@ class MainActivity : AppCompatActivity() {
         }
         super.getOnBackPressedDispatcher().onBackPressed()
     }
-    private fun saveUserData(userId: Int, userName: String, email: String, password: String) {
+    private fun saveUserData(userId: Int, userName: String,  surname: String , email: String, password: String) {
         sharedPreferences = getSharedPreferences("UserData", Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
         editor.putInt("userId", userId)
         editor.putString("userName", userName)
+        editor.putString("surname", surname)
         editor.putString("email", email)
         editor.putString("password", password)
         editor.apply()

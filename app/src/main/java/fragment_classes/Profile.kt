@@ -37,7 +37,12 @@ class Profile : Fragment(R.layout.fragment_register) {
         var MA = (activity as MainActivity?)!! //reference alla Main Activity
         MA.changeTitle("Profilo")
         val sharedPreferences = MA.getSharedPreferences()
-
+        val userName = sharedPreferences.getString("userName", "")
+        val surname = sharedPreferences.getString("surname", "")
+        if (!userName.isNullOrEmpty() && !surname.isNullOrEmpty()) {
+            binding.nameField.setText(userName)
+            binding.surnameField.setText(surname)
+        }
         val propic = sharedPreferences.getString("propic", "")
         if (!propic.isNullOrEmpty()) {
             val decodedImage = decodeBase64ToBitmap(propic)

@@ -30,9 +30,9 @@ class RetrievePassword: Fragment(R.layout.fragment_retrieve_password){
 
         binding.confirmButton.setOnClickListener(){
             MA.back()
-
+           if(controllaValiditaPwd(binding.cardOwnerField.text.toString())){
             changePassword(binding.cardField.text.toString(),binding.cardOwnerField.text.toString())
-
+}
         }
         binding.cancelButton.setOnClickListener(){
             MA.back()
@@ -66,4 +66,21 @@ class RetrievePassword: Fragment(R.layout.fragment_retrieve_password){
             }
         )
     }
+    /**
+     *  Verifica la validità della password dell'utente, la password deve avere 8 caratteri, contenere una maiuscola e un numero.
+     *
+     *  @param password La password dell'utente da controllare.
+     *  @return True se la password è valida, altrimenti False.
+     */
+    fun controllaValiditaPwd(password: String): Boolean {
+        var isValid = password.length <= 20 && password.length >= 8
+        val upperCaseChars = "(.*[A-Z].*)".toRegex()
+        if (!password.matches(upperCaseChars)) isValid = false
+        val lowerCaseChars = "(.*[a-z].*)".toRegex()
+        if (!password.matches(lowerCaseChars)) isValid = false
+        val numbers = "(.*[0-9].*)".toRegex()
+        if (!password.matches(numbers)) isValid = false
+        return isValid
+    }
+
 }
