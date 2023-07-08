@@ -61,10 +61,10 @@ class BottomTaskbar : Fragment(R.layout.fragment_bottom_taskbar) {
                                 val date = showsJsonObject[i].asJsonObject.get("data").toString().substring(1,showsJsonObject[i].asJsonObject.get("data").toString().length-1)
                                 val teatro = showsJsonObject[i].asJsonObject.get("nome_teatro").toString().substring(1,showsJsonObject[i].asJsonObject.get("nome_teatro").toString().length-1)
                                 val identificativo = showsJsonObject[i].asJsonObject.get("id_spettacolo").toString()
-                                val imageURL = showsJsonObject[i].asJsonObject.get("foto_spettacolo").toString()
+                                val imageURL = showsJsonObject[i].asJsonObject.get("foto_spettacolo").toString().substring(1,showsJsonObject[i].asJsonObject.get("foto_spettacolo").toString().length-1)
                                 data.add(
                                     ShowModel(
-                                        getImageSpettacolo(imageURL),
+                                        imageURL,
                                         spettacolo,
                                         date,
                                         identificativo,
@@ -92,25 +92,5 @@ class BottomTaskbar : Fragment(R.layout.fragment_bottom_taskbar) {
         }
         return binding.root
     }
-    private fun getImageSpettacolo(url: String): Bitmap?{
-        var image: Bitmap? = null
-        ApiService.retrofit.image(url).enqueue(
-            object : Callback<ResponseBody> {
-                override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
-                    if(response.isSuccessful) {
-                        if (response.body()!=null) {
-                            image = BitmapFactory.decodeStream(response.body()?.byteStream())
-                        }
-                    }
-                }
 
-                override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-
-                    Log.e("ApiService", t.message.toString())
-                }
-
-            }
-        )
-        return image
-    }
 }

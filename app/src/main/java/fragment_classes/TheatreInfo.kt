@@ -55,6 +55,7 @@ class TheatreInfo (val idTeatro: String, val purchase: Boolean): Fragment(R.layo
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        println(idTeatro)
         binding = FragmentTheatreInfoBinding.inflate(inflater)
         var MA = (activity as MainActivity?)!! // reference alla MainActivity
         MA.changeTitle("Informazioni")
@@ -72,7 +73,7 @@ class TheatreInfo (val idTeatro: String, val purchase: Boolean): Fragment(R.layo
         mapView.getMapAsync(this)
 
         when (idTeatro) {
-            "1" -> {
+            "Massimo" -> {
                 println("Questo è il teatro Massimo")
                 binding.TheatreName.setText((R.string.TMassimo))
                 binding.DescText.setText(R.string.MassimoDesription)
@@ -85,7 +86,7 @@ class TheatreInfo (val idTeatro: String, val purchase: Boolean): Fragment(R.layo
                     startActivity(intent)
                 }
             }
-            "2" -> {
+            "Politeama" -> {
                 println("Questo è il teatro Politeama")
                 binding.TheatreName.setText(R.string.TPoliteama)
                 binding.DescText.setText(R.string.PoliteamaDescription)
@@ -99,7 +100,7 @@ class TheatreInfo (val idTeatro: String, val purchase: Boolean): Fragment(R.layo
                     startActivity(intent)
                 }
             }
-            "3" -> {
+            "Biondo" -> {
                 println("Questo è il teatro Biondo")
                 binding.TheatreName.setText(R.string.TBiondo)
                 binding.DescText.setText(R.string.BiondoDescription)
@@ -203,15 +204,15 @@ class TheatreInfo (val idTeatro: String, val purchase: Boolean): Fragment(R.layo
             val posizioneTeatro: LatLng
 
             when (idTeatro) {
-                "1" -> {
+                "Massimo" -> {
                     teatro = teatri[0]
                     posizioneTeatro = LatLng(teatro.latitudine, teatro.longitudine)
                 }
-                "2" -> {
+                "Politeama" -> {
                     teatro = teatri[1]
                     posizioneTeatro = LatLng(teatro.latitudine, teatro.longitudine)
                 }
-                "3" -> {
+                "Biondo" -> {
                     teatro = teatri[2]
                     posizioneTeatro = LatLng(teatro.latitudine, teatro.longitudine)
                 }
@@ -304,7 +305,7 @@ class TheatreInfo (val idTeatro: String, val purchase: Boolean): Fragment(R.layo
 
 
             when (idTeatro) {
-                "1" -> {
+                "Massimo" -> {
                     val posizioneTeatro = LatLng(teatri[0].latitudine, teatri[0].longitudine)
                     googleMap.addMarker(
                         MarkerOptions().position(posizioneTeatro).title(teatri[0].nome)
@@ -326,7 +327,7 @@ class TheatreInfo (val idTeatro: String, val purchase: Boolean): Fragment(R.layo
                     }
                 }
 
-                "2" -> {
+                "Politeama" -> {
                     val posizioneTeatro = LatLng(teatri[1].latitudine, teatri[1].longitudine)
                     googleMap.addMarker(
                         MarkerOptions().position(posizioneTeatro).title(teatri[1].nome)
@@ -349,7 +350,7 @@ class TheatreInfo (val idTeatro: String, val purchase: Boolean): Fragment(R.layo
                 }
 
 
-                "3" -> {
+                "Biondo" -> {
                     val posizioneTeatro = LatLng(teatri[2].latitudine, teatri[2].longitudine)
                     googleMap.addMarker(
                         MarkerOptions().position(posizioneTeatro).title(teatri[2].nome)

@@ -1,11 +1,20 @@
 package fragment_classes
 
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
+import api.ApiService
 import com.example.progettouni.databinding.FragmentShowCardBinding
 import com.example.progettouni.databinding.FragmentTicketCardBinding
+import okhttp3.ResponseBody
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class ShowAdapter(private val myList: List<ShowModel>) : RecyclerView.Adapter<ShowAdapter.ViewHolder>() {
     private var onClickListener: OnClickListener? = null
@@ -32,7 +41,7 @@ class ShowAdapter(private val myList: List<ShowModel>) : RecyclerView.Adapter<Sh
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         //Vengono assegnati i valori a ogni singola card nel momento in cui viene creata dall'adapter
         val singleShowModel = myList[position]
-        holder.imageView.setImageBitmap(singleShowModel.image)
+        getImageSpettacolo(singleShowModel.image,holder.imageView)
         holder.textName.text = singleShowModel.textName
         holder.textDate.text = singleShowModel.textDate
         holder.textTheatre.text = singleShowModel.textTheatre
@@ -41,6 +50,29 @@ class ShowAdapter(private val myList: List<ShowModel>) : RecyclerView.Adapter<Sh
         holder.itemView.setOnClickListener {
             onClickListener?.onClick(position, singleShowModel)
         }
+    }
+    private fun getImageSpettacolo(url: String, IV: ImageView): Bitmap?{
+        var image: Bitmap? = null
+        ApiService.retrofit.image(url).enqueue(
+            object : Callback<ResponseBody> {
+                override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                    if(response.isSuccessful) {
+                        if (response.body()!=null) {
+                            image = BitmapFactory.decodeStream(response.body()?.byteStream())
+                            IV.setImageBitmap(image)
+
+                        }
+                    }
+                }
+
+                override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+
+                    Log.e("ApiService", t.message.toString())
+                }
+
+            }
+        )
+        return image
     }
     interface OnClickListener {
         fun onClick(position: Int, model: ShowModel)
