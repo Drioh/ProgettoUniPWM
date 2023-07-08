@@ -72,7 +72,7 @@ class Profile : Fragment(R.layout.fragment_register) {
                                 MA.realAppNavigateTo(Verify(), "Verify")
                             }
                             else{
-                                MA.showToast("Utente già registrato")
+                                MA.showToast("Utente già verificato")
                             }
 
                         } else {
@@ -89,16 +89,21 @@ class Profile : Fragment(R.layout.fragment_register) {
         binding.confirmButton.setOnClickListener(){
             binding.confirmButton.setBackgroundColor(Color.parseColor("#F44336"))
             changeNameAndSurname(MA.getUserId(),binding.nameField.text.toString(),binding.surnameField.text.toString())
-            //MA.back()
 
             val editor = sharedPreferences.edit()
             editor.putString("userName", binding.nameField.text.toString())
             editor.putString("surname", binding.surnameField.text.toString())
             editor.apply()
+            binding.confirmButton.setBackgroundColor(Color.parseColor("#000000"))
+
         }
         binding.cancelButton.setOnClickListener(){
             binding.cancelButton.setBackgroundColor(Color.parseColor("#F44336"))
-            MA.back()
+            if (!userName.isNullOrEmpty() && !surname.isNullOrEmpty()) {
+                binding.nameField.setText(userName)
+                binding.surnameField.setText(surname)
+            }
+            binding.cancelButton.setBackgroundColor(Color.parseColor("#000000"))
         }
         binding.logoutButton.setOnClickListener(){
             binding.logoutButton.setBackgroundColor(Color.parseColor("#F44336"))
