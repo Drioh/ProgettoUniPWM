@@ -12,6 +12,7 @@ import api.ApiService
 import com.example.progettouni.MainActivity
 import com.example.progettouni.R
 import com.example.progettouni.databinding.FragmentSubscriptionPurchaseBinding
+import com.google.android.gms.maps.model.LatLng
 import com.google.gson.JsonObject
 import retrofit2.Call
 import retrofit2.Callback
@@ -70,8 +71,8 @@ class SubscriptionPurchase(var theatre: String) : Fragment(R.layout.fragment_sub
                     if(expireMonth.length == 1) {    //quindi se non inserisco il "20" prima dell'anno
                         expireMonth = "0${expireMonth}"
                     }
-                    insertCartaCredito(utente, cardNumber, numberCVC, expireYear, expireMonth)
                     insertAbbonamentoInRemoto(theatre, utente, period)
+                    insertCartaCredito(utente, cardNumber, numberCVC, expireYear, expireMonth)
                     MA.syncDB()
                     MA.realAppNavigateTo(PaymentConfirmed("Abbonamento"), "ConfirmedPayment")
                 }
@@ -90,15 +91,35 @@ class SubscriptionPurchase(var theatre: String) : Fragment(R.layout.fragment_sub
     }
 
     private fun insertAbbonamentoInRemoto(theatre: String, utente: Int, period: Int) {
+        var teatro: Int = 0
+        when (theatre) {
+            "Massimo" -> {
+                teatro = 1
+            }
+            "Politeama" -> {
+                teatro = 2
+            }
+            "Biondo" -> {
+                teatro = 3
+            }
+            else -> {
+                println("Errore: teatro non trovato")
+
+            }
+        }
         var currentDate = LocalDate.now()
         var subLength = Period.of(0, period, 0)   //inserisco 1, 3, 6 o 12 mesi al giorno corrente
         var lastMembershipDate = currentDate.plus(subLength)
-        val query = "insert into Abbonamento (ref_teatro, ref_utente, durata_mesi, data_scadenza ) values ('${theatre}', '${utente}, '${period}, '${lastMembershipDate}'); "
+        println(lastMembershipDate)
+        val query = "insert into Abbonamento (ref_teatro, ref_utente, durata_mesi, data_scadenza ) values ('${teatro}', '${utente}', '${period}', '${lastMembershipDate}'); "
         ApiService.retrofit.insert(query).enqueue(
             object: Callback<JsonObject> {
                 override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
                     println(response.code())
-                    Log.i("ApiService", "Inserimento avvenuto correttamente!")
+
+                        Log.i("ApiService", "Inserimento avvenuto correttamente!")
+
+
                 }
                 override fun onFailure(call: Call<JsonObject>, t: Throwable) {
                     Log.i("ApiService", "Pagamento fallito")
@@ -149,7 +170,7 @@ class SubscriptionPurchase(var theatre: String) : Fragment(R.layout.fragment_sub
         ApiService.retrofit.insert(query).enqueue(
             object: Callback<JsonObject> {
                 override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
-                    println(response.code())
+                    println("prova: ${response.code()}")
                     Log.i("ApiService", "Inserimento avvenuto correttamente!")
                 }
                 override fun onFailure(call: Call<JsonObject>, t: Throwable) {

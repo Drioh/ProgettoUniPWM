@@ -55,8 +55,8 @@ class TicketPurchase(
                     expireMonth = "0${expireMonth}"
                 }
                 insertCartaCredito(utente, cardNumber, numberCVC, expireYear, expireMonth)
-                binding.confirmButton.setBackgroundColor(Color.parseColor("#F44336"))
                 checkAvailableSeats(place,ticketQuantity,utente)
+                binding.confirmButton.setBackgroundColor(Color.parseColor("#F44336"))
                 MA.syncDB()
                 MA.realAppNavigateTo(PaymentConfirmed("Biglietto"), "ConfirmedPayment")
             }else{
@@ -152,7 +152,6 @@ class TicketPurchase(
                 override fun onFailure(call: Call<JsonObject>, t: Throwable) {
                     Log.i("ApiService", "Inserimento fallito")
                     Log.e("ApiService", t.message.toString())
-
                 }
             }
         )
