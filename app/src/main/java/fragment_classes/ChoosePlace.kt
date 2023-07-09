@@ -11,13 +11,40 @@ import com.example.progettouni.R
 import com.example.progettouni.databinding.FragmentChoosePlaceBinding
 
 
-class ChoosePlace(var id: String, var type: String, var period: String, var textTheatre: String): Fragment(R.layout.fragment_choose_place) {
+class ChoosePlace(): Fragment() {
     private lateinit var binding: FragmentChoosePlaceBinding
+    lateinit var id: String
+    lateinit var type: String
+    lateinit var period: String
+    lateinit var textTheatre: String
+    constructor(id: String, type: String,  period: String, textTheatre: String): this(){
+        this.id=id
+        this.type = type
+        this.period = period
+        this.textTheatre = textTheatre
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putString("id",id)
+        outState.putString("type",type)
+        outState.putString("period",period)
+        outState.putString("textTheatre",textTheatre)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        if(savedInstanceState!=null){
+            this.id=savedInstanceState.getString("id").toString()
+            this.type = savedInstanceState.getString("type").toString()
+            this.period = savedInstanceState.getString("period").toString()
+            this.textTheatre = savedInstanceState.getString("textTheatre").toString()
+
+        }
+        super.onCreateView(inflater, container, savedInstanceState)
         binding = FragmentChoosePlaceBinding.inflate(inflater)
         var MA = (activity as MainActivity?)!! //reference alla Main Activity
         MA.changeTitle("Scegli i posti")

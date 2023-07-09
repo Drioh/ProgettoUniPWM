@@ -34,7 +34,7 @@ import java.util.*
 import kotlin.math.pow
 import androidx.activity.result.contract.ActivityResultContracts
 
-class TheatreInfo (val idTeatro: String, val purchase: Boolean): Fragment(R.layout.fragment_show_info), OnMapReadyCallback {
+class TheatreInfo (): Fragment(), OnMapReadyCallback {
     private lateinit var binding: FragmentTheatreInfoBinding
     private lateinit var mapView: MapView
     private lateinit var googleMap: GoogleMap
@@ -48,6 +48,21 @@ class TheatreInfo (val idTeatro: String, val purchase: Boolean): Fragment(R.layo
         Teatro("Teatro Biondo", 38.11783642954718, 13.36291279682799)
     )
 
+    lateinit var idTeatro: String
+    var purchase: Boolean = false
+
+    constructor(idTeatro: String, purchase: Boolean): this(){
+        this.idTeatro=idTeatro
+        this.purchase = purchase
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putString("idTeatro",idTeatro)
+        outState.putBoolean("purchase",purchase)
+    }
+
+
     data class Teatro(val nome: String, val latitudine: Double, val longitudine: Double)
 
     override fun onCreateView(
@@ -55,6 +70,13 @@ class TheatreInfo (val idTeatro: String, val purchase: Boolean): Fragment(R.layo
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        if(savedInstanceState!=null){
+            this.idTeatro=savedInstanceState.getString("idTeatro").toString()
+            this.purchase = savedInstanceState.getBoolean("purchase")
+
+
+        }
+        super.onCreateView(inflater, container, savedInstanceState)
         println(idTeatro)
         binding = FragmentTheatreInfoBinding.inflate(inflater)
         var MA = (activity as MainActivity?)!! // reference alla MainActivity

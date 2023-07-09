@@ -20,7 +20,7 @@ import com.google.gson.JsonObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-class EditMail: Fragment(R.layout.fragment_retrieve_password){
+class EditMail: Fragment(){
     private lateinit var binding: FragmentEditMailBinding
     override fun onCreateView(
         inflater: LayoutInflater,

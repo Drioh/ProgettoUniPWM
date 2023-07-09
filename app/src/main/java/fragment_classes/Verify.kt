@@ -17,7 +17,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class Verify: Fragment(R.layout.fragment_verify) {
+class Verify: Fragment() {
     private lateinit var binding: FragmentVerifyBinding
     override fun onCreateView(
         inflater: LayoutInflater,

@@ -20,14 +20,33 @@ import java.time.LocalDate
 import java.time.Period
 import java.util.Calendar
 
-class SubscriptionPurchase(var theatre: String) : Fragment(R.layout.fragment_subscription_purchase) {
+class SubscriptionPurchase() : Fragment() {
     private lateinit var binding: FragmentSubscriptionPurchaseBinding
     private var selectedbutton: Button? = null
+
+
+    lateinit var theatre: String
+    constructor(Theatre: String): this(){
+
+        this.theatre = Theatre
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+
+        outState.putString("Theatre",theatre)
+    }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        if(savedInstanceState!=null){
+
+            this.theatre = savedInstanceState.getString("Theatre").toString()
+
+        }
+        super.onCreateView(inflater, container, savedInstanceState)
         binding = FragmentSubscriptionPurchaseBinding.inflate(inflater)
         var MA = (activity as MainActivity?)!! //reference alla Main Activity
         MA.changeTitle("Compra Abbonamento")

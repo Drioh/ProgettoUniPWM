@@ -27,7 +27,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class Ticket(): Fragment(R.layout.fragment_ticket) {
+class Ticket(): Fragment() {
     private lateinit var binding: FragmentTicketBinding
     private lateinit var button: Button
     private lateinit var text: TextView
@@ -59,6 +59,7 @@ class Ticket(): Fragment(R.layout.fragment_ticket) {
             this.id = savedInstanceState.getString("id").toString()
             this.teatro = savedInstanceState.getString("teatro").toString()
         }
+        super.onCreateView(inflater, container, savedInstanceState)
         binding = FragmentTicketBinding.inflate(inflater)
         var MA = (activity as MainActivity?)!! //reference alla Main Activity
         MA.changeTitle("Il mio acquisto")

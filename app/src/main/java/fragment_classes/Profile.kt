@@ -25,7 +25,7 @@ import retrofit2.Response
 import java.io.ByteArrayOutputStream
 import java.io.File
 
-class Profile : Fragment(R.layout.fragment_register) {
+class Profile : Fragment() {
     private lateinit var binding: FragmentProfileBinding
     private lateinit var dbManager: DBManager
     override fun onCreateView(

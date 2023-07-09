@@ -22,7 +22,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class BottomTaskbar : Fragment(R.layout.fragment_bottom_taskbar) {
+class BottomTaskbar : Fragment() {
     private lateinit var binding: FragmentBottomTaskbarBinding
     private lateinit var last_fragment : Fragment
     override fun onCreateView(

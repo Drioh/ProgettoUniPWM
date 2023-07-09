@@ -19,7 +19,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import android.database.Cursor
 
-class PosessedTickets : Fragment(R.layout.fragment_posessed_tickets) {
+class PosessedTickets : Fragment() {
     private lateinit var binding: FragmentPosessedTicketsBinding
     private lateinit var type: String
     private lateinit var period: String
@@ -38,12 +38,7 @@ class PosessedTickets : Fragment(R.layout.fragment_posessed_tickets) {
         binding.ticketRecycler.layoutManager = LinearLayoutManager(context)
         dbManager = DBManager(requireContext())
         dbManager.open()
-        //dbManager.insertAbbonamento(1,"Massimo", "11/12/2001", "05/05/2002")
-        //dbManager.insertBiglietto(1,"Pinocchio", "02/02/2010")
-        //dbManager.insertAbbonamento(2,"Politeama", "11/11/2011", "04/04/2022")
-        //dbManager.insertBiglietto(2,"Massimo Boldi - Il film", "20/08/2021")
-        //dbManager.insertAbbonamento(3,"Biondo", "09/09/2009", "07/07/2012")
-        //dbManager.insertBiglietto(3,"Truce Baldazzi Live Show", "10/06/2023")
+
 
         val cursorBiglietti = dbManager.fetchAllBiglietti()
         val cursorAbbonamenti = dbManager.fetchAllAbbonamenti()
@@ -52,8 +47,7 @@ class PosessedTickets : Fragment(R.layout.fragment_posessed_tickets) {
         binding.ticketRecycler.adapter = adapter    //importante creare l'adapter dopo gli add sennò viene passato un ArrayList vuoto
 
 
-        //queryMembership(data, essence, allId)
-        //queryTicket(data, essence, allId)
+
 
 
         adapter.setOnClickListener(object: TicketAdapter.OnClickListener {

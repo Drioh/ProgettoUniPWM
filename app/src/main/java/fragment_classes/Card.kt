@@ -10,7 +10,7 @@ import com.example.progettouni.databinding.FragmentCardBinding
 import com.example.progettouni.databinding.FragmentRegisterBinding
 import com.example.progettouni.databinding.FragmentVoidBinding
 
-class Card: Fragment(R.layout.fragment_card) {
+class Card: Fragment() {
     private lateinit var binding: FragmentCardBinding
     override fun onCreateView(
         inflater: LayoutInflater,

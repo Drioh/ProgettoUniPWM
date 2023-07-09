@@ -21,20 +21,54 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.time.LocalDate
 
-class TicketPurchase(
-    var id_show: String,
-    var type: String,
-    var period: String,
-    var selectedPlace: String,
-    var ticketQuantity: Int,
-    var textTheatre: String
-) : Fragment(R.layout.fragment_buy_tickets) {
+class TicketPurchase() : Fragment() {
     private lateinit var binding: FragmentBuyTicketsBinding
+
+    private lateinit var id_show: String
+    private lateinit var type: String
+    private lateinit var  period: String
+    private lateinit var  selectedPlace: String
+    private var  ticketQuantity: Int = 0
+    private lateinit var  textTheatre: String
+
+    constructor( id_show: String,
+                 type: String,
+                 period: String,
+                 selectedPlace: String,
+                 ticketQuantity: Int,
+                 textTheatre: String): this(){
+        this.id_show=id_show
+        this.type=type
+        this.period= period
+        this.selectedPlace= selectedPlace
+        this.ticketQuantity=ticketQuantity
+        this.textTheatre=textTheatre
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putString("id_show",id_show)
+        outState.putString("type",type)
+        outState.putString("period",period)
+        outState.putString("selectedPlace",selectedPlace)
+        outState.putInt("ticketQuantity",ticketQuantity)
+        outState.putString("textTheatre",textTheatre)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        if(savedInstanceState!=null){
+            this.id_show=savedInstanceState.getString("id_show").toString()
+            this.type=savedInstanceState.getString("type").toString()
+            this.period= savedInstanceState.getString("period").toString()
+            this.selectedPlace= savedInstanceState.getString("selectedPlace").toString()
+            this.ticketQuantity=savedInstanceState.getInt("ticketQuantity")
+            this.textTheatre=savedInstanceState.getString("textTheatre").toString()
+        }
+        super.onCreateView(inflater, container, savedInstanceState)
         binding = FragmentBuyTicketsBinding.inflate(inflater)
         var MA = (activity as MainActivity?)!! //reference alla Main Activity
         MA.changeTitle("Compra Biglietto")

@@ -14,7 +14,7 @@ import com.example.progettouni.R
 import com.example.progettouni.databinding.FragmentLoginBinding
 
 
-class Login : Fragment(R.layout.fragment_login) {
+class Login : Fragment() {
     private lateinit var binding: FragmentLoginBinding
     private lateinit var userApi: ApiService
 

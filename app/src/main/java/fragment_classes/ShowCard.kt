@@ -9,7 +9,7 @@ import com.example.progettouni.MainActivity
 import com.example.progettouni.R
 import com.example.progettouni.databinding.FragmentTicketCardBinding
 
-class ShowCard: Fragment(R.layout.fragment_ticket_card) {
+class ShowCard: Fragment() {
     private lateinit var binding: FragmentTicketCardBinding
     override fun onCreateView(
         inflater: LayoutInflater,

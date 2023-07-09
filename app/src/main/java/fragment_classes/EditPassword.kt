@@ -19,7 +19,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class EditPassword: Fragment(R.layout.fragment_retrieve_password){
+class EditPassword: Fragment(){
     private lateinit var binding: FragmentEditPasswordBinding
     override fun onCreateView(
         inflater: LayoutInflater,

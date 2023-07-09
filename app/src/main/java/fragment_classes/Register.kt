@@ -19,7 +19,7 @@ import com.google.gson.JsonObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-class Register : Fragment(R.layout.fragment_register) {
+class Register : Fragment() {
     private lateinit var binding: FragmentRegisterBinding
     var MA = (activity as MainActivity?)!!//reference alla Main Activity
     override fun onCreateView(

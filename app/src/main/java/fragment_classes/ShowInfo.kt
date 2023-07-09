@@ -21,13 +21,42 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class ShowInfo(var id: String, var name: String, var date: String, var textTheatre: String): Fragment(R.layout.fragment_show_info) {
+class ShowInfo(): Fragment(R.layout.fragment_show_info) {
     private lateinit var binding: FragmentShowInfoBinding
+
+    lateinit var id: String
+    lateinit var name: String
+    lateinit var date: String
+    lateinit var textTheatre: String
+    constructor(id: String, name: String,  date: String, textTheatre: String): this(){
+        this.id=id
+        this.name = name
+        this.date = date
+        this.textTheatre = textTheatre
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putString("id",id)
+        outState.putString("name",name)
+        outState.putString("date",date)
+        outState.putString("textTheatre",textTheatre)
+    }
+
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        if(savedInstanceState!=null){
+            this.id=savedInstanceState.getString("id").toString()
+            this.name = savedInstanceState.getString("name").toString()
+            this.date = savedInstanceState.getString("date").toString()
+            this.textTheatre = savedInstanceState.getString("textTheatre").toString()
+
+        }
+        super.onCreateView(inflater, container, savedInstanceState)
         println("Teatro: ${textTheatre}")
         binding = FragmentShowInfoBinding.inflate(inflater)
         var MA = (activity as MainActivity?)!! //reference alla Main Activity

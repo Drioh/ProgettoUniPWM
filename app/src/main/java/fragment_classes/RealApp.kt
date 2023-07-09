@@ -12,7 +12,7 @@ import com.example.progettouni.databinding.ActivityMainBinding
 import com.example.progettouni.databinding.FragmentPosessedTicketsBinding
 import com.example.progettouni.databinding.RealAppBinding
 
-class RealApp: Fragment(R.layout.real_app) {
+class RealApp: Fragment() {
     private lateinit var binding: RealAppBinding
     override fun onCreateView(
         inflater: LayoutInflater,

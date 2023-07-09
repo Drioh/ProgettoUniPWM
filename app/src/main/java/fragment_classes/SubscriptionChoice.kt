@@ -11,7 +11,7 @@ import com.example.progettouni.R
 import com.example.progettouni.databinding.FragmentShowsBinding
 import com.example.progettouni.databinding.FragmentSubscriptionChoiceBinding
 
-class SubscriptionChoice : Fragment(R.layout.fragment_subscription_choice) {
+class SubscriptionChoice : Fragment() {
     private lateinit var binding: FragmentSubscriptionChoiceBinding
     override fun onCreateView(
         inflater: LayoutInflater,
