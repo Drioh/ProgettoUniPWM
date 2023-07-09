@@ -55,7 +55,7 @@
             android:backgroundTint="#000000"
             android:onClick="registerClick"
             android:text="@string/RetrPass"
-            android:textSize="10sp"
+            android:textSize="14sp"
             app:cornerRadius="45dp"
             app:layout_constraintEnd_toEndOf="@+id/linearLayout3" />
 
