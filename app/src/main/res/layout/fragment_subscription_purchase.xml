@@ -6,6 +6,10 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
@@ -173,15 +177,17 @@
 
             <CheckBox
                 android:id="@+id/saveCardBox"
-                android:layout_width="233dp"
-                android:layout_height="40dp"
+                android:layout_width="wrap_content"
+                android:layout_height="46dp"
                 android:text="@string/saveCard"
-                android:textSize="20dp"
+                android:textSize="20sp"
+                android:layout_gravity="center_horizontal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </LinearLayout>
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
