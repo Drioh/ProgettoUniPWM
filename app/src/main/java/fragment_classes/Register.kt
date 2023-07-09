@@ -21,7 +21,7 @@ import retrofit2.Callback
 import retrofit2.Response
 class Register : Fragment() {
     private lateinit var binding: FragmentRegisterBinding
-    var MA = (activity as MainActivity?)!!//reference alla Main Activity
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -29,18 +29,17 @@ class Register : Fragment() {
     ): View? {
         binding = FragmentRegisterBinding.inflate(inflater)
 
-
+        var MA = (activity as MainActivity?)!!//reference alla Main Activity
 
         binding.confirmButton.setOnClickListener {
             binding.confirmButton.setBackgroundColor(Color.parseColor("#F44336"))
-
             val nome = binding.nameField.text.toString()
             val cognome = binding.surnameField.text.toString()
             val mail = binding.mailField.text.toString()
             val password = binding.pwField.text.toString()
            if(controllaValiditaPwd(password)) {
 
-               RegistrazioneDB(nome, cognome, mail, password)
+               RegistrazioneDB(nome, cognome, mail, password, MA)
            }
             else{
                 MA.showToast("La password deve avere almeno 8 caratteri, contenere almeno una lettera maiuscola, una lettera minuscola e un numero.")
@@ -54,7 +53,7 @@ class Register : Fragment() {
     }
 
 
-    fun RegistrazioneDB(nome: String, cognome: String, mail: String, password: String){
+    fun RegistrazioneDB(nome: String, cognome: String, mail: String, password: String, MA: MainActivity){
         val f=0 // da implementare verifica account
         val propicPath = binding.propicImage.tag?.toString() // Ottieni il percorso dell'immagine caricata
         val otp = String.format("%06d", (Math.random() * 1000000).toInt())
@@ -66,14 +65,14 @@ class Register : Fragment() {
                 override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
                     println(response.code())
                     Log.i("ApiService", "Registrazione avvenuta correttamente!")
-                    MA.showToast("Registrazione avvenuta correttamente!")
+                   MA.showToast("Registrazione avvenuta correttamente!")
                     MA.navigateTo(VerificationCode(otp),"VerShow")
 
                 }
                 override fun onFailure(call: Call<JsonObject>, t: Throwable) {
                     Log.i("ApiService", "Registration fallita")
                     Log.e("ApiService", t.message.toString())
-                    MA.showToast("Registrazione fallita")
+                   MA.showToast("Registrazione fallita")
                 }
             }
         )

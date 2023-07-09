@@ -12,6 +12,8 @@ import api.ApiService
 import com.example.progettouni.MainActivity
 import com.example.progettouni.R
 import com.example.progettouni.databinding.FragmentLoginBinding
+import com.google.gson.JsonObject
+import retrofit2.Callback
 
 
 class Login : Fragment() {
@@ -25,11 +27,13 @@ class Login : Fragment() {
     ): View? {
         binding = FragmentLoginBinding.inflate(inflater)
         var MA = (activity as MainActivity?)!! //reference alla Main Activity
+        MA.selectTeatro()
 
-        if(MA.getIsOffline()){
+        if (MA.getIsOffline()) {
             binding.registerButton.visibility = View.GONE
             binding.retrievePasswordButton.visibility = View.GONE
         }
+
         binding.cancelButton.setOnClickListener {
             binding.cancelButton.setBackgroundColor(Color.parseColor("#F44336"))
             MA.back()
@@ -37,6 +41,7 @@ class Login : Fragment() {
         binding.confirmButton.setOnClickListener {
             if(MA.getIsOffline()){
                 MA.showToast("Caro utente, sei offline! Connettiti alla rete per potere effettuare il Login")
+
             }
             else {
                 binding.confirmButton.setBackgroundColor(Color.parseColor("#F44336"))
@@ -47,14 +52,17 @@ class Login : Fragment() {
             }
         }
         binding.registerButton.setOnClickListener {
+
             binding.registerButton.setBackgroundColor(Color.parseColor("#F44336"))
             MA.navigateTo(Register(),"Register")
 
         }
         binding.retrievePasswordButton.setOnClickListener {
+
             binding.retrievePasswordButton.setBackgroundColor(Color.parseColor("#F44336"))
             MA.navigateTo(RetrievePassword(),"RetrievePassword")
         }
+
         return binding.root
     }
 

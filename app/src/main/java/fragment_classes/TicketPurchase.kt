@@ -93,7 +93,7 @@ class TicketPurchase() : Fragment() {
                 if(isChecked){
                     insertCartaCredito(utente, cardNumber, numberCVC, expireYear, expireMonth)
                 }
-                checkAvailableSeats(place,ticketQuantity,utente)
+                checkAvailableSeats(place,ticketQuantity,utente,MA)
                 binding.confirmButton.setBackgroundColor(Color.parseColor("#F44336"))
                 MA.syncDB()
                 MA.realAppNavigateTo(PaymentConfirmed("Biglietto"), "ConfirmedPayment")
@@ -211,7 +211,7 @@ class TicketPurchase() : Fragment() {
             }
         )
     }
-    private fun checkAvailableSeats(place: Char, num: Int, utente: Int) {
+    private fun checkAvailableSeats(place: Char, num: Int, utente: Int, MA: MainActivity) {
         val queryOccupiedSeats = "SELECT ref_posto_num " +
                 "FROM Occupazione_posti " +
                 "WHERE ref_posto_let = '$place' " +
@@ -245,15 +245,16 @@ class TicketPurchase() : Fragment() {
                             }
 
                             if (startingSeat != null && endingSeat != null) {
-                                // Contiguous seats are available
-                                // Proceed with the ticket purchase
+                                // Posti contigui disponibili
+                                // Procedi con l'acquisto
                                 for (x in startingSeat..endingSeat) {
                                     insertPosto(x, place, id_show)
                                     insertBigliettoInRemoto(utente, id_show)
                                 }
                             } else {
-                                // No contiguous seats available
+                                // Non ci sono posti contigui
                                 showToast("Non ci sono posti contigui disponibili per il posto selezionato.")
+                                MA.backTo("ChoosePlace")
                             }
                         } else if (availableSeats.size == 1 && num == 1) {
                             // Single ticket available
@@ -264,6 +265,7 @@ class TicketPurchase() : Fragment() {
                         } else {
                             // Not enough available seats
                             showToast("Non ci sono posti disponibili per il posto selezionato.")
+                            MA.backTo("ChoosePlace")
                         }
                     } else {
                         Log.i("ApiService", "Errore nella query dei posti occupati")

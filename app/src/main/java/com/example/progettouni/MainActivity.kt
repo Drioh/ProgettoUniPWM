@@ -389,17 +389,19 @@ class MainActivity : AppCompatActivity() {
             override fun onResponse(call: Call<JsonObject>?, response: Response<JsonObject>) {
                 if (response.isSuccessful) {
                     Log.i("ApiService", "Success")
+                    isOffline=false
                 } else {
-                    isOffline = true
+                    //isOffline = true
                 }
             }
 
             override fun onFailure(call: Call<JsonObject>, t: Throwable) {
-                Log.e("Errore di rete", t.message.toString())
+                Log.e("offline", t.message.toString())
                 isOffline = true
             }
         })
     }
+
 
     // Funzione per controllare lo stato della connessione di rete
     fun checkNetworkStatus(context: Context): Boolean {
