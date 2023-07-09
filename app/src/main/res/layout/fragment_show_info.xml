@@ -67,18 +67,24 @@
 
             <View
                 android:id="@+id/Separator"
-                android:layout_width="350sp"
+                android:layout_width="match_parent"
                 android:layout_height="3sp"
+                android:layout_marginLeft="75sp"
+                android:layout_marginRight="75sp"
                 android:layout_gravity="center_horizontal"
                 android:background="@android:color/black" />
 
             <LinearLayout
                 android:id="@+id/FirstLinearLayout"
-                android:layout_width="350sp"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center_horizontal"
+                android:paddingRight="75sp"
+                android:paddingLeft="75sp"
                 android:layout_marginTop="20sp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:paddingRight="75sp"
+                android:paddingLeft="75sp">
 
                 <TextView
                     android:id="@+id/FirstHeading"
@@ -103,16 +109,20 @@
 
             <View
                 android:id="@+id/separator2"
-                android:layout_width="350sp"
+                android:layout_width="match_parent"
                 android:layout_height="3sp"
+                android:layout_marginLeft="75sp"
+                android:layout_marginRight="75sp"
                 android:layout_gravity="center_horizontal"
                 android:background="@android:color/black" />
 
             <LinearLayout
                 android:id="@+id/CompanyLinearLayout"
-                android:layout_width="350sp"
-                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
+                android:paddingRight="75sp"
+                android:paddingLeft="75sp"
                 android:layout_marginTop="20sp"
                 android:orientation="horizontal">
 
@@ -139,15 +149,19 @@
 
             <View
                 android:id="@+id/separator"
-                android:layout_width="350sp"
+                android:layout_width="match_parent"
                 android:layout_height="3sp"
+                android:layout_marginLeft="75sp"
+                android:layout_marginRight="75sp"
                 android:layout_gravity="center_horizontal"
                 android:background="@android:color/black" />
 
             <LinearLayout
                 android:id="@+id/DateLinearLayout"
-                android:layout_width="350sp"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:paddingRight="75sp"
+                android:paddingLeft="75sp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="20sp"
                 android:orientation="horizontal">
@@ -172,19 +186,24 @@
                     android:textSize="16sp" />
 
             </LinearLayout>
+
             <View
                 android:id="@+id/separator3"
-                android:layout_width="350sp"
+                android:layout_width="match_parent"
                 android:layout_height="3sp"
+                android:layout_marginLeft="75sp"
+                android:layout_marginRight="75sp"
                 android:layout_gravity="center_horizontal"
                 android:background="@android:color/black" />
 
             <LinearLayout
-                android:layout_width="350sp"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="20sp"
                 android:background="#000000"
+                android:layout_marginLeft="30sp"
+                android:layout_marginRight="30sp"
                 android:orientation="vertical"
                 android:padding="20sp">
 

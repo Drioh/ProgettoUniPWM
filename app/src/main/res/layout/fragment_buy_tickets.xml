@@ -2,12 +2,15 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:paddingLeft="20sp"
+    android:paddingRight="20sp">
 
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="410dp"
+        android:layout_width="match_parent"
         android:layout_height="464dp"
         android:orientation="vertical"
         android:padding="16dp"
@@ -83,8 +86,9 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/linearLayout3"
-            android:layout_width="match_parent"
+            android:layout_width="300sp"
             android:layout_height="180dp"
+            android:layout_gravity="center_horizontal"
             android:layout_marginTop="20dp">
 
             <Button
@@ -117,8 +121,8 @@
                 android:id="@+id/saveCardBox"
                 android:layout_width="233dp"
                 android:layout_height="40dp"
-                android:textSize="20dp"
                 android:text="@string/saveCard"
+                android:textSize="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

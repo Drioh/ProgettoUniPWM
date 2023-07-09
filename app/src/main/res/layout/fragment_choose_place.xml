@@ -2,7 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <LinearLayout
@@ -17,7 +17,7 @@
 
         <Spinner
             android:id="@+id/placeSpinner"
-            android:layout_width="240sp"
+            android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_marginTop="20sp"
             android:entries="@array/place_options">
@@ -26,7 +26,7 @@
 
         <EditText
             android:id="@+id/ticketQuantity"
-            android:layout_width="240sp"
+            android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="20sp"
             android:hint="@string/Num_posti"
@@ -36,8 +36,9 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/linearLayout3"
-            android:layout_width="match_parent"
+            android:layout_width="300sp"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             android:layout_marginTop="20dp">
 
             <Button
