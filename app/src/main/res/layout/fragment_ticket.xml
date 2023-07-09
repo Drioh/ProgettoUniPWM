@@ -5,44 +5,46 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="273dp"
-        android:layout_height="346dp"
-        app:layout_constraintBottom_toTopOf="@+id/showInfoButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        tools:srcCompat="@tools:sample/avatars" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="52dp"
-        android:text="@string/myQRCode"
-        android:textAlignment="center"
-        android:textColor="#000000"
-        android:textSize="34sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center">
 
-    <Button
-        android:id="@+id/showInfoButton"
-        android:layout_width="222dp"
-        android:layout_height="73dp"
-        android:layout_marginBottom="84dp"
-        android:backgroundTint="#000000"
-        android:onClick="registerClick"
-        android:text="@string/infoTicket"
-        android:textSize="15sp"
-        app:cornerRadius="45dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent" />
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="52dp"
+            android:text="@string/myQRCode"
+            android:textAlignment="center"
+            android:textColor="#000000"
+            android:textSize="34sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="346dp"
+            tools:srcCompat="@tools:sample/avatars"
+            android:layout_marginTop="45dp"/>
+
+        <Button
+            android:id="@+id/showInfoButton"
+            android:layout_width="wrap_content"
+            android:layout_height="73dp"
+            android:layout_marginBottom="84dp"
+            android:backgroundTint="#000000"
+            android:onClick="registerClick"
+            android:text="@string/infoTicket"
+            android:textSize="15sp"
+            app:cornerRadius="45dp"
+            android:layout_marginTop="45dp"/>
+    </LinearLayout>
+    </ScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
