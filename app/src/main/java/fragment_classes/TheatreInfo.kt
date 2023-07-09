@@ -73,8 +73,6 @@ class TheatreInfo (): Fragment(), OnMapReadyCallback {
         if(savedInstanceState!=null){
             this.idTeatro=savedInstanceState.getString("idTeatro").toString()
             this.purchase = savedInstanceState.getBoolean("purchase")
-
-
         }
         super.onCreateView(inflater, container, savedInstanceState)
         println(idTeatro)

@@ -6,8 +6,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import api.ApiService
 import api.DBHelper
 import com.example.progettouni.databinding.FragmentTicketCardBinding
+import com.google.gson.JsonArray
+import com.google.gson.JsonObject
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import java.time.LocalDate
 
 class TicketAdapter(private val cursorB: Cursor, private val cursorA: Cursor) : RecyclerView.Adapter<TicketAdapter.ViewHolder>() {
     private var onClickListener: OnClickListener? = null
@@ -39,7 +46,7 @@ class TicketAdapter(private val cursorB: Cursor, private val cursorA: Cursor) : 
 
 
     @SuppressLint("Range")
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, @SuppressLint("RecyclerView") position: Int) {
         //Vengono assegnati i valori a ogni singola card nel momento in cui viene creata dall'adapter
         if (cursorA.moveToPosition(position)){
             println(cursorA.getString(cursorA.getColumnIndex(DBHelper.TEATRO)))
@@ -50,7 +57,7 @@ class TicketAdapter(private val cursorB: Cursor, private val cursorA: Cursor) : 
             holder.textPeriod.text = periodo
 
             holder.itemView.setOnClickListener {
-                onClickListener?.onClick(position, TicketModel(nomeTeatro, periodo, true,id, nomeTeatro))
+                onClickListener?.onClick(position, TicketModel(nomeTeatro, periodo, true,id, nomeTeatro.substring(7)))
             }
         }
         else{if (cursorB.moveToPosition(position-(cursorA.count))){
@@ -64,7 +71,26 @@ class TicketAdapter(private val cursorB: Cursor, private val cursorA: Cursor) : 
             holder.textPeriod.text = dataScadenza
 
             holder.itemView.setOnClickListener{
-                onClickListener?.onClick(position, TicketModel(nomeSpettacolo,dataScadenza,false, id, ""))
+                val query = "select  nome_teatro " +
+                        "from Rappresentazione , Spettacolo , Teatro where " +
+                        "id_spettacolo=ref_spettacolo and " +
+                        "id_teatro = ref_teatro and " +
+                        "nome_spettacolo = '${nomeSpettacolo}' and " +
+                        "data = '${dataScadenza}';"
+                ApiService.retrofit.select(query).enqueue(
+                    object : Callback<JsonObject> {
+                        override fun onResponse(call: Call<JsonObject>?, response: Response<JsonObject>) {
+                            println("codice: "+ response.code().toString())
+                            var nomeTeatro: String? = ((response.body()?.get("queryset") as JsonArray)[0] as JsonObject).get("nome_teatro").asString
+                            onClickListener?.onClick(position, TicketModel(nomeSpettacolo,dataScadenza,false, id, nomeTeatro!!.substring(7)))
+
+
+                        }
+                        override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+
+                        }
+                    }
+                )
             }
 
         }

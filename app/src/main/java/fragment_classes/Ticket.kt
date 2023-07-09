@@ -54,8 +54,8 @@ class Ticket(): Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        if(savedInstanceState!=null){
-            this.isAbbonamento=savedInstanceState.getBoolean("isAbbonamento")
+        if (savedInstanceState != null) {
+            this.isAbbonamento = savedInstanceState.getBoolean("isAbbonamento")
             this.id = savedInstanceState.getString("id").toString()
             this.teatro = savedInstanceState.getString("teatro").toString()
         }
@@ -64,56 +64,24 @@ class Ticket(): Fragment() {
         var MA = (activity as MainActivity?)!! //reference alla Main Activity
         MA.changeTitle("Il mio acquisto")
         image = binding.imageView
-        if(isAbbonamento){
+        if (isAbbonamento) {
             binding.showInfoButton.setText(R.string.infoMembership)
             MA.changeTitle("Il mio abbonamento")
             // modifica della stringa dell'id per aggiungere varietà in modo tale da garantire l'unicità del codice QR
-            id = id+"ABBONAMENTO"
-            binding.showInfoButton.setOnClickListener(){
-                println("Teatrazzo")
-                MA.realAppNavigateTo(TheatreInfo(teatro, false),"TheatreInfo")
+            id = id + "ABBONAMENTO"
+            binding.showInfoButton.setOnClickListener() {
+                MA.realAppNavigateTo(TheatreInfo(teatro, false), "TheatreInfo")
             }
-        }
-        else{
-            if(!isAbbonamento){
-                /*binding.showInfoButton.setText(R.string.infoTicket)
+        } else {
+            if (!isAbbonamento) {
+                binding.showInfoButton.setText(R.string.infoTicket)
                 MA.changeTitle("Il mio biglietto")
                 // modifica della stringa dell'id per aggiungere varietà in modo tale da garantire l'unicità del codice QR
-                binding.showInfoButton.setOnClickListener(){
-                    val query = "select * from Spettacolo, Rappresentazione where id_spettacolo=ref_spettacolo and id_spettacolo=${id};"
-                    ApiService.retrofit.select(query).enqueue(
-                        object : Callback<JsonObject> {
-                            override fun onResponse(call: Call<JsonObject>?, response: Response<JsonObject>) {
-                                if (response.isSuccessful) {
-                                    if ((response.body()?.get("queryset") as JsonArray).size() == 1) {
-                                        val userJsonObject = (response.body()?.get("queryset") as JsonArray)[0] as JsonObject
-                                        userId = userJsonObject.get("id_utente").asInt // Assegna l'ID dell'utente alla variabile userId
-                                        val userName = userJsonObject.get("nome_utente").asString
-                                        val pw = userJsonObject.get("password").asString
-                                        val  email = userJsonObject.get("mail").asString
-                                        this@MainActivity.saveUserData(userId, userName, email, pw)
-                                        realBinding = RealAppBinding.inflate(layoutInflater)
-                                        supportFragmentManager.popBackStack()
-                                        supportFragmentManager.beginTransaction()
-                                            .replace(R.id.fragmentContainerView, RealApp())
-                                            .commit()
-                                        supportFragmentManager.beginTransaction()
-                                            .add(R.id.fragmentContainerView4, Home())
-                                            .addToBackStack("Home")
-                                            .commit()
+                id = id + "BIGLIETTO"
+                binding.showInfoButton.setOnClickListener() {
+                    MA.realAppNavigateTo(TheatreInfo(teatro, false), "TheatreInfo")
 
-                                    } else {
-                                        showToast("Credenziali Errate")
-                                    }
-                                }
-                            }
-                            override fun onFailure(call: Call<JsonObject>, t: Throwable) {
-                                showToast("Errore di rete")
-                            }
-                        }
-                    )
-                }*/
-                id = id+"BIGLIETTO"
+                }
             }
         }
         generateQRCode(id)
