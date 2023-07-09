@@ -10,15 +10,17 @@ import com.example.progettouni.R
 import com.example.progettouni.databinding.FragmentEditPasswordBinding
 import com.example.progettouni.databinding.FragmentHomeBinding
 
-class Home: Fragment(R.layout.fragment_home) {
+class Home: Fragment() {
     private lateinit var binding: FragmentHomeBinding
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        super.onCreateView(inflater, container, savedInstanceState)
         binding = FragmentHomeBinding.inflate(inflater)
         var MA = (activity as MainActivity?)!! //reference alla Main Activity
+
         MA.changeTitle("Home")
 
         return binding.root

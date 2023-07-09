@@ -10,6 +10,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResultListener
 import api.ApiService
 import com.example.progettouni.MainActivity
 import com.example.progettouni.R
@@ -26,17 +27,38 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class Ticket(private val isAbbonamento: Boolean, var id: String, val teatro: String): Fragment(R.layout.fragment_ticket) {
+class Ticket(): Fragment(R.layout.fragment_ticket) {
     private lateinit var binding: FragmentTicketBinding
     private lateinit var button: Button
     private lateinit var text: TextView
     private lateinit var image: ImageView
+    private var isAbbonamento: Boolean = false
+    private lateinit var id: String
+    private lateinit var  teatro: String
+
+    constructor(isAbbonamento: Boolean, id: String, teatro: String): this(){
+        this.isAbbonamento=isAbbonamento
+        this.id = id
+        this.teatro = teatro
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putBoolean("isAbbonamento",isAbbonamento)
+        outState.putString("id",id)
+        outState.putString("teatro",teatro)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
+        if(savedInstanceState!=null){
+            this.isAbbonamento=savedInstanceState.getBoolean("isAbbonamento")
+            this.id = savedInstanceState.getString("id").toString()
+            this.teatro = savedInstanceState.getString("teatro").toString()
+        }
         binding = FragmentTicketBinding.inflate(inflater)
         var MA = (activity as MainActivity?)!! //reference alla Main Activity
         MA.changeTitle("Il mio acquisto")

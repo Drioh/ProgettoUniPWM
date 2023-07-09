@@ -31,6 +31,7 @@ class PosessedTickets : Fragment(R.layout.fragment_posessed_tickets) {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): LinearLayout {
+        super.onCreateView(inflater, container, savedInstanceState)
         binding = FragmentPosessedTicketsBinding.inflate(inflater)
         var MA = (activity as MainActivity?)!! //reference alla Main Activity
         MA.changeTitle("I miei acquisti")

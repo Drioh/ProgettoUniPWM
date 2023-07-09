@@ -30,6 +30,7 @@ class BottomTaskbar : Fragment(R.layout.fragment_bottom_taskbar) {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        super.onCreateView(inflater, container, savedInstanceState)
         binding = FragmentBottomTaskbarBinding.inflate(inflater)
         var MA = (activity as MainActivity?)!! //reference alla main Activity
 
@@ -45,56 +46,17 @@ class BottomTaskbar : Fragment(R.layout.fragment_bottom_taskbar) {
         Viene interrogato il databse remoto e viene popolata la recycle view che si occupa degli spettacoli per i quali l'utente può acquistare dei biglietti
          */
         binding.SearchButton.setOnClickListener(){
-            if(MA.getIsOffline()){
-                MA.showToast("Caro utente, sei offline! Connettiti alla rete per potere usufruire di questa funzionalità")
-            } else{
-            val query = "select  nome_spettacolo, data, nome_teatro, id_spettacolo, foto_spettacolo " +
-                    "from Rappresentazione , Spettacolo , Teatro " +
-                    "where id_spettacolo=ref_spettacolo and id_teatro = ref_teatro;"
-            ApiService.retrofit.select(query).enqueue(
-                object : Callback<JsonObject> {
-                    override fun onResponse(call: Call<JsonObject>?, response: Response<JsonObject>) {
-                        println(response.code())
-                        if (response.isSuccessful) {
-                            val showsJsonObject = response.body()?.get("queryset") as JsonArray
-                            var data: ArrayList<ShowModel> = arrayListOf<ShowModel>()
-                            println(showsJsonObject) //DEBUG
-                            for (i in 0 .. showsJsonObject.size()-1){
-                                val spettacolo = showsJsonObject[i].asJsonObject.get("nome_spettacolo").toString().substring(1,showsJsonObject[i].asJsonObject.get("nome_spettacolo").toString().length-1)
-                                val date = showsJsonObject[i].asJsonObject.get("data").toString().substring(1,showsJsonObject[i].asJsonObject.get("data").toString().length-1)
-                                val teatro = showsJsonObject[i].asJsonObject.get("nome_teatro").toString().substring(1,showsJsonObject[i].asJsonObject.get("nome_teatro").toString().length-1)
-                                val identificativo = showsJsonObject[i].asJsonObject.get("id_spettacolo").toString()
-                                val imageURL = showsJsonObject[i].asJsonObject.get("foto_spettacolo").toString().substring(1,showsJsonObject[i].asJsonObject.get("foto_spettacolo").toString().length-1)
-                                data.add(
-                                    ShowModel(
-                                        imageURL,
-                                        spettacolo,
-                                        date,
-                                        identificativo,
-                                        teatro
-                                    )
-                                )
-                            }
-                            MA.realAppNavigateTo(Shows(data),"Shows")
-                        }else
-                        {
-                            println("esito negativo")
-                        }
-                    }
-                    override fun onFailure(call: Call<JsonObject>, t: Throwable) {
-                        MA.showToast("Errore di rete")
-                    }
-                }
-            ) }
+
+                            MA.realAppNavigateTo(Shows(),"Shows")
+
+
+
         }
         binding.TicketButton.setOnClickListener(){
             MA.realAppNavigateTo(PosessedTickets(),"PosessedTickets")
         }
         binding.SubButton.setOnClickListener(){
-            if(MA.getIsOffline()){
-                MA.showToast("Caro utente, sei offline! Connettiti alla rete per potere usufruire di questa funzionalità")
-            }else{
-            MA.realAppNavigateTo(SubscriptionChoice(),"SubscriptionChoice") }
+            MA.realAppNavigateTo(SubscriptionChoice(),"SubscriptionChoice")
         }
         return binding.root
     }

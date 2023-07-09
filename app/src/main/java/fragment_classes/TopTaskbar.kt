@@ -21,15 +21,18 @@ import retrofit2.Response
 import java.io.ByteArrayOutputStream
 import java.io.File
 
-class TopTaskbar : Fragment(R.layout.fragment_top_taskbar) {
+class TopTaskbar : Fragment() {
     lateinit var binding: FragmentTopTaskbarBinding
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentTopTaskbarBinding.inflate(inflater)
+        super.onCreateView(inflater, container, savedInstanceState)
+
         println("creata nuova toptaskbar")
+        binding = FragmentTopTaskbarBinding.inflate(inflater)
+
         var MA = (activity as MainActivity?)!! //reference alla Main Activity
 
         val sharedPreferences = MA.getSharedPreferences()
@@ -50,7 +53,10 @@ class TopTaskbar : Fragment(R.layout.fragment_top_taskbar) {
         return binding.root
     }
 
-
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putString("heading", binding.TopTaskbarText.toString())
+    }
 
 
     fun getUrlbyID(id: Int) {

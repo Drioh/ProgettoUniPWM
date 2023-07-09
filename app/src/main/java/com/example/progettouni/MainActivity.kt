@@ -44,28 +44,29 @@ class MainActivity : AppCompatActivity() {
         sharedPreferences = getSharedPreferences("UserData", Context.MODE_PRIVATE)
         val email = sharedPreferences.getString("email", "")
         val password = sharedPreferences.getString("password", "")
+        // Eseguo automaticamente l'accesso al profilo dell'utente
+        loadUserData()
+        realBinding = RealAppBinding.inflate(layoutInflater)
+        if (savedInstanceState== null){
+            if (!email.isNullOrEmpty() && !password.isNullOrEmpty()) {
 
-        if (!email.isNullOrEmpty() && !password.isNullOrEmpty()) {
-            // Eseguo automaticamente l'accesso al profilo dell'utente
-            loadUserData()
-            realBinding = RealAppBinding.inflate(layoutInflater)
-            supportFragmentManager.popBackStack()
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.fragmentContainerView, RealApp())
-                .commit()
+                supportFragmentManager.popBackStack()
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.fragmentContainerView, RealApp())
+                    .commit()
 
-            supportFragmentManager.beginTransaction()
-                .add(R.id.fragmentContainerView2, TopTaskbar())
-                .commit()
-            supportFragmentManager.beginTransaction()
-                .add(R.id.fragmentContainerView3, BottomTaskbar())
-                .commit()
-            supportFragmentManager.beginTransaction()
-                .add(R.id.fragmentContainerView4, Home())
-                .addToBackStack("Home")
-                .commit()
-
-        }
+                supportFragmentManager.beginTransaction()
+                    .add(R.id.fragmentContainerView2, TopTaskbar())
+                    .commit()
+                supportFragmentManager.beginTransaction()
+                    .add(R.id.fragmentContainerView3, BottomTaskbar())
+                    .commit()
+                supportFragmentManager.beginTransaction()
+                    .add(R.id.fragmentContainerView4, Home())
+                    .addToBackStack("Home")
+                    .commit()
+            }
+        }else println("croppuz" + realBinding.toString())
         syncDB()
 
         selectTeatro()
