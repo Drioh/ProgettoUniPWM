@@ -11,6 +11,9 @@
         android:layout_height="match_parent"
         android:gravity="center|center_horizontal"
         android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:padding="50dp"
         tools:layout_editor_absoluteY="75dp">
 
 
@@ -34,7 +37,7 @@
 
         <EditText
             android:id="@+id/nameField"
-            android:layout_width="300dp"
+            android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="30dp"
             android:ems="10"
@@ -43,7 +46,7 @@
 
         <EditText
             android:id="@+id/surnameField"
-            android:layout_width="300dp"
+            android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="30dp"
             android:ems="10"
@@ -52,7 +55,7 @@
 
         <EditText
             android:id="@+id/mailField"
-            android:layout_width="300dp"
+            android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="30dp"
             android:ems="10"
@@ -61,7 +64,7 @@
 
         <EditText
             android:id="@+id/pwField"
-            android:layout_width="300dp"
+            android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="30dp"
             android:ems="10"

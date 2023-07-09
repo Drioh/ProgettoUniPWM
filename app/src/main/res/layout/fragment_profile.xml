@@ -14,6 +14,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
+            android:padding="50dp"
             android:orientation="vertical">
 
 
@@ -30,7 +31,7 @@
 
             <EditText
                 android:id="@+id/nameField"
-                android:layout_width="300dp"
+                android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="30dp"
                 android:ems="10"
@@ -40,7 +41,7 @@
 
             <EditText
                 android:id="@+id/surnameField"
-                android:layout_width="300dp"
+                android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="30dp"
                 android:ems="10"
@@ -123,7 +124,7 @@
 
             <Button
                 android:id="@+id/logoutButton"
-                android:layout_width="313dp"
+                android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
                 android:backgroundTint="#000000"
