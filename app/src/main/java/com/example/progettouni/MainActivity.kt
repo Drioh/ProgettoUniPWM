@@ -195,7 +195,6 @@ class MainActivity : AppCompatActivity() {
             }
         )
     }
-
     /**
      * Questo metodo si occupa della sincronizzazione del database locale partendo dai dati presenti nel database remoto.
      * Si controlla quali id di abbonamenti e biglietti NON sono presenti nel database locale ma sono presenti nel database remoto, e vengono implementati
@@ -313,7 +312,6 @@ class MainActivity : AppCompatActivity() {
             }
         )
     }
-
     /**
      * Questo metodo si occupa di eseguire il logout dell'utente cancellando i suoi dati dalle shared preferences, in modo da non rendere automatico il login all'accesso successivo.
      * Inoltre viene ripulito il database locale, in modo tale da potere i dati su biglietti e abbonamenti separati in caso si loggasse con credenziali diverse
@@ -338,7 +336,6 @@ class MainActivity : AppCompatActivity() {
             .commit()
         setUserId(0)
     }
-
     /**
      * Questo metodo viene invocato quando viene selezionato un teatro per il quale acquistare
      *un abbonamento.
@@ -404,19 +401,6 @@ class MainActivity : AppCompatActivity() {
             }
         })
     }
-
-
-    // Funzione per controllare lo stato della connessione di rete
-    fun checkNetworkStatus(context: Context): Boolean {
-        val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        val network = connectivityManager.activeNetwork
-        val capabilities = connectivityManager.getNetworkCapabilities(network)
-        val isConnected = capabilities?.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) == true
-
-        return capabilities?.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) == true
-    }
-
-
     @SuppressLint("Range")
     fun cleanDB(){
         //BIGLIETTI

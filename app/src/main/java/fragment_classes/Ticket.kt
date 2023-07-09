@@ -88,6 +88,10 @@ class Ticket(): Fragment() {
         return binding.root
     }
 
+    /**
+     * Questa funzione genera il codice qr da mostrare all'utente
+     * @param data stringa che viene trattata per creare il codice QR
+     */
     private fun generateQRCode(data: String) {
         try {
             // Setting dei parametri

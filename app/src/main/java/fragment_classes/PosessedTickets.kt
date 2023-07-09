@@ -39,15 +39,10 @@ class PosessedTickets : Fragment() {
         dbManager = DBManager(requireContext())
         dbManager.open()
 
-
         val cursorBiglietti = dbManager.fetchAllBiglietti()
         val cursorAbbonamenti = dbManager.fetchAllAbbonamenti()
         val adapter = TicketAdapter(cursorBiglietti,cursorAbbonamenti)
         binding.ticketRecycler.adapter = adapter    //importante creare l'adapter dopo gli add sennò viene passato un ArrayList vuoto
-
-
-
-
 
         adapter.setOnClickListener(object: TicketAdapter.OnClickListener {
             override fun onClick(position: Int, model: TicketModel) {
@@ -57,10 +52,5 @@ class PosessedTickets : Fragment() {
         return binding.root
     }
 
-    private fun queryTicket(data: Cursor, essence: ArrayList<Boolean>, allId: ArrayList<String>) {
-        //la funzione serve a popolare i 3 arraylist tramite delle query al dbms locale
-    }
-    private fun queryMembership(data: Cursor, essence: ArrayList<Boolean>, allId: ArrayList<String>) {
-        //la funzione serve a popolare i 3 arraylist tramite delle query al dbms locale
-    }
+
 }

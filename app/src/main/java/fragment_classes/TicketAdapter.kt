@@ -37,13 +37,6 @@ class TicketAdapter(private val cursorB: Cursor, private val cursorA: Cursor) : 
     override fun getItemCount(): Int {
         return cursorA.count+cursorB.count
     }
-    fun getAbbonamentiCount(): Int {
-        return cursorA.count
-    }
-    fun getBigliettiCount(): Int {
-        return cursorA.count
-    }
-
 
     @SuppressLint("Range")
     override fun onBindViewHolder(holder: ViewHolder, @SuppressLint("RecyclerView") position: Int) {

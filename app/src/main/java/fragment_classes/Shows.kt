@@ -33,7 +33,6 @@ class Shows: Fragment() {
     ): View? {
         super.onCreateView(inflater, container, savedInstanceState)
 
-
         binding = FragmentShowsBinding.inflate(inflater)
         var MA = (activity as MainActivity?)!! //reference alla Main Activity
         MA.changeTitle("Spettacoli")

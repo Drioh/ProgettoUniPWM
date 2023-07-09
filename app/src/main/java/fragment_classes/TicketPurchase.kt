@@ -84,8 +84,8 @@ class TicketPurchase() : Fragment() {
 
             expireYear = adjustYear(expireYear)
             if ((cardNumber.length == 16) && (numberCVC.length == 3) && verifyExpire(expireYear, expireMonth)) {
-                //si dovrebbe anche fare un controllo per vedere se il nome del proprietario della carta corrisponde al numero però non
-                //potendoci collegare ai server delle banche omettiamo il passaggio
+                /*si dovrebbe anche fare un controllo per vedere se il nome del proprietario della carta corrisponde al numero però non
+                potendoci collegare ai server delle banche omettiamo il passaggio*/
                 val utente: Int = MA.getUserId()
                 if(expireMonth.length == 1) {    //quindi se non inserisco il "20" prima dell'anno
                     expireMonth = "0${expireMonth}"
@@ -136,7 +136,7 @@ class TicketPurchase() : Fragment() {
                 "Piccionaia" -> place = 'C'
             }
         }
-        else if(textTheatre == "Politeama"){
+        else if(textTheatre == "Teatro Politeama"){
             when(selectedPlace){
                 "Platea" -> place = 'D'
                 "Loggione" -> place = 'E'
@@ -214,8 +214,8 @@ class TicketPurchase() : Fragment() {
     private fun checkAvailableSeats(place: Char, num: Int, utente: Int, MA: MainActivity) {
         val queryOccupiedSeats = "SELECT ref_posto_num " +
                 "FROM Occupazione_posti " +
-                "WHERE ref_posto_let = '$place' " +
-                "AND ref_rappresentazione_posti = '$id_show' " +
+                "WHERE ref_posto_let = '${place}' " +
+                "AND ref_rappresentazione_posti = '${id_show}' " +
                 "ORDER BY ref_posto_num"
 
         ApiService.retrofit.select(queryOccupiedSeats).enqueue(
@@ -226,7 +226,6 @@ class TicketPurchase() : Fragment() {
                         val occupiedSeats = querySet?.map { it.asJsonObject["ref_posto_num"].asInt }?.toMutableList()
 
                         val availableSeats = mutableListOf<Int>()
-
                         for (i in 1..40) {
                             if (!occupiedSeats?.contains(i)!!)
                                 availableSeats.add(i)
@@ -236,7 +235,7 @@ class TicketPurchase() : Fragment() {
                             var startingSeat: Int? = null
                             var endingSeat: Int? = null
 
-                            for (i in 0 until availableSeats.size - num + 1) {
+                            for (i in 0 .. availableSeats.size - num) {
                                 if (availableSeats[i + num - 1] - availableSeats[i] == num - 1) {
                                     startingSeat = availableSeats[i]
                                     endingSeat = availableSeats[i + num - 1]
