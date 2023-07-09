@@ -41,8 +41,8 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="20sp"
                 android:orientation="horizontal"
-                android:paddingLeft="50sp"
-                android:paddingRight="50sp">
+                android:paddingLeft="75sp"
+                android:paddingRight="75sp">
 
                 <TextView
                     android:id="@+id/directorHeading"

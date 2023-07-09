@@ -55,9 +55,8 @@ class Register : Fragment() {
 
     fun RegistrazioneDB(nome: String, cognome: String, mail: String, password: String, MA: MainActivity){
         val f=0 // da implementare verifica account
-        val propicPath = binding.propicImage.tag?.toString() // Ottieni il percorso dell'immagine caricata
         val otp = String.format("%06d", (Math.random() * 1000000).toInt())
-        val query = "insert into Utente (mail, nome_utente, cognome , password, propic , cod_ver, verificato ) values ('${mail}', '${nome}', '${cognome}', '${password}','${propicPath}','${otp}','${f}'); "
+        val query = "insert into Utente (mail, nome_utente, cognome , password, cod_ver, verificato ) values ('${mail}', '${nome}', '${cognome}', '${password}','${otp}','${f}'); "
 
 
        ApiService.retrofit.insert(query).enqueue(

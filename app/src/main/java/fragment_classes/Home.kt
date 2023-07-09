@@ -20,8 +20,46 @@ class Home: Fragment() {
         super.onCreateView(inflater, container, savedInstanceState)
         binding = FragmentHomeBinding.inflate(inflater)
         var MA = (activity as MainActivity?)!! //reference alla Main Activity
-
         MA.changeTitle("Home")
+        binding.SearchText.visibility=View.GONE
+        binding.TicketText.visibility=View.GONE
+        binding.SubText.visibility=View.GONE
+        binding.textView9.text=("Bentornato ${MA.getSharedPreferences().getString("userName", "")} ${MA.getSharedPreferences().getString("surname", "")}")
+
+
+
+        binding.SearchView.setOnClickListener(){
+            if (binding.SearchText.visibility!=View.VISIBLE)
+            binding.SearchText.visibility=View.VISIBLE
+            else{
+                binding.SearchText.visibility=View.GONE
+            }
+        }
+        binding.searchButton.setOnClickListener{
+            MA.realAppNavigateTo(Shows(),"Shows")
+        }
+        binding.TicketView.setOnClickListener(){
+            if (binding.TicketText.visibility!=View.VISIBLE)
+                binding.TicketText.visibility=View.VISIBLE
+            else{
+                binding.TicketText.visibility=View.GONE
+            }
+
+        }
+        binding.TicketButton.setOnClickListener{
+            MA.realAppNavigateTo(PosessedTickets(),"PosessedTickets")
+        }
+        binding.SubView.setOnClickListener(){
+            if (binding.SubText.visibility!=View.VISIBLE)
+                binding.SubText.visibility=View.VISIBLE
+            else{
+                binding.SubText.visibility=View.GONE
+            }
+
+        }
+        binding.subButton.setOnClickListener{
+            MA.realAppNavigateTo(SubscriptionChoice(),"SubscriptionChoice")
+        }
 
         return binding.root
     }

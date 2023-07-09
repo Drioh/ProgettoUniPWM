@@ -1,13 +1,209 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/textView8"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="HOME"
-        android:textSize="96sp" />
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20sp">
+
+            <TextView
+                android:id="@+id/textView9"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:textAlignment="center"
+                android:textColor="#000000"
+                android:textSize="24sp" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="20sp"
+                android:background="#000000"
+                android:padding="20sp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <ImageButton
+                            android:id="@+id/searchButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:adjustViewBounds="true"
+                            android:background="#00000000"
+                            android:scaleType="centerInside"
+                            app:srcCompat="@drawable/search_icon" />
+
+                        <TextView
+                            android:id="@+id/SearchView"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="10"
+                            android:gravity="center_vertical"
+                            android:text="@string/Search"
+                            android:textAlignment="textEnd"
+                            android:textColor="#FFFFFF"
+                            android:textSize="20sp" />
+
+                    </LinearLayout>
+
+                    <View
+                        android:id="@+id/separator6"
+                        android:layout_width="match_parent"
+                        android:layout_height="3sp"
+                        android:layout_gravity="center_horizontal"
+                        android:background="@color/white" />
+
+                    <TextView
+                        android:id="@+id/SearchText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5sp"
+                        android:text="@string/SearchText"
+                        android:textColor="#FFFFFF"
+                        android:textSize="16sp"
+                        tools:visibility="gone" />
+
+                </LinearLayout>
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="20sp"
+                android:background="#000000"
+                android:padding="20sp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <ImageButton
+                            android:id="@+id/TicketButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:adjustViewBounds="true"
+                            android:background="#00000000"
+                            android:scaleType="centerInside"
+                            app:srcCompat="@drawable/ticket_icon_white" />
+
+                        <TextView
+                            android:id="@+id/TicketView"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="10"
+                            android:gravity="center_vertical"
+                            android:text="@string/Ticket"
+                            android:textAlignment="textEnd"
+                            android:textColor="#FFFFFF"
+                            android:textSize="20sp" />
+
+                    </LinearLayout>
+
+                    <View
+                        android:id="@+id/separator7"
+                        android:layout_width="match_parent"
+                        android:layout_height="3sp"
+                        android:layout_gravity="center_horizontal"
+                        android:background="@color/white" />
+
+                    <TextView
+                        android:id="@+id/TicketText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5sp"
+                        android:text="@string/TicketText"
+                        android:textColor="#FFFFFF"
+                        android:textSize="16sp"
+                        android:visibility="gone" />
+
+                </LinearLayout>
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="20sp"
+                android:background="#000000"
+                android:padding="20sp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <ImageButton
+                            android:id="@+id/subButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:adjustViewBounds="true"
+                            android:background="#00000000"
+                            android:scaleType="centerInside"
+                            app:srcCompat="@drawable/cart_icon" />
+
+                        <TextView
+                            android:id="@+id/SubView"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="10"
+                            android:gravity="center_vertical"
+                            android:text="@string/Sub"
+                            android:textAlignment="textEnd"
+                            android:textColor="#FFFFFF"
+                            android:textSize="20sp" />
+
+                    </LinearLayout>
+
+                    <View
+                        android:id="@+id/separator9"
+                        android:layout_width="match_parent"
+                        android:layout_height="3sp"
+                        android:layout_gravity="center_horizontal"
+                        android:background="@color/white" />
+
+                    <TextView
+                        android:id="@+id/SubText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5sp"
+                        android:text="@string/SubText"
+                        android:textColor="#FFFFFF"
+                        android:textSize="16sp"
+                        android:visibility="gone" />
+
+                </LinearLayout>
+            </FrameLayout>
+
+        </LinearLayout>
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

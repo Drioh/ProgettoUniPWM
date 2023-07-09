@@ -16,6 +16,7 @@ import com.google.gson.JsonObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.time.LocalDate
 
 class Shows: Fragment() {
     private lateinit var binding: FragmentShowsBinding
@@ -41,7 +42,7 @@ class Shows: Fragment() {
 
         val query = "select  nome_spettacolo, data, nome_teatro, id_spettacolo, foto_spettacolo " +
                 "from Rappresentazione , Spettacolo , Teatro " +
-                "where id_spettacolo=ref_spettacolo and id_teatro = ref_teatro;"
+                "where id_spettacolo=ref_spettacolo and id_teatro = ref_teatro and data > '${LocalDate.now()}';"
         ApiService.retrofit.select(query).enqueue(
             object : Callback<JsonObject> {
                 override fun onResponse(call: Call<JsonObject>?, response: Response<JsonObject>) {

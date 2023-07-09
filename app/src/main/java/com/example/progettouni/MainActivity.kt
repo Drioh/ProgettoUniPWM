@@ -21,6 +21,8 @@ import fragment_classes.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -67,6 +69,7 @@ class MainActivity : AppCompatActivity() {
                     .commit()
             }
         }else println("croppuz" + realBinding.toString())
+        cleanDB()
         syncDB()
 
         selectTeatro()
@@ -283,7 +286,7 @@ class MainActivity : AppCompatActivity() {
                                     Abbonamento(
                                         elemento.get("id_abbonamento").asInt,
                                         elemento.get("nome_teatro").asString,
-                                        elemento.get("data_scadenza").asString,
+                                        LocalDate.now().toString(),
                                         elemento.get("data_scadenza").asString
                                     )
                                 )
@@ -411,6 +414,71 @@ class MainActivity : AppCompatActivity() {
         val isConnected = capabilities?.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) == true
 
         return capabilities?.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) == true
+    }
+
+
+    @SuppressLint("Range")
+    fun cleanDB(){
+        //BIGLIETTI
+        var query = "select * " +
+                "from Biglietto_singolo, Spettacolo, Rappresentazione " +
+                "where id_rappresentazione=ref_rappresentazione_biglietto and " +
+                "ref_spettacolo = id_spettacolo and " +
+                "ref_utente = ${userId};"
+        ApiService.retrofit.select(query).enqueue(
+            object : Callback <JsonObject> {
+                override fun onResponse(call: Call<JsonObject>?, response: Response<JsonObject>) {
+                    if (response.isSuccessful) {
+                        var risposta = response.body()?.get("queryset") as JsonArray
+                        var id = emptyList<String>().toMutableList()
+                        var idtick = emptyList<String>().toMutableList()
+                        for (i in 0 until risposta.count()){
+                            var elemento = risposta[i] as JsonObject
+                            if (LocalDate.parse(elemento.get("data").toString().substring(1,elemento.get("data").toString().length-1)).isBefore(LocalDate.now())){
+                                id.add(elemento.get("id_rappresentazione").toString())
+                                idtick.add(elemento.get("id_biglietto").toString())
+                            }
+                        }
+
+                        for (i in 0 until id.size){
+                            var query = "delete from Biglietto_singolo where ref_rappresentazione_biglietto = '${id.get(i)}'"
+                            ApiService.retrofit.select(query).enqueue(
+                                object : Callback <JsonObject> {
+                                    override fun onResponse(call: Call<JsonObject>?, response: Response<JsonObject>) {
+                                    }
+                                    override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+                                        showToast("Errore di rete")
+                                    }
+                                }
+                            )
+                            db.deleteBiglietto(idtick.get(i).toInt())
+                        }
+                    }
+                }
+
+                override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+                    showToast("Errore di rete")
+                }
+            }
+        )
+        //ABBONAMENTI
+        query = "delete from Abbonamento where data_scadenza < '${LocalDate.now()}';"
+        ApiService.retrofit.select(query).enqueue(
+            object : Callback <JsonObject> {
+                override fun onResponse(call: Call<JsonObject>?, response: Response<JsonObject>) {
+                }
+                override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+                    showToast("Errore di rete")
+                }
+            }
+        )
+        var abb = db.fetchAllAbbonamenti()
+        var id = emptyList<String>().toMutableList()
+        if (abb.count !=0){
+            do{
+                if(LocalDate.parse((abb.getString(abb.getColumnIndex(DBHelper.DATA_FINE)))).isBefore(LocalDate.now()))
+                    id.add(abb.getString(abb.getColumnIndex(DBHelper._ID_ABBONAMENTO)))
+            }while(abb.moveToNext())}
     }
 
 

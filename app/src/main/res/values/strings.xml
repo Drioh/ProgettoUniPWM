@@ -113,6 +113,12 @@ al debutto del figlio nella Cavalleria rusticana, di Pietro Mascagni.
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
     <string name="next">Next</string>
+    <string name="Search"><u>Cerca spettacoli</u></string>
+    <string name="Ticket"><u>I miei acquisti</u></string>
+    <string name="Sub"><u>Cerca teatri</u></string>
+    <string name="SearchText">Tramite questo tasto è possibile vedere quali spettacoli sono programmati per i giorni futuri, visualizzarne le eventuali informazioni e acquistare dei biglietti</string>
+    <string name="TicketText">Tramite questo tasto è possibile consultare la lista di abbonamenti e biglietti posseduti, potendone visualizzare anche le eventuali informazioni, oltre al QR code a essi associati</string>
+    <string name="SubText">Tramite questo tasto è possibile consultare la lista dei teatri messi a disposizione dall\' app, potendone visualizzare anche le eventuali informazioni e potendo acquistare degli abbonamenti</string>
     <string name="previous">Previous</string>
     <string name="select_place_prompt">Seleziona un posto</string>
     <string name="hello_first_fragment">Hello first fragment</string>
