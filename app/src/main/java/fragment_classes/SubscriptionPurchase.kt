@@ -75,6 +75,7 @@ class SubscriptionPurchase() : Fragment() {
             var expireYear = binding.cardExpireYearField.text.toString()
             var expireMonth = binding.cardExpireMonthField.text.toString()
             var isChecked = binding.saveCardBox.isChecked
+            var name = binding.cardOwnerField.toString()
 
             expireYear = adjustYear(expireYear)
             var ref_theatre = getRefTheatre(theatre)
@@ -82,20 +83,25 @@ class SubscriptionPurchase() : Fragment() {
             //scelgo di non accorpare gli if perché voglio prima verificare il selectedButton e in caso passare al suo else e poi andare con l'altro
             if(selectedbutton!=null) {
                 if((cardNumber.length == 16) && (numberCVC.length == 3) && verifyExpire(expireYear, expireMonth)){
-                    //si dovrebbe anche fare un controllo per vedere se il nome del proprietario della carta corrisponde al numero però non
-                    //potendoci collegare ai server delle banche omettiamo il passaggio
+                    if(name.length != 0){
+                        //si dovrebbe anche fare un controllo per vedere se il nome del proprietario della carta corrisponde al numero però non
+                        //potendoci collegare ai server delle banche omettiamo il passaggio e controlliamo solo che il campo sia riempito
 
-                    var utente = MA.getUserId()
+                        var utente = MA.getUserId()
 
-                    if(expireMonth.length == 1) {    //quindi se non inserisco il "20" prima dell'anno
-                        expireMonth = "0${expireMonth}"
+                        if(expireMonth.length == 1) {    //quindi se non inserisco il "20" prima dell'anno
+                            expireMonth = "0${expireMonth}"
+                        }
+                        insertAbbonamentoInRemoto(ref_theatre, utente, period)
+                        if(isChecked){
+                            insertCartaCredito(utente, cardNumber, numberCVC, expireYear, expireMonth)
+                        }
+                        MA.syncDB()
+                        MA.realAppNavigateTo(PaymentConfirmed("Abbonamento"), "ConfirmedPayment")
                     }
-                    insertAbbonamentoInRemoto(ref_theatre, utente, period)
-                    if(isChecked){
-                        insertCartaCredito(utente, cardNumber, numberCVC, expireYear, expireMonth)
+                    else{
+                        MA.showToast("Inserire nome")
                     }
-                    MA.syncDB()
-                    MA.realAppNavigateTo(PaymentConfirmed("Abbonamento"), "ConfirmedPayment")
                 }
                 else {
                     MA.showToast("Carta non valida")

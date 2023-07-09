@@ -79,24 +79,29 @@ class TicketPurchase() : Fragment() {
             var expireYear = binding.cardExpireYearField.text.toString()
             var expireMonth = binding.cardExpireMonthField.text.toString()
             var isChecked = binding.saveCardBox.isChecked
+            var name = binding.cardOwnerField.toString()
 
             var place: Char = choosePlace(textTheatre, selectedPlace)
 
             expireYear = adjustYear(expireYear)
             if ((cardNumber.length == 16) && (numberCVC.length == 3) && verifyExpire(expireYear, expireMonth)) {
-                /*si dovrebbe anche fare un controllo per vedere se il nome del proprietario della carta corrisponde al numero però non
-                potendoci collegare ai server delle banche omettiamo il passaggio*/
-                val utente: Int = MA.getUserId()
-                if(expireMonth.length == 1) {    //quindi se non inserisco il "20" prima dell'anno
-                    expireMonth = "0${expireMonth}"
+                if(name.length != 0){
+                    /*si dovrebbe anche fare un controllo per vedere se il nome del proprietario della carta corrisponde al numero però non
+                    potendoci collegare ai server delle banche omettiamo il passaggio e controlliamo solo che il campo sia riempito*/
+                    val utente: Int = MA.getUserId()
+                    if(expireMonth.length == 1) {    //quindi se non inserisco il "20" prima dell'anno
+                        expireMonth = "0${expireMonth}"
+                    }
+                    if(isChecked){
+                        insertCartaCredito(utente, cardNumber, numberCVC, expireYear, expireMonth)
+                    }
+                    checkAvailableSeats(place,ticketQuantity,utente,MA)
+                    binding.confirmButton.setBackgroundColor(Color.parseColor("#F44336"))
+                    MA.syncDB()
+                    MA.realAppNavigateTo(PaymentConfirmed("Biglietto"), "ConfirmedPayment")
+                }else{
+                    MA.showToast("Inserire nome")
                 }
-                if(isChecked){
-                    insertCartaCredito(utente, cardNumber, numberCVC, expireYear, expireMonth)
-                }
-                checkAvailableSeats(place,ticketQuantity,utente,MA)
-                binding.confirmButton.setBackgroundColor(Color.parseColor("#F44336"))
-                MA.syncDB()
-                MA.realAppNavigateTo(PaymentConfirmed("Biglietto"), "ConfirmedPayment")
             }else{
                 MA.showToast("Carta non valida")
             }
