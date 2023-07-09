@@ -53,7 +53,7 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/linearLayout3"
-                android:layout_width="300sp"
+                android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="20dp">
@@ -87,7 +87,7 @@
 
             <Button
                 android:id="@+id/mailButton"
-                android:layout_width="300dp"
+                android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="30dp"
                 android:backgroundTint="#000000"
@@ -103,7 +103,7 @@
 
             <Button
                 android:id="@+id/passwordButton"
-                android:layout_width="300dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
                 android:backgroundTint="#000000"
@@ -115,7 +115,7 @@
 
             <Button
                 android:id="@+id/verificationButton"
-                android:layout_width="300dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
                 android:backgroundTint="#000000"
@@ -127,7 +127,7 @@
 
             <Button
                 android:id="@+id/logoutButton"
-                android:layout_width="300dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
                 android:backgroundTint="#000000"
