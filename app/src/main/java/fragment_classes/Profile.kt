@@ -45,8 +45,11 @@ class Profile : Fragment() {
         }
         val propic = sharedPreferences.getString("propic", "")
         if (!propic.isNullOrEmpty()) {
+
             val decodedImage = decodeBase64ToBitmap(propic)
             binding.propicImage.setImageBitmap(decodedImage)
+        }else{
+            binding.propicImage.visibility=View.GONE
         }
         getUrlbyID(MA.getUserId())
         //offline mode per profilo
@@ -153,8 +156,9 @@ class Profile : Fragment() {
                     val jsonArray = response.body()?.getAsJsonArray("queryset")
                     if (jsonArray?.size() == 1) {
                         val propic = jsonArray[0].asJsonObject["propic"].asString
-                        getImageProfilo(propic)
-
+                        if(!(propic == null)) {
+                            getImageProfilo(propic)
+                        }
                     } else {
                         Log.i("ApiService","n/a")
                     }
