@@ -44,8 +44,11 @@ class EditPassword: Fragment(){
 
         return binding.root
     }
-
-
+    /**
+     * Questo metodo effettua una query al database per prendere l'id dell'utente che vuole cambiare la mail per poi passarlo a updatePasswordInDatabase
+     * @param password parametro della vecchia mail che viene usato per la query
+     * @param newPassword parametro della nuova mail
+     */
     fun changePassword(password: String, newPassword: String) {
         val query = "SELECT * FROM Utente WHERE password = '${password}';"
         ApiService.retrofit.select(query).enqueue(object : Callback<JsonObject> {
@@ -66,6 +69,11 @@ class EditPassword: Fragment(){
             }
         })
     }
+    /**
+     * Questo metodo effettua una query al database per aggiornare la password dell'utente
+     * @param utenteId parametro che serve per effettuare la query per aggiornare la password
+     * @param newPassword parametro della nuova password
+     */
     fun updatePasswordInDatabase(utenteId: Int?, newPassword: String) {
         if (utenteId != null) {
             val query = "UPDATE Utente SET password = '${newPassword}' WHERE id_utente = ${utenteId};"
@@ -77,7 +85,6 @@ class EditPassword: Fragment(){
                         Log.i("ApiService","Errore durante la modifica della password")
                     }
                 }
-
                 override fun onFailure(call: Call<JsonObject>, t: Throwable) {
                     Log.e("Errore di rete", t.message.toString())
                 }

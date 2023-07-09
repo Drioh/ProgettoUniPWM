@@ -42,7 +42,12 @@ class RetrievePassword: Fragment(){
     }
 
 
-
+    /**
+     * Cambia la password dell'utente nel database.
+     *
+     * @param mail L'indirizzo email dell'utente.
+     * @param password La nuova password dell'utente.
+     */
     fun changePassword(mail: String, password: String) {
         val query = "UPDATE Utente SET password = '${password}' WHERE mail = '${mail}';"
 

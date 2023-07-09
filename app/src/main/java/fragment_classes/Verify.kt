@@ -55,14 +55,20 @@ class Verify: Fragment() {
         return binding.root
     }
 
-    fun verifyUser(id:String){
-        val query = "UPDATE Utente SET verificato = 1 WHERE id_utente = ${id};"
+    /**
+     * Verifica un utente nel database impostando il campo 'verificato' a 1.
+     *
+     * @param id L'ID dell'utente da verificare.
+     */
+    fun verifyUser(id: String) {
+        val query = "UPDATE Utente SET verificato = 1 WHERE id_utente = $id"
+
         ApiService.retrofit.update(query).enqueue(object : Callback<JsonObject> {
             override fun onResponse(call: Call<JsonObject>?, response: Response<JsonObject>) {
                 if (response.isSuccessful) {
-                    Log.i("ApiService","verifica inserita nel database correttamente")
+                    Log.i("ApiService", "Verifica inserita nel database correttamente")
                 } else {
-                    Log.i("ApiService","verifica non inserita nel database correttamente")
+                    Log.i("ApiService", "Verifica non inserita nel database correttamente")
                 }
             }
 

@@ -51,6 +51,13 @@ class ShowAdapter(private val myList: List<ShowModel>) : RecyclerView.Adapter<Sh
             onClickListener?.onClick(position, singleShowModel)
         }
     }
+    /**
+     * Ottiene un'immagine dal server tramite l'URL specificato e la imposta in un ImageView.
+     *
+     * @param url L'URL dell'immagine da ottenere.
+     * @param IV L'istanza dell'ImageView in cui impostare l'immagine ottenuta.
+     * @return L'oggetto Bitmap dell'immagine ottenuta, o null se si è verificato un errore.
+     */
     private fun getImageSpettacolo(url: String, IV: ImageView): Bitmap?{
         var image: Bitmap? = null
         ApiService.retrofit.image(url).enqueue(

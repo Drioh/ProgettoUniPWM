@@ -33,18 +33,18 @@ class PaymentConfirmed () : Fragment() {
         binding = FragmentConfirmedPaymentBinding.inflate(inflater)
         var MA = (activity as MainActivity?)!! //reference alla Main Activity
         MA.changeTitle("Pagamento Confermato")
-when(type){
-    "Biglietto"->{
-        binding.textView6.setText(R.string.CorrPay)
-    }
-    "Abbonamento"->{
-        binding.textView6.setText(R.string.CorrSubPay)
+        when(type){
+            "Biglietto"->{
+                binding.textView6.setText(R.string.CorrPay)
+            }
+            "Abbonamento"->{
+                binding.textView6.setText(R.string.CorrSubPay)
 
-    }
-    else->{
-        println("errore")
-    }
-}
+            }
+            else->{
+                println("errore")
+            }
+        }
         binding.button.setOnClickListener(){
             binding.button.setBackgroundColor(Color.parseColor("#F44336"))
             MA.backTo("Home")

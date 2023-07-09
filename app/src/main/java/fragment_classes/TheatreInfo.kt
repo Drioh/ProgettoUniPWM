@@ -214,7 +214,9 @@ class TheatreInfo (): Fragment(), OnMapReadyCallback {
             }
         }
     }
-
+    /**
+     * Mostra una mappa con le coordinate del teatro selezionato.
+     */
     private fun showMapWithCoordinates() {
         mapView.visibility = View.VISIBLE
         binding.info.visibility = View.GONE
@@ -262,11 +264,9 @@ class TheatreInfo (): Fragment(), OnMapReadyCallback {
         }
     }
 
-
-
-
-
-
+    /**
+     * Mostra l'interfaccia utente relativa al permesso di posizione.
+     */
     private fun showInContextUI() {
         val permission = Manifest.permission.ACCESS_FINE_LOCATION
 
@@ -307,7 +307,12 @@ class TheatreInfo (): Fragment(), OnMapReadyCallback {
             dialog.show()
         }
     }
-    // Funzione per mostrare un messaggio all'utente
+
+    /**
+     * Mostra un Toast con il messaggio specificato.
+     *
+     * @param message Il messaggio da visualizzare nel Toast.
+     */
     private fun showToast(message: String) {
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
@@ -394,7 +399,7 @@ class TheatreInfo (): Fragment(), OnMapReadyCallback {
 
                 else -> println("Errore")
             }
-/*
+            /*  QUESTA SEZIONE DI CODICE NON è POSSIBILE SIMULARLA A CAUSA DELL'ASSENZA DI GPS NEL PC
             var location = fusedLocationProviderClient.lastLocation
             location.addOnCompleteListener { task ->
                 if (task.isSuccessful) {
@@ -435,7 +440,8 @@ class TheatreInfo (): Fragment(), OnMapReadyCallback {
                         println("erroraccio")
                     }
 
-                }*/
+                }
+                */
         }
 
 

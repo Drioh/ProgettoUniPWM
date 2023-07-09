@@ -52,7 +52,15 @@ class Register : Fragment() {
         return binding.root
     }
 
-
+    /**
+     * Registra un nuovo utente nel database.
+     *
+     * @param nome Il nome dell'utente.
+     * @param cognome Il cognome dell'utente.
+     * @param mail L'indirizzo email dell'utente.
+     * @param password La password dell'utente.
+     * @param MA L'istanza della classe MainActivity.
+     */
     fun RegistrazioneDB(nome: String, cognome: String, mail: String, password: String, MA: MainActivity){
         val f=0 // da implementare verifica account
         val otp = String.format("%06d", (Math.random() * 1000000).toInt())

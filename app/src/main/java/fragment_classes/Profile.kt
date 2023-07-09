@@ -134,69 +134,17 @@ class Profile : Fragment() {
 
         return binding.root
     }
-
-
-
-    //TEST
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         // Inizializza il DBManager
         dbManager = DBManager(requireContext())
-
-        // Esegui operazioni di test
-        //performDatabaseTest()
-
-
-    }
-/*                  DEBUG
-    private fun performDatabaseTest() {
-        // Apri il database
-        dbManager.open()
-
-        // Esegui operazioni di test
-        insertData()
-        updateData()
-        deleteData()
-        fetchData()
-
-
-        // Chiudi il database
-        dbManager.close()
     }
 
-    private fun insertData() {
-        dbManager.insertBiglietto("Spettacolo 1", "2023-06-30")
-        dbManager.insertBiglietto("Spettacolo 2", "2023-07-15")
-        Log.i("Profile", "Dati inseriti nel database.")
-    }
-
-    private fun updateData() {
-        val updatedRows = dbManager.updateBiglietto(1, "Spettacolo aggiornato", "2023-07-31")
-        Log.i("Profile", "Numero di righe aggiornate: $updatedRows")
-    }
-
-    private fun deleteData() {
-        dbManager.deleteBiglietto(2)
-        Log.i("Profile", "Dati eliminati dal database.")
-    }
-    private fun fetchData() {
-        val cursor = dbManager.fetchAllBiglietti()
-        cursor?.use { cursor ->
-            if (cursor.moveToFirst()) {
-                do {
-                    val id = cursor.getLong(cursor.getColumnIndexOrThrow(DBHelper._ID_BIGLIETTO))
-                    val nomeSpettacolo = cursor.getString(cursor.getColumnIndexOrThrow(DBHelper.NOME_SPETTACOLO))
-                    val dataScadenza = cursor.getString(cursor.getColumnIndexOrThrow(DBHelper.DATA_SCADENZA))
-
-                    Log.i("Profile", "ID: $id, Nome Spettacolo: $nomeSpettacolo, Data Scadenza: $dataScadenza")
-                } while (cursor.moveToNext())
-            }
-        }
-    }*/
-
-
-
+    /**
+     * Questo metodo effettua una query per prelevare la directory della foto profilo
+     * @param id id dell'utente
+     */
     fun getUrlbyID(id: Int) {
         val query = "SELECT propic FROM Utente WHERE id_utente = '${id}';"
         ApiService.retrofit.select(query).enqueue(object : Callback<JsonObject> {
@@ -218,6 +166,11 @@ class Profile : Fragment() {
             }
         })
     }
+
+    /**
+     * Questo metodo preleva dal database la foto profilo dell'utente, se presente, partendo dall'url fornito in input
+     * @param url directory dell'immagine profilo all'interno del database
+     */
     private fun getImageProfilo(url: String){
 
         ApiService.retrofit.image(url).enqueue(
@@ -259,6 +212,13 @@ class Profile : Fragment() {
         val byteArray: ByteArray = byteArrayOutputStream.toByteArray()
         return Base64.encodeToString(byteArray, Base64.DEFAULT)
     }
+
+    /**
+     * Questo metodo modifica nome e cognome dell'utente, sia nel database locale che in quello remoto
+     * @param userId id dell'utente
+     * @param name nome modificato dell'utente
+     * @param surname cognome modificato dell'utente
+     */
     fun changeNameAndSurname(userId: Int, name: String, surname: String) {
         val query = "UPDATE Utente SET nome_utente = '${name}', cognome = '${surname}' WHERE id_utente = ${userId};"
 

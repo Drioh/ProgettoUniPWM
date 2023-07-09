@@ -26,8 +26,6 @@ class Home: Fragment() {
         binding.SubText.visibility=View.GONE
         binding.textView9.text=("Bentornato ${MA.getSharedPreferences().getString("userName", "")} ${MA.getSharedPreferences().getString("surname", "")}")
 
-
-
         binding.SearchView.setOnClickListener(){
             if (binding.SearchText.visibility!=View.VISIBLE)
             binding.SearchText.visibility=View.VISIBLE

@@ -3,8 +3,6 @@ package com.example.progettouni
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
-import android.net.ConnectivityManager
-import android.net.NetworkCapabilities
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -22,7 +20,6 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -68,7 +65,7 @@ class MainActivity : AppCompatActivity() {
                     .addToBackStack("Home")
                     .commit()
             }
-        }else println("croppuz" + realBinding.toString())
+        }
         cleanDB()
         syncDB()
 
@@ -336,20 +333,11 @@ class MainActivity : AppCompatActivity() {
             .commit()
         setUserId(0)
     }
+
     /**
-     * Questo metodo viene invocato quando viene selezionato un teatro per il quale acquistare
-     *un abbonamento.
-     *@param teatro: nome del teatro selezionato (uno tra Politeama, Biondo e Massimo)
-     */
-    fun subChoice(teatro: String){
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.fragmentContainerView4,SubscriptionPurchase(teatro))
-            .addToBackStack("teatro "+teatro)
-            .commit()
-    }
-    /**Questo metodo viene invocato ogni qual volta che si vuole mostrare a schermo un toast.
-     * Metodo creato per facilitare la creazione di Toast
-     *@param text: testo da mostrare a schermo tramite toast
+     * Mostra un Toast con il messaggio specificato.
+     *
+     * @param message Il messaggio da visualizzare nel Toast.
      */
     fun showToast(text: String){
         Toast.makeText(this, text, Toast.LENGTH_SHORT).show()
@@ -364,6 +352,10 @@ class MainActivity : AppCompatActivity() {
         }
         super.getOnBackPressedDispatcher().onBackPressed()
     }
+
+    /**
+     * Questo metodo salva i dati dell'utente nelle shared preferences per potere accedere offline all'applicazione
+     */
     private fun saveUserData(userId: Int, userName: String,  surname: String , email: String, password: String) {
         sharedPreferences = getSharedPreferences("UserData", Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
@@ -375,6 +367,9 @@ class MainActivity : AppCompatActivity() {
         editor.apply()
     }
 
+    /**
+     * Questo metodo carica i dati dell'utente dalle shared preferences
+     */
     private fun loadUserData() {
         sharedPreferences = getSharedPreferences("UserData", Context.MODE_PRIVATE)
         userId = sharedPreferences.getInt("userId", 0)
@@ -382,9 +377,11 @@ class MainActivity : AppCompatActivity() {
         val  email = sharedPreferences.getString("email", "") ?: ""
         val  pw = sharedPreferences.getString("password", "") ?: ""
     }
+    /**
+     * Questo metodo effettua una query per potere determinare se il database è raggiungibile ed eventualmente deprecare le funzionalità della app
+     */
     fun selectTeatro() {
         val query = "SELECT * FROM Teatro;"
-
         ApiService.retrofit.select(query).enqueue(object : Callback<JsonObject> {
             override fun onResponse(call: Call<JsonObject>?, response: Response<JsonObject>) {
                 if (response.isSuccessful) {
@@ -394,13 +391,15 @@ class MainActivity : AppCompatActivity() {
                     //isOffline = true
                 }
             }
-
             override fun onFailure(call: Call<JsonObject>, t: Throwable) {
                 Log.e("offline", t.message.toString())
                 isOffline = true
             }
         })
     }
+    /**
+     * Pulisce il database eliminando i biglietti scaduti e gli abbonamenti scaduti.
+     */
     @SuppressLint("Range")
     fun cleanDB(){
         //BIGLIETTI

@@ -114,7 +114,13 @@ class TicketPurchase() : Fragment() {
 
         return binding.root
     }
-
+    /**
+     * Inserisce un posto occupato nella tabella Occupazione_posti.
+     *
+     * @param x       Il numero del posto.
+     * @param place   Il carattere che identifica il posto (es. 'A', 'B', 'C').
+     * @param idShow  L'ID dello spettacolo correlato.
+     */
     private fun insertPosto(x: Int, place: Char, idShow: String) {
         val query = "insert into Occupazione_posti (ref_posto_let, ref_rappresentazione_posti, ref_posto_num) values ('${place}', '${id_show}', '${x}'); "
         ApiService.retrofit.insert(query).enqueue(
@@ -131,7 +137,13 @@ class TicketPurchase() : Fragment() {
             }
         )
     }
-
+    /**
+     * Restituisce il carattere che identifica il posto selezionato in base al teatro e al posto scelto.
+     *
+     * @param textTheatre     Il testo del teatro selezionato.
+     * @param selectedPlace   Il testo del posto selezionato.
+     * @return Il carattere che identifica il posto.
+     */
     private fun choosePlace(textTheatre: String, selectedPlace: String): Char {
         var place: Char ='A'
         if(textTheatre == "Teatro Massimo"){
@@ -158,6 +170,12 @@ class TicketPurchase() : Fragment() {
         return place
     }
 
+    /**
+     * Restituisce l'anno corretto in formato stringa.
+     *
+     * @param expireYear L'anno di scadenza.
+     * @return L'anno corretto in formato stringa.
+     */
     private fun adjustYear(expireYear: String): String {
         var year: Int = Integer.parseInt(expireYear)
         if(year < 100){    //quindi se non inserisco il "20" prima dell'anno
@@ -166,6 +184,13 @@ class TicketPurchase() : Fragment() {
         return year.toString()
     }
 
+    /**
+     * Verifica se la data di scadenza è valida.
+     *
+     * @param year  L'anno di scadenza.
+     * @param month Il mese di scadenza.
+     * @return True se la data di scadenza è valida, False altrimenti.
+     */
     private fun verifyExpire(year: String, month: String): Boolean {
         var expireYear: Int = Integer.parseInt(year)
         var expireMonth: Int = Integer.parseInt(month)
@@ -183,6 +208,15 @@ class TicketPurchase() : Fragment() {
     return false
     }
 
+    /**
+     * Inserisce i dettagli della carta di credito nella tabella Carte_credito.
+     *
+     * @param utente        L'ID dell'utente associato alla carta di credito.
+     * @param cardNumber    Il numero della carta di credito.
+     * @param numberCVC     Il numero CVC della carta di credito.
+     * @param expireYear    L'anno di scadenza della carta di credito.
+     * @param expireMonth   Il mese di scadenza della carta di credito.
+     */
     private fun insertCartaCredito(utente: Int, cardNumber: String, numberCVC: String, expireYear: String, expireMonth: String) {
         var date = LocalDate.parse("${expireYear}-${expireMonth}-01")
         val query = "insert into Carte_credito (numero, ref_utente, data_scadenza_carta, cvc ) values ('${cardNumber}', '${utente}', '${date}', '${numberCVC}'); "
@@ -200,6 +234,12 @@ class TicketPurchase() : Fragment() {
         )
     }
 
+    /**
+     * Inserisce un biglietto singolo nella tabella Biglietto_singolo.
+     *
+     * @param utente   L'ID dell'utente associato al biglietto.
+     * @param id_show  L'ID della rappresentazione associata al biglietto.
+     */
     private fun insertBigliettoInRemoto(utente: Int, id_show: String) {
         val query = "insert into Biglietto_singolo (ref_utente, ref_rappresentazione_biglietto ) values ('${utente}', '${id_show}'); "
         ApiService.retrofit.insert(query).enqueue(
@@ -216,6 +256,14 @@ class TicketPurchase() : Fragment() {
             }
         )
     }
+    /**
+     * Verifica la disponibilità dei posti e procede con l'acquisto dei biglietti.
+     *
+     * @param place  La lettera che identifica la zona dei posti.
+     * @param num    Il numero di posti da acquistare.
+     * @param utente L'ID dell'utente che effettua l'acquisto.
+     * @param MA     L'istanza di MainActivity per mostrare i messaggi di notifica.
+     */
     private fun checkAvailableSeats(place: Char, num: Int, utente: Int, MA: MainActivity) {
         val queryOccupiedSeats = "SELECT ref_posto_num " +
                 "FROM Occupazione_posti " +
@@ -257,7 +305,7 @@ class TicketPurchase() : Fragment() {
                                 }
                             } else {
                                 // Non ci sono posti contigui
-                                showToast("Non ci sono posti contigui disponibili per il posto selezionato.")
+                                MA.showToast("Non ci sono posti contigui disponibili per il posto selezionato.")
                                 MA.backTo("ChoosePlace")
                             }
                         } else if (availableSeats.size == 1 && num == 1) {
@@ -268,7 +316,7 @@ class TicketPurchase() : Fragment() {
                             insertBigliettoInRemoto(utente, id_show)
                         } else {
                             // Not enough available seats
-                            showToast("Non ci sono posti disponibili per il posto selezionato.")
+                            MA.showToast("Non ci sono posti disponibili per il posto selezionato.")
                             MA.backTo("ChoosePlace")
                         }
                     } else {
@@ -281,9 +329,6 @@ class TicketPurchase() : Fragment() {
                 }
             }
         )
-    }
-    private fun showToast(message: String) {
-        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
 
 }

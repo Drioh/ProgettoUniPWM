@@ -48,7 +48,11 @@ class EditMail: Fragment(){
         return binding.root
     }
 
-
+    /**
+     * Questo metodo effettua una query al database per prendere l'id dell'utente che vuole cambiare la mail per poi passarlo a updateEmailInDatabase
+     * @param oldEmail parametro della vecchia mail che viene usato per la query
+     * @param newEmail parametro della nuova mail
+     */
     fun changeEmail(oldEmail: String, newEmail: String) {
         val query = "SELECT * FROM Utente WHERE mail = '${oldEmail}';"
         ApiService.retrofit.select(query).enqueue(object : Callback<JsonObject> {
@@ -69,7 +73,11 @@ class EditMail: Fragment(){
             }
         })
     }
-
+    /**
+     * Questo metodo effettua una query al database per aggiornare la email dell'utente
+     * @param utenteId parametro che serve per effettuare la query per aggiornare la mail
+     * @param newEmail parametro della nuova mail
+     */
     fun updateEmailInDatabase(utenteId: Int?, newEmail: String) {
         if (utenteId != null) {
             val query = "UPDATE Utente SET mail = '${newEmail}' WHERE id_utente = ${utenteId};"

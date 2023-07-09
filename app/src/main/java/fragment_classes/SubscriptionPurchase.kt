@@ -116,7 +116,12 @@ class SubscriptionPurchase() : Fragment() {
 
         return binding.root
     }
-
+    /**
+     * Restituisce il riferimento numerico corrispondente al teatro specificato.
+     *
+     * @param theatre Il nome del teatro.
+     * @return Il riferimento numerico corrispondente al teatro. Se il teatro non è trovato, restituisce 0.
+     */
     private fun getRefTheatre(theatre: String): Int {
         var teatro: Int = 0
         when (theatre) {
@@ -136,7 +141,13 @@ class SubscriptionPurchase() : Fragment() {
         }
         return teatro
     }
-
+    /**
+     * Inserisce un abbonamento nel database remoto.
+     *
+     * @param theatre Il riferimento numerico del teatro.
+     * @param utente Il riferimento numerico dell'utente.
+     * @param period La durata dell'abbonamento in mesi.
+     */
     private fun insertAbbonamentoInRemoto(theatre: Int, utente: Int, period: Int) {
         var currentDate = LocalDate.now()
         var subLength = Period.of(0, period, 0)   //inserisco 1, 3, 6 o 12 mesi al giorno corrente
@@ -159,7 +170,11 @@ class SubscriptionPurchase() : Fragment() {
             }
         )
     }
-
+    /**
+     * Seleziona un pulsante e modifica il suo stato visuale.
+     *
+     * @param button Il pulsante da selezionare.
+     */
     private fun selectButton(button: Button){
         if(selectedbutton == null){
             button.setBackgroundColor(Color.parseColor("#F44336"))
@@ -170,6 +185,12 @@ class SubscriptionPurchase() : Fragment() {
             button.setBackgroundColor(Color.parseColor("#F44336"))
         }
     }
+    /**
+     * Aggiusta l'anno di scadenza della carta di credito.
+     *
+     * @param expireYear L'anno di scadenza della carta di credito.
+     * @return L'anno di scadenza corretto come una stringa.
+     */
     private fun adjustYear(expireYear: String): String {
         var year: Int = Integer.parseInt(expireYear)
         if(year < 100){    //quindi se non inserisco il "20" prima dell'anno
@@ -177,7 +198,13 @@ class SubscriptionPurchase() : Fragment() {
         }
         return year.toString()
     }
-
+    /**
+     * Verifica la validità della data di scadenza della carta di credito.
+     *
+     * @param year L'anno di scadenza della carta di credito.
+     * @param month Il mese di scadenza della carta di credito.
+     * @return true se la data di scadenza è valida, altrimenti false.
+     */
     private fun verifyExpire(year: String, month: String): Boolean {
         var expireYear: Int = Integer.parseInt(year)
         var expireMonth: Int = Integer.parseInt(month)
@@ -194,7 +221,15 @@ class SubscriptionPurchase() : Fragment() {
         }
         return false
     }
-
+    /**
+     * Inserisce i dettagli della carta di credito nel database.
+     *
+     * @param utente Il riferimento numerico dell'utente.
+     * @param cardNumber Il numero della carta di credito.
+     * @param numberCVC Il numero CVC della carta di credito.
+     * @param expireYear L'anno di scadenza della carta di credito.
+     * @param expireMonth Il mese di scadenza della carta di credito.
+     */
     private fun insertCartaCredito(utente: Int, cardNumber: String, numberCVC: String, expireYear: String, expireMonth: String) {
         var date = LocalDate.parse("${expireYear}-${expireMonth}-01")
         val query = "insert into Carte_credito (numero, ref_utente, data_scadenza_carta, cvc ) values ('${cardNumber}', '${utente}', '${date}', '${numberCVC}'); "

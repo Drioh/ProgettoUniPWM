@@ -34,8 +34,8 @@
                 android:layout_height="50dp"
                 android:layout_marginTop="30dp"
                 android:ems="10"
-                android:inputType="textPersonName"
-                android:text="@string/name" />
+                android:hint="@string/name"
+                android:inputType="textPersonName" />
 
             <EditText
                 android:id="@+id/surnameField"
@@ -43,8 +43,8 @@
                 android:layout_height="50dp"
                 android:layout_marginTop="30dp"
                 android:ems="10"
-                android:inputType="textPersonName"
-                android:text="@string/surname" />
+                android:hint="@string/surname"
+                android:inputType="textPersonName" />
 
             <EditText
                 android:id="@+id/mailField"
@@ -52,8 +52,8 @@
                 android:layout_height="50dp"
                 android:layout_marginTop="30dp"
                 android:ems="10"
-                android:inputType="textPersonName"
-                android:text="@string/mail" />
+                android:hint="@string/mail"
+                android:inputType="textPersonName" />
 
             <EditText
                 android:id="@+id/pwField"
