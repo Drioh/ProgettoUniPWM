@@ -46,7 +46,11 @@ class BottomTaskbar : Fragment() {
         Viene interrogato il databse remoto e viene popolata la recycle view che si occupa degli spettacoli per i quali l'utente può acquistare dei biglietti
          */
         binding.SearchButton.setOnClickListener(){
-            MA.realAppNavigateTo(Shows(),"Shows")
+            if(!MA.getIsOffline()) {
+                MA.realAppNavigateTo(Shows(), "Shows")
+            }else{
+                MA.showToast("SEI OFFLINE")
+            }
         }
         binding.TicketButton.setOnClickListener(){
             MA.realAppNavigateTo(PosessedTickets(),"PosessedTickets")

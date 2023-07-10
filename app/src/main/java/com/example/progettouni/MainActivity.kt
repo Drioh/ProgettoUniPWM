@@ -32,47 +32,100 @@ class MainActivity : AppCompatActivity() {
 
     @SuppressLint("Range")
     override fun onCreate(savedInstanceState: Bundle?) {
+        /*
+        Viene effettuata una query di test all'avvio dell'app. La query è di tipo ansincrono e permette all'applicazione di entrare, o meno, in modalità offline. Una volta ottenuta o meno
+        una risposta dal database, verrà mostrata all'utente la schermata iniziale.
+        Ciò si traduce nel sacrificio di velocità e nel dovere fare aspettare all'utente un paio di secondi prima di potere entrare nell'app.
+         */
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        val view = binding.root
-        setContentView(view)
-        db = DBManager(this)
-        db.open()
+        val query = "SELECT * FROM Teatro;"
+        ApiService.retrofit.select(query).enqueue(object : Callback<JsonObject> {
+            override fun onResponse(call: Call<JsonObject>?, response: Response<JsonObject>) {
+                if (response.isSuccessful) {
+                    Log.i("ApiService", "Success")
+                    isOffline=false
+                    binding = ActivityMainBinding.inflate(layoutInflater)
+                    val view = binding.root
+                    setContentView(view)
+                    db = DBManager(this@MainActivity)
+                    db.open()
 
-        // Controllo se ci sono credenziali salvate nelle SharedPreferences
-        sharedPreferences = getSharedPreferences("UserData", Context.MODE_PRIVATE)
-        val email = sharedPreferences.getString("email", "")
-        val password = sharedPreferences.getString("password", "")
-        // Eseguo automaticamente l'accesso al profilo dell'utente
-        loadUserData()
-        realBinding = RealAppBinding.inflate(layoutInflater)
-        if (savedInstanceState== null){
-            if (!email.isNullOrEmpty() && !password.isNullOrEmpty()) {
+                    // Controllo se ci sono credenziali salvate nelle SharedPreferences
+                    sharedPreferences = getSharedPreferences("UserData", Context.MODE_PRIVATE)
+                    val email = sharedPreferences.getString("email", "")
+                    val password = sharedPreferences.getString("password", "")
+                    // Eseguo automaticamente l'accesso al profilo dell'utente
+                    loadUserData()
+                    realBinding = RealAppBinding.inflate(layoutInflater)
+                    if (savedInstanceState== null){
+                        if (!email.isNullOrEmpty() && !password.isNullOrEmpty()) {
 
-                supportFragmentManager.popBackStack()
-                supportFragmentManager.beginTransaction()
-                    .replace(R.id.fragmentContainerView, RealApp())
-                    .commit()
+                            supportFragmentManager.popBackStack()
+                            supportFragmentManager.beginTransaction()
+                                .replace(R.id.fragmentContainerView, RealApp())
+                                .commit()
 
-                supportFragmentManager.beginTransaction()
-                    .add(R.id.fragmentContainerView2, TopTaskbar())
-                    .commit()
-                supportFragmentManager.beginTransaction()
-                    .add(R.id.fragmentContainerView3, BottomTaskbar())
-                    .commit()
-                supportFragmentManager.beginTransaction()
-                    .add(R.id.fragmentContainerView4, Home())
-                    .addToBackStack("Home")
-                    .commit()
+                            supportFragmentManager.beginTransaction()
+                                .add(R.id.fragmentContainerView2, TopTaskbar())
+                                .commit()
+                            supportFragmentManager.beginTransaction()
+                                .add(R.id.fragmentContainerView3, BottomTaskbar())
+                                .commit()
+                            supportFragmentManager.beginTransaction()
+                                .add(R.id.fragmentContainerView4, Home())
+                                .addToBackStack("Home")
+                                .commit()
+                        }
+                    }
+                    cleanDB()
+                    syncDB()
+
+                    if(isOffline){
+                        showToast("OFFLINE MODE ON")
+                    }
+                }
             }
-        }
-        cleanDB()
-        syncDB()
+            override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+                Log.e("offline", t.message.toString())
+                isOffline = true
+                binding = ActivityMainBinding.inflate(layoutInflater)
+                val view = binding.root
+                setContentView(view)
+                db = DBManager(this@MainActivity)
+                db.open()
 
-        selectTeatro()
-        if(isOffline){
-            showToast("OFFLINE MODE ON")
-        }
+                // Controllo se ci sono credenziali salvate nelle SharedPreferences
+                sharedPreferences = getSharedPreferences("UserData", Context.MODE_PRIVATE)
+                val email = sharedPreferences.getString("email", "")
+                val password = sharedPreferences.getString("password", "")
+                // Eseguo automaticamente l'accesso al profilo dell'utente
+                loadUserData()
+                realBinding = RealAppBinding.inflate(layoutInflater)
+                if (savedInstanceState== null){
+                    if (!email.isNullOrEmpty() && !password.isNullOrEmpty()) {
+
+                        supportFragmentManager.popBackStack()
+                        supportFragmentManager.beginTransaction()
+                            .replace(R.id.fragmentContainerView, RealApp())
+                            .commit()
+
+                        supportFragmentManager.beginTransaction()
+                            .add(R.id.fragmentContainerView2, TopTaskbar())
+                            .commit()
+                        supportFragmentManager.beginTransaction()
+                            .add(R.id.fragmentContainerView3, BottomTaskbar())
+                            .commit()
+                        supportFragmentManager.beginTransaction()
+                            .add(R.id.fragmentContainerView4, Home())
+                            .addToBackStack("Home")
+                            .commit()
+                    }
+                }
+                cleanDB()
+                syncDB()
+            }
+        })
+
     }
     fun changeTitle (s:String){
         realBinding.fragmentContainerView2.getFragment<TopTaskbar>().binding.TopTaskbarText.text = s
@@ -377,26 +430,7 @@ class MainActivity : AppCompatActivity() {
         val  email = sharedPreferences.getString("email", "") ?: ""
         val  pw = sharedPreferences.getString("password", "") ?: ""
     }
-    /**
-     * Questo metodo effettua una query per potere determinare se il database è raggiungibile ed eventualmente deprecare le funzionalità della app
-     */
-    fun selectTeatro() {
-        val query = "SELECT * FROM Teatro;"
-        ApiService.retrofit.select(query).enqueue(object : Callback<JsonObject> {
-            override fun onResponse(call: Call<JsonObject>?, response: Response<JsonObject>) {
-                if (response.isSuccessful) {
-                    Log.i("ApiService", "Success")
-                    isOffline=false
-                } else {
-                    //isOffline = true
-                }
-            }
-            override fun onFailure(call: Call<JsonObject>, t: Throwable) {
-                Log.e("offline", t.message.toString())
-                isOffline = true
-            }
-        })
-    }
+
     /**
      * Pulisce il database eliminando i biglietti scaduti e gli abbonamenti scaduti.
      */

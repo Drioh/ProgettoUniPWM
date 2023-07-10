@@ -62,47 +62,22 @@
                 app:cornerRadius="45dp"
                 app:layout_constraintEnd_toEndOf="@+id/linearLayout3" />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/linearLayout3"
-                android:layout_width="312dp"
+            <Button
+                android:id="@+id/confirmButton"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp">
-
-                <Button
-                    android:id="@+id/cancelButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:backgroundTint="#000000"
-                    android:onClick="toHome"
-                    android:text="@string/cancel"
-                    android:textColor="#FFFFFF"
-                    app:cornerRadius="45dp"
-                    app:layout_constraintBaseline_toBaselineOf="@+id/confirmButton"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/confirmButton"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintHorizontal_chainStyle="spread"
-                    app:layout_constraintStart_toStartOf="parent" />
-
-                <Button
-                    android:id="@+id/confirmButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:backgroundTint="#000000"
-                    android:onClick="logConfirm"
-                    android:text="@string/confirm"
-                    android:textColor="#FFFFFF"
-                    app:cornerRadius="45dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/cancelButton" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                android:layout_marginTop="20sp"
+                android:backgroundTint="#000000"
+                android:onClick="logConfirm"
+                android:text="@string/confirm"
+                android:textColor="#FFFFFF"
+                app:cornerRadius="45dp" />
 
             <Button
                 android:id="@+id/registerButton"
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="20sp"
                 android:backgroundTint="#000000"
                 android:onClick="registerClick"
                 android:text="@string/registrati"

@@ -67,7 +67,6 @@ class Profile : Fragment() {
             binding.verificationButton.visibility = View.GONE
             binding.confirmButton.visibility = View.GONE
             binding.cancelButton.visibility = View.GONE
-            binding.logoutButton.visibility = View.GONE
         }
         binding.mailButton.setOnClickListener(){
             binding.mailButton.setBackgroundColor(Color.parseColor("#F44336"))

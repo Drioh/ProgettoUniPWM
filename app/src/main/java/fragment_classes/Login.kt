@@ -25,23 +25,19 @@ class Login : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        super.onCreateView(inflater, container, savedInstanceState)
         binding = FragmentLoginBinding.inflate(inflater)
         var MA = (activity as MainActivity?)!! //reference alla Main Activity
-        MA.selectTeatro()
+
 
         if (MA.getIsOffline()) {
             binding.registerButton.visibility = View.GONE
             binding.retrievePasswordButton.visibility = View.GONE
         }
 
-        binding.cancelButton.setOnClickListener {
-            binding.cancelButton.setBackgroundColor(Color.parseColor("#F44336"))
-            MA.back()
-        }
         binding.confirmButton.setOnClickListener {
             if(MA.getIsOffline()){
-                MA.showToast("Caro utente, sei offline! Connettiti alla rete per potere effettuare il Login")
-
+                MA.showToast("SEI OFFLINE")
             }
             else {
                 binding.confirmButton.setBackgroundColor(Color.parseColor("#F44336"))

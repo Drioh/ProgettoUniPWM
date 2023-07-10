@@ -100,10 +100,14 @@ class TheatreInfo (): Fragment(), OnMapReadyCallback {
                 binding.theatreImage.setImageResource(R.drawable.teatro_massimo)
                 binding.DYKText.setText(R.string.MassimoDYK)
                 binding.wikiButton.setOnClickListener {
-                    val url = "https://it.wikipedia.org/wiki/Teatro_Massimo_Vittorio_Emanuele"
-                    val intent = Intent(Intent.ACTION_VIEW)
-                    intent.data = Uri.parse(url)
-                    startActivity(intent)
+                    if(!MA.getIsOffline()) {
+                        val url = "https://it.wikipedia.org/wiki/Teatro_Massimo_Vittorio_Emanuele"
+                        val intent = Intent(Intent.ACTION_VIEW)
+                        intent.data = Uri.parse(url)
+                        startActivity(intent)
+                    }else{
+                        MA.showToast("SEI OFFLINE")
+                    }
                 }
             }
             "Politeama" -> {
@@ -114,10 +118,14 @@ class TheatreInfo (): Fragment(), OnMapReadyCallback {
                 binding.DYKText.setText(R.string.PoliteamaDYK)
 
                 binding.wikiButton.setOnClickListener {
-                    val url = "https://it.wikipedia.org/wiki/Teatro_Politeama_(Palermo)"
-                    val intent = Intent(Intent.ACTION_VIEW)
-                    intent.data = Uri.parse(url)
-                    startActivity(intent)
+                    if(!MA.getIsOffline()) {
+                        val url = "https://it.wikipedia.org/wiki/Teatro_Politeama_(Palermo)"
+                        val intent = Intent(Intent.ACTION_VIEW)
+                        intent.data = Uri.parse(url)
+                        startActivity(intent)
+                    }else{
+                        MA.showToast("SEI OFFLINE")
+                    }
                 }
             }
             "Biondo" -> {
@@ -128,10 +136,14 @@ class TheatreInfo (): Fragment(), OnMapReadyCallback {
                 binding.DYKText.setText(R.string.BiondoDYK)
 
                 binding.wikiButton.setOnClickListener {
-                    val url = "https://it.wikipedia.org/wiki/Teatro_Biondo"
-                    val intent = Intent(Intent.ACTION_VIEW)
-                    intent.data = Uri.parse(url)
-                    startActivity(intent)
+                    if(!MA.getIsOffline()) {
+                        val url = "https://it.wikipedia.org/wiki/Teatro_Biondo"
+                        val intent = Intent(Intent.ACTION_VIEW)
+                        intent.data = Uri.parse(url)
+                        startActivity(intent)
+                    }else{
+                        MA.showToast("SEI OFFLINE")
+                    }
                 }
             }
             else -> println("Errore")
@@ -141,7 +153,11 @@ class TheatreInfo (): Fragment(), OnMapReadyCallback {
             binding.buySubscriptionButton.visibility = View.INVISIBLE
         }
         binding.buySubscriptionButton.setOnClickListener{
-            MA.realAppNavigateTo(SubscriptionPurchase(idTeatro),"SubscriptionPurchase")
+            if(!MA.getIsOffline()) {
+                MA.realAppNavigateTo(SubscriptionPurchase(idTeatro), "SubscriptionPurchase")
+            }else{
+                MA.showToast("SEI OFFLINE")
+            }
         }
         binding.closestButton.setOnClickListener{
             MA.showToast(R.string.closestTheatre as String)
