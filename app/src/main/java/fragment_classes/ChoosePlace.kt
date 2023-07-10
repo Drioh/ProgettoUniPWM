@@ -1,5 +1,6 @@
 package fragment_classes
 
+import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -95,9 +96,10 @@ class ChoosePlace(): Fragment() {
         val loggioneQuery = "SELECT COUNT(*) AS loggione_count " +
                 "FROM Occupazione_posti " +
                 "WHERE ref_posto_let = '${place3}' " +
-                "AND ref_rappresentazione_posti = '${idShow}"
+                "AND ref_rappresentazione_posti = '${idShow}'"
 
         ApiService.retrofit.select(plateaQuery).enqueue(object : Callback<JsonObject> {
+
             override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
                 val responseBody = response.body()
                 if (response.isSuccessful && responseBody != null) {
@@ -105,10 +107,9 @@ class ChoosePlace(): Fragment() {
                     if (queryset != null && queryset.size() > 0) {
                         val userJsonObject = queryset[0] as JsonObject
                         plateaCount = userJsonObject.get("platea_count")?.asInt ?: 0
-                        println("------MIAO1---------")
-                        println(plateaCount)
                         val p=40-plateaCount
-                        binding.plateaText.text= p.toString()
+                        binding.plateaText.text = "Posti disponibili in platea: " + p.toString()
+                        println(p)
                     } else {
                         // Nessun risultato trovato
                         println("Nessun risultato trovato")
@@ -116,7 +117,6 @@ class ChoosePlace(): Fragment() {
                 } else {
                     // Errore nella risposta
                     println("Errore nella risposta")
-                    binding.plateaText.text= "40"
                 }
             }
 
@@ -135,10 +135,8 @@ class ChoosePlace(): Fragment() {
                     if (queryset != null && queryset.size() > 0) {
                         val userJsonObject = queryset[0] as JsonObject
                          piccionaiaCount = userJsonObject.get("piccionaia_count")?.asInt ?: 0
-                        println("------MIAO2---------")
-                        println(piccionaiaCount)
                         val pi=40-piccionaiaCount
-                        binding.piccionaiaText.text= pi.toString()
+                        binding.piccionaiaText.text = "Posti disponibili in piccionaia: " + pi.toString()
                     } else {
                         // Nessun risultato trovato
                         println("Nessun risultato trovato")
@@ -146,7 +144,6 @@ class ChoosePlace(): Fragment() {
                 } else {
                     // Errore nella risposta
                     println("Errore nella risposta")
-                    binding.piccionaiaText.text= "40"
                 }
             }
 
@@ -164,10 +161,8 @@ class ChoosePlace(): Fragment() {
                     if (queryset != null && queryset.size() > 0) {
                         val userJsonObject = queryset[0] as JsonObject
                          loggioneCount = userJsonObject.get("loggione_count")?.asInt ?: 0
-                        println("------MIAO3---------")
-                        println(loggioneCount)
-                        val l=40-plateaCount
-                        binding.loggioneText.text= l.toString()
+                        val l=40-loggioneCount
+                        binding.loggioneText.text = "Posti disponibili in loggione: " + l.toString()
 
                     } else {
                         // Nessun risultato trovato
@@ -176,7 +171,6 @@ class ChoosePlace(): Fragment() {
                 } else {
                     // Errore nella risposta
                     println("Errore nella risposta")
-                    binding.loggioneText.text= "40"
                 }
             }
 
