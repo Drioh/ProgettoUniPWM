@@ -56,22 +56,27 @@ class SubscriptionPurchase() : Fragment() {
         var MA = (activity as MainActivity?)!! //reference alla Main Activity
         MA.changeTitle("Compra Abbonamento")
         var period: Int = 0
+        var prezzo: Int = 0
 
         binding.oneMonthButton.setOnClickListener{
             selectButton(binding.oneMonthButton)
             period = 1
+            prezzo = 15
         }
         binding.threeMonthButton.setOnClickListener{
             selectButton(binding.threeMonthButton)
             period = 3
+            prezzo = 35
         }
         binding.sixMonthButton.setOnClickListener{
             selectButton(binding.sixMonthButton)
             period = 6
+            prezzo = 50
         }
         binding.oneYearButton.setOnClickListener{
             selectButton(binding.oneYearButton)
             period = 12
+            prezzo = 75
         }
         binding.confirmButton.setOnClickListener(){
 
