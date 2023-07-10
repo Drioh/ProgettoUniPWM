@@ -21,12 +21,22 @@ import retrofit2.Response
 import android.database.Cursor
 import java.time.LocalDate
 
-class PosessedTickets : Fragment() {
+class PosessedTickets (): Fragment() {
     private lateinit var binding: FragmentPosessedTicketsBinding
     private lateinit var type: String
     private lateinit var period: String
     private lateinit var id_ticket: String
     private lateinit var dbManager: DBManager
+    private var today: Boolean = false
+    constructor(today: Boolean): this(){
+        this.today = today
+    }
+    override fun onSaveInstanceState(outState: Bundle) {
+        if(this.isAdded) {
+            outState.putBoolean("today", today)
+        }
+        super.onSaveInstanceState(outState)
+    }
 
     @SuppressLint("Range")
     override fun onCreateView(
@@ -35,6 +45,9 @@ class PosessedTickets : Fragment() {
         savedInstanceState: Bundle?
     ): LinearLayout {
         super.onCreateView(inflater, container, savedInstanceState)
+        if (savedInstanceState != null) {
+            this.today = today
+        }
         binding = FragmentPosessedTicketsBinding.inflate(inflater)
         var MA = (activity as MainActivity?)!! //reference alla Main Activity
         MA.changeTitle("I miei acquisti")
@@ -42,13 +55,13 @@ class PosessedTickets : Fragment() {
         dbManager = DBManager(requireContext())
         dbManager.open()
 
-        val cursorBiglietti = dbManager.fetchAllBiglietti()
+        val cursorBiglietti: Cursor
+        if(today) {
+            cursorBiglietti = dbManager.fetchAllBigliettiToday()
+        }else{
+            cursorBiglietti = dbManager.fetchAllBiglietti()
+        }
 
-        do {
-            if(LocalDate.now().equals(LocalDate.parse((cursorBiglietti.getString(cursorBiglietti.getColumnIndex(DBHelper.DATA_SCADENZA)))))){
-
-            }
-        }while (cursorBiglietti.moveToNext())
 
         val cursorAbbonamenti = dbManager.fetchAllAbbonamenti()
         val adapter = TicketAdapter(cursorBiglietti,cursorAbbonamenti,MA)

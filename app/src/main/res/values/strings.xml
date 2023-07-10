@@ -46,6 +46,7 @@
     <string name="myQRCode">Codice QR</string>
     <string name="infoTicket">Visualizza info biglietto</string>
     <string name="infoMembership">Visualizza info abbonamento</string>
+    <string name="TodayTickets">Spettacoli in data odierna!</string>
     <string name="PurchaseSubscription">Acquista abbonamento</string>
     <string name="Selling">Completa l\'acquisto</string>
     <string name="ShowInfo">Informazioni sullo spettacolo</string>

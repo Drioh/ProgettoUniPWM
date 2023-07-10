@@ -4,6 +4,7 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
+import java.time.LocalDate
 
 /**
  * Classe DBManager che gestisce le operazioni sul database utilizzando un DBHelper.
@@ -148,6 +149,29 @@ class DBManager(val context: Context) {
         cursor?.moveToFirst()
         return cursor
     }
+    /**
+     * Recupera tutti i record dalla tabella "Biglietti" del database che presentano come data quella odierna.
+     *
+     * @return Oggetto Cursor che rappresenta i record nel database.
+     */
+    fun fetchAllBigliettiToday(): Cursor {
+        val projection = arrayOf(DBHelper._ID_BIGLIETTO, DBHelper.NOME_SPETTACOLO, DBHelper.DATA_SCADENZA)
+        val today = LocalDate.now().toString() // Ottieni la data odierna come stringa nel formato "yyyy-MM-dd"
+        val selection = "${DBHelper.DATA_SCADENZA} = ?"
+        val selectionArgs = arrayOf(today)
+
+        val cursor = db.query(
+            DBHelper.TABLE_BIGLIETTI,
+            projection,
+            selection,
+            selectionArgs,
+            null,
+            null,
+            null
+        )
+        cursor.moveToFirst()
+        return cursor
+    }
 
     /**
      * Recupera tutti i record dalla tabella "Abbonamento" del database.
@@ -168,5 +192,6 @@ class DBManager(val context: Context) {
         cursor?.moveToFirst()
         return cursor
     }
+
 
 }

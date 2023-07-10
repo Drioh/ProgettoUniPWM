@@ -53,7 +53,7 @@ class BottomTaskbar : Fragment() {
             }
         }
         binding.TicketButton.setOnClickListener(){
-            MA.realAppNavigateTo(PosessedTickets(),"PosessedTickets")
+            MA.realAppNavigateTo(PosessedTickets(false),"PosessedTickets")
         }
         binding.SubButton.setOnClickListener(){
             MA.realAppNavigateTo(SubscriptionChoice(),"SubscriptionChoice")
