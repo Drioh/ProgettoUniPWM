@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.os.PersistableBundle
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -51,27 +52,8 @@ class MainActivity : AppCompatActivity() {
             val password = sharedPreferences.getString("password", "")
             // Eseguo automaticamente l'accesso al profilo dell'utente
             loadUserData()
+            isOffline = savedInstanceState.getBoolean("isOffline")
             realBinding = RealAppBinding.inflate(layoutInflater)
-            if (savedInstanceState == null) {
-                if (!email.isNullOrEmpty() && !password.isNullOrEmpty()) {
-
-                    supportFragmentManager.popBackStack()
-                    supportFragmentManager.beginTransaction()
-                        .replace(R.id.fragmentContainerView, RealApp())
-                        .commit()
-
-                    supportFragmentManager.beginTransaction()
-                        .add(R.id.fragmentContainerView2, TopTaskbar())
-                        .commit()
-                    supportFragmentManager.beginTransaction()
-                        .add(R.id.fragmentContainerView3, BottomTaskbar())
-                        .commit()
-                    supportFragmentManager.beginTransaction()
-                        .add(R.id.fragmentContainerView4, Home())
-                        .addToBackStack("Home")
-                        .commit()
-                }
-            }
             cleanDB()
             syncDB()
 
@@ -96,25 +78,23 @@ class MainActivity : AppCompatActivity() {
                         // Eseguo automaticamente l'accesso al profilo dell'utente
                         loadUserData()
                         realBinding = RealAppBinding.inflate(layoutInflater)
-                        if (savedInstanceState == null) {
-                            if (!email.isNullOrEmpty() && !password.isNullOrEmpty()) {
+                        if (!email.isNullOrEmpty() && !password.isNullOrEmpty()) {
 
-                                supportFragmentManager.popBackStack()
-                                supportFragmentManager.beginTransaction()
-                                    .replace(R.id.fragmentContainerView, RealApp())
-                                    .commit()
+                            supportFragmentManager.popBackStack()
+                            supportFragmentManager.beginTransaction()
+                                .replace(R.id.fragmentContainerView, RealApp())
+                                .commit()
 
-                                supportFragmentManager.beginTransaction()
-                                    .add(R.id.fragmentContainerView2, TopTaskbar())
-                                    .commit()
-                                supportFragmentManager.beginTransaction()
-                                    .add(R.id.fragmentContainerView3, BottomTaskbar())
-                                    .commit()
-                                supportFragmentManager.beginTransaction()
-                                    .add(R.id.fragmentContainerView4, Home())
-                                    .addToBackStack("Home")
-                                    .commit()
-                            }
+                            supportFragmentManager.beginTransaction()
+                                .add(R.id.fragmentContainerView2, TopTaskbar())
+                                .commit()
+                            supportFragmentManager.beginTransaction()
+                                .add(R.id.fragmentContainerView3, BottomTaskbar())
+                                .commit()
+                            supportFragmentManager.beginTransaction()
+                                .add(R.id.fragmentContainerView4, Home())
+                                .addToBackStack("Home")
+                                .commit()
                         }
                         cleanDB()
                         syncDB()
@@ -141,25 +121,23 @@ class MainActivity : AppCompatActivity() {
                     // Eseguo automaticamente l'accesso al profilo dell'utente
                     loadUserData()
                     realBinding = RealAppBinding.inflate(layoutInflater)
-                    if (savedInstanceState == null) {
-                        if (!email.isNullOrEmpty() && !password.isNullOrEmpty()) {
+                    if (!email.isNullOrEmpty() && !password.isNullOrEmpty()) {
 
-                            supportFragmentManager.popBackStack()
-                            supportFragmentManager.beginTransaction()
-                                .replace(R.id.fragmentContainerView, RealApp())
-                                .commit()
+                        supportFragmentManager.popBackStack()
+                        supportFragmentManager.beginTransaction()
+                            .replace(R.id.fragmentContainerView, RealApp())
+                            .commit()
 
-                            supportFragmentManager.beginTransaction()
-                                .add(R.id.fragmentContainerView2, TopTaskbar())
-                                .commit()
-                            supportFragmentManager.beginTransaction()
-                                .add(R.id.fragmentContainerView3, BottomTaskbar())
-                                .commit()
-                            supportFragmentManager.beginTransaction()
-                                .add(R.id.fragmentContainerView4, Home())
-                                .addToBackStack("Home")
-                                .commit()
-                        }
+                        supportFragmentManager.beginTransaction()
+                            .add(R.id.fragmentContainerView2, TopTaskbar())
+                            .commit()
+                        supportFragmentManager.beginTransaction()
+                            .add(R.id.fragmentContainerView3, BottomTaskbar())
+                            .commit()
+                        supportFragmentManager.beginTransaction()
+                            .add(R.id.fragmentContainerView4, Home())
+                            .addToBackStack("Home")
+                            .commit()
                     }
                     cleanDB()
                     syncDB()
@@ -172,6 +150,13 @@ class MainActivity : AppCompatActivity() {
     fun changeTitle (s:String){
         realBinding.fragmentContainerView2.getFragment<TopTaskbar>().binding.TopTaskbarText.text = s
     }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        outState.putBoolean("isOffline", isOffline)
+        super.onSaveInstanceState(outState)
+    }
+
+
     fun getIsOffline(): Boolean {
         return isOffline
     }
