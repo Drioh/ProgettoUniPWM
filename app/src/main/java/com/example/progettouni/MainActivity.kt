@@ -148,6 +148,11 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    override fun onDestroy() {
+        db.close()
+        super.onDestroy()
+    }
+
     fun changeTitle (s:String){
         realBinding.fragmentContainerView2.getFragment<TopTaskbar>().binding.TopTaskbarText.text = s
     }

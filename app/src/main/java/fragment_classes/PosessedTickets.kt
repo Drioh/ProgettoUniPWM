@@ -38,6 +38,11 @@ class PosessedTickets (): Fragment() {
         super.onSaveInstanceState(outState)
     }
 
+    override fun onDestroy() {
+        dbManager.close()
+        super.onDestroy()
+    }
+
     @SuppressLint("Range")
     override fun onCreateView(
         inflater: LayoutInflater,
