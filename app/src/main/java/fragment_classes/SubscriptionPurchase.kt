@@ -75,15 +75,18 @@ class SubscriptionPurchase() : Fragment() {
             var expireYear = binding.cardExpireYearField.text.toString()
             var expireMonth = binding.cardExpireMonthField.text.toString()
             var isChecked = binding.saveCardBox.isChecked
-            var name = binding.cardOwnerField.toString()
+            var name = binding.cardOwnerField.text.toString()
 
-            expireYear = adjustYear(expireYear)
+            if(expireYear.length == 2){    //quindi se non inserisco il "20" prima dell'anno
+                expireYear = "20" + expireYear
+            }
+
             var ref_theatre = getRefTheatre(theatre)
 
             //scelgo di non accorpare gli if perché voglio prima verificare il selectedButton e in caso passare al suo else e poi andare con l'altro
             if(selectedbutton!=null) {
                 if((cardNumber.length == 16) && (numberCVC.length == 3) && verifyExpire(expireYear, expireMonth)){
-                    if(name.length != 0){
+                    if(name.isNotEmpty()){
                         //si dovrebbe anche fare un controllo per vedere se il nome del proprietario della carta corrisponde al numero però non
                         //potendoci collegare ai server delle banche omettiamo il passaggio e controlliamo solo che il campo sia riempito
 
@@ -185,19 +188,7 @@ class SubscriptionPurchase() : Fragment() {
             button.setBackgroundColor(Color.parseColor("#F44336"))
         }
     }
-    /**
-     * Aggiusta l'anno di scadenza della carta di credito.
-     *
-     * @param expireYear L'anno di scadenza della carta di credito.
-     * @return L'anno di scadenza corretto come una stringa.
-     */
-    private fun adjustYear(expireYear: String): String {
-        var year: Int = Integer.parseInt(expireYear)
-        if(year < 100){    //quindi se non inserisco il "20" prima dell'anno
-            year += 2000
-        }
-        return year.toString()
-    }
+
     /**
      * Verifica la validità della data di scadenza della carta di credito.
      *

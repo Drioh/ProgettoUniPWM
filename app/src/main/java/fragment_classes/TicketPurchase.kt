@@ -111,7 +111,7 @@ class TicketPurchase() : Fragment() {
         }
         binding.cancelButton.setOnClickListener{
             binding.cancelButton.setBackgroundColor(Color.parseColor("#F44336"))
-            MA.backTo("Show")
+            MA.backTo("Shows")
         }
 
 
