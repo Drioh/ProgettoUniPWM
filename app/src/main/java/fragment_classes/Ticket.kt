@@ -43,9 +43,11 @@ class Ticket(): Fragment() {
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
-        outState.putBoolean("isAbbonamento",isAbbonamento)
-        outState.putString("id",id)
-        outState.putString("teatro",teatro)
+        if(this.isAdded) {
+            outState.putBoolean("isAbbonamento", isAbbonamento)
+            outState.putString("id", id)
+            outState.putString("teatro", teatro)
+        }
         super.onSaveInstanceState(outState)
     }
 

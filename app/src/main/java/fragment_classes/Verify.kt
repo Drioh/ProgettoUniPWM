@@ -32,6 +32,7 @@ class Verify: Fragment() {
             val code = binding.codeText.text.toString()
             val id = MA.getUserId().toString()
             println("utente: "+id+", codice: "+code)
+            MA.changeTitle("Verifica Account")
             val query = "SELECT * FROM Utente WHERE id_utente = '${id}' and cod_ver = '${code}';"
             ApiService.retrofit.select(query).enqueue(object : Callback<JsonObject> {
                 override fun onResponse(call: Call<JsonObject>?, response: Response<JsonObject>) {

@@ -18,7 +18,9 @@ class PaymentConfirmed () : Fragment() {
         this.type = type
     }
     override fun onSaveInstanceState(outState: Bundle) {
-        outState.putString("type",type)
+        if(this.isAdded) {
+            outState.putString("type", type)
+        }
         super.onSaveInstanceState(outState)
     }
     override fun onCreateView(

@@ -57,8 +57,11 @@ class TheatreInfo (): Fragment(), OnMapReadyCallback {
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
-        outState.putString("idTeatro",idTeatro)
-        outState.putBoolean("purchase",purchase)
+        if(this.isAdded) {
+            outState.putString("idTeatro", idTeatro)
+            outState.putBoolean("purchase", purchase)
+            println("teatro bello ${idTeatro}")
+        }
         super.onSaveInstanceState(outState)
     }
 
@@ -70,11 +73,13 @@ class TheatreInfo (): Fragment(), OnMapReadyCallback {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        super.onCreateView(inflater, container, savedInstanceState)
         if(savedInstanceState!=null){
+            println("tentativo finale")
             this.idTeatro=savedInstanceState.getString("idTeatro").toString()
             this.purchase = savedInstanceState.getBoolean("purchase")
         }
-        super.onCreateView(inflater, container, savedInstanceState)
         println(idTeatro)
         binding = FragmentTheatreInfoBinding.inflate(inflater)
         var MA = (activity as MainActivity?)!! // reference alla MainActivity
@@ -181,25 +186,6 @@ class TheatreInfo (): Fragment(), OnMapReadyCallback {
         private const val RAGGIO_TERRA_KM = 6371.0
     }
 
-    override fun onResume() {
-        super.onResume()
-        mapView.onResume()
-    }
-
-    override fun onPause() {
-        super.onPause()
-        mapView.onPause()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        mapView.onDestroy()
-    }
-
-    override fun onLowMemory() {
-        super.onLowMemory()
-        mapView.onLowMemory()
-    }
     // Funzione per mostrare un'interfaccia utente informativa all'utente
 
     override fun onRequestPermissionsResult(

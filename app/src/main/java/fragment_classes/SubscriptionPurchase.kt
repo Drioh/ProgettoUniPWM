@@ -32,20 +32,27 @@ class SubscriptionPurchase() : Fragment() {
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
-        outState.putString("Theatre",theatre)
+        if(this.isAdded) {
+            outState.putString("Theatre", theatre)
+        }
         super.onSaveInstanceState(outState)
+    }
+
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
+        println("provazza")
     }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        super.onCreateView(inflater, container, savedInstanceState)
         if(savedInstanceState!=null){
 
             this.theatre = savedInstanceState.getString("Theatre").toString()
 
         }
-        super.onCreateView(inflater, container, savedInstanceState)
         binding = FragmentSubscriptionPurchaseBinding.inflate(inflater)
         var MA = (activity as MainActivity?)!! //reference alla Main Activity
         MA.changeTitle("Compra Abbonamento")

@@ -20,7 +20,9 @@ class VerificationCode(): Fragment() {
         this.otp = otp
     }
     override fun onSaveInstanceState(outState: Bundle) {
-        outState.putString("otp",otp)
+        if(this.isAdded) {
+            outState.putString("otp", otp)
+        }
         super.onSaveInstanceState(outState)
     }
     override fun onCreateView(

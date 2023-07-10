@@ -54,7 +54,9 @@ class TopTaskbar : Fragment() {
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
-        outState.putString("heading", binding.TopTaskbarText.toString())
+        if(this.isAdded) {
+            outState.putString("heading", binding.TopTaskbarText.toString())
+        }
         super.onSaveInstanceState(outState)
     }
 
