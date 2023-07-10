@@ -37,6 +37,7 @@ class MainActivity : AppCompatActivity() {
         Viene effettuata una query di test all'avvio dell'app. La query è di tipo ansincrono e permette all'applicazione di entrare, o meno, in modalità offline. Una volta ottenuta o meno
         una risposta dal database, verrà mostrata all'utente la schermata iniziale.
         Ciò si traduce nel sacrificio di velocità e nel dovere fare aspettare all'utente un paio di secondi prima di potere entrare nell'app.
+        Le modalità di inflate cambiano anche se è presente o meno un savedInstanceState che, se presente, evita che venga effettuata di nuovo la query di apertura
          */
         super.onCreate(savedInstanceState)
         if (savedInstanceState != null) {
