@@ -36,11 +36,11 @@ class ShowInfo(): Fragment(R.layout.fragment_show_info) {
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
         outState.putString("id",id)
         outState.putString("name",name)
         outState.putString("date",date)
         outState.putString("textTheatre",textTheatre)
+        super.onSaveInstanceState(outState)
     }
 
 

@@ -25,11 +25,11 @@ class ChoosePlace(): Fragment() {
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
         outState.putString("id",id)
         outState.putString("type",type)
         outState.putString("period",period)
         outState.putString("textTheatre",textTheatre)
+        super.onSaveInstanceState(outState)
     }
 
     override fun onCreateView(

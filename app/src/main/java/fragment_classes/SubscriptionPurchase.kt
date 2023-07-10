@@ -32,9 +32,8 @@ class SubscriptionPurchase() : Fragment() {
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-
         outState.putString("Theatre",theatre)
+        super.onSaveInstanceState(outState)
     }
     override fun onCreateView(
         inflater: LayoutInflater,

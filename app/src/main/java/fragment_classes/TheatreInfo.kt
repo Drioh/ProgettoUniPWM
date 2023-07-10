@@ -57,9 +57,9 @@ class TheatreInfo (): Fragment(), OnMapReadyCallback {
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
         outState.putString("idTeatro",idTeatro)
         outState.putBoolean("purchase",purchase)
+        super.onSaveInstanceState(outState)
     }
 
 

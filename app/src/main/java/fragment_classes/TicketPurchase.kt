@@ -46,13 +46,13 @@ class TicketPurchase() : Fragment() {
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
         outState.putString("id_show",id_show)
         outState.putString("type",type)
         outState.putString("period",period)
         outState.putString("selectedPlace",selectedPlace)
         outState.putInt("ticketQuantity",ticketQuantity)
         outState.putString("textTheatre",textTheatre)
+        super.onSaveInstanceState(outState)
     }
 
     override fun onCreateView(
