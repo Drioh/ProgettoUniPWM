@@ -28,6 +28,33 @@
 
             </Spinner>
 
+            <TextView
+                android:id="@+id/plateaText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20sp"
+                android:text="Numero posti Platea"
+                android:textColor="#000000"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/piccionaiaText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15sp"
+                android:text="Numero posti Piccionaia"
+                android:textColor="#000000"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/loggioneText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15sp"
+                android:text="Numero posti Loggione"
+                android:textColor="#000000"
+                android:textSize="16sp" />
+
             <EditText
                 android:id="@+id/ticketQuantity"
                 android:layout_width="match_parent"
