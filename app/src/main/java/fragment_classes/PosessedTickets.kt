@@ -1,5 +1,6 @@
 package fragment_classes
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -18,6 +19,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import android.database.Cursor
+import java.time.LocalDate
 
 class PosessedTickets : Fragment() {
     private lateinit var binding: FragmentPosessedTicketsBinding
@@ -26,6 +28,7 @@ class PosessedTickets : Fragment() {
     private lateinit var id_ticket: String
     private lateinit var dbManager: DBManager
 
+    @SuppressLint("Range")
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -40,6 +43,13 @@ class PosessedTickets : Fragment() {
         dbManager.open()
 
         val cursorBiglietti = dbManager.fetchAllBiglietti()
+
+        do {
+            if(LocalDate.now().equals(LocalDate.parse((cursorBiglietti.getString(cursorBiglietti.getColumnIndex(DBHelper.DATA_SCADENZA)))))){
+
+            }
+        }while (cursorBiglietti.moveToNext())
+
         val cursorAbbonamenti = dbManager.fetchAllAbbonamenti()
         val adapter = TicketAdapter(cursorBiglietti,cursorAbbonamenti,MA)
         binding.ticketRecycler.adapter = adapter    //importante creare l'adapter dopo gli add sennò viene passato un ArrayList vuoto
