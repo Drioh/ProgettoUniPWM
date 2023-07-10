@@ -61,9 +61,13 @@ class Ticket(): Fragment() {
             this.id = savedInstanceState.getString("id").toString()
             this.teatro = savedInstanceState.getString("teatro").toString()
         }
+
         super.onCreateView(inflater, container, savedInstanceState)
         binding = FragmentTicketBinding.inflate(inflater)
         var MA = (activity as MainActivity?)!! //reference alla Main Activity
+        if(MA.getIsOffline() && !isAbbonamento){
+            binding.showInfoButton.visibility=View.GONE
+        }
         MA.changeTitle("Il mio acquisto")
         image = binding.imageView
         if (isAbbonamento) {

@@ -41,7 +41,7 @@ class PosessedTickets : Fragment() {
 
         val cursorBiglietti = dbManager.fetchAllBiglietti()
         val cursorAbbonamenti = dbManager.fetchAllAbbonamenti()
-        val adapter = TicketAdapter(cursorBiglietti,cursorAbbonamenti)
+        val adapter = TicketAdapter(cursorBiglietti,cursorAbbonamenti,MA)
         binding.ticketRecycler.adapter = adapter    //importante creare l'adapter dopo gli add sennò viene passato un ArrayList vuoto
 
         adapter.setOnClickListener(object: TicketAdapter.OnClickListener {
