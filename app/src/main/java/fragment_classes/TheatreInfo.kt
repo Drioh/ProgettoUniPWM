@@ -51,6 +51,8 @@ class TheatreInfo (): Fragment(), OnMapReadyCallback {
     lateinit var idTeatro: String
     var purchase: Boolean = false
 
+
+
     constructor(idTeatro: String, purchase: Boolean): this(){
         this.idTeatro=idTeatro
         this.purchase = purchase
@@ -60,7 +62,6 @@ class TheatreInfo (): Fragment(), OnMapReadyCallback {
         if(this.isAdded) {
             outState.putString("idTeatro", idTeatro)
             outState.putBoolean("purchase", purchase)
-            println("teatro bello ${idTeatro}")
         }
         super.onSaveInstanceState(outState)
     }
@@ -80,15 +81,12 @@ class TheatreInfo (): Fragment(), OnMapReadyCallback {
             this.idTeatro=savedInstanceState.getString("idTeatro").toString()
             this.purchase = savedInstanceState.getBoolean("purchase")
         }
-        println(idTeatro)
+
+
         binding = FragmentTheatreInfoBinding.inflate(inflater)
         var MA = (activity as MainActivity?)!! // reference alla MainActivity
         MA.changeTitle("Informazioni")
         binding.info.visibility = View.INVISIBLE
-        println("------------------------------------------------------")
-        println(idTeatro)
-        println(idTeatro)
-        println(idTeatro)
         println(idTeatro)
 
 

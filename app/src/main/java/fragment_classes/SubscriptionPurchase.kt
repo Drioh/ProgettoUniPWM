@@ -40,7 +40,6 @@ class SubscriptionPurchase() : Fragment() {
 
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
         super.onViewStateRestored(savedInstanceState)
-        println("provazza")
     }
     override fun onCreateView(
         inflater: LayoutInflater,
