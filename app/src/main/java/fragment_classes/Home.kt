@@ -23,6 +23,8 @@ class Home: Fragment() {
         binding = FragmentHomeBinding.inflate(inflater)
         var MA = (activity as MainActivity?)!! //reference alla Main Activity
         MA.changeTitle("Home")
+        dbManager=DBManager(requireContext())
+        dbManager.open()
         binding.SearchText.visibility=View.GONE
         binding.TicketText.visibility=View.GONE
         binding.SubText.visibility=View.GONE
