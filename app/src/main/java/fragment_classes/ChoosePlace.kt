@@ -52,7 +52,12 @@ class ChoosePlace(): Fragment() {
             binding.confirmButton.setBackgroundColor(Color.parseColor("#F44336"))
             val selectedPlace = binding.placeSpinner.selectedItem.toString()
             val ticketQuantity = binding.ticketQuantity.text.toString().toInt()
-            MA.realAppNavigateTo(TicketPurchase(id, type, period, selectedPlace, ticketQuantity, textTheatre), "TicketPurchase")
+            if(ticketQuantity != 0){
+                MA.realAppNavigateTo(TicketPurchase(id, type, period, selectedPlace, ticketQuantity, textTheatre), "TicketPurchase")
+            }
+            else{
+                MA.showToast("numero di biglietti non valido")
+            }
         }
 
 
